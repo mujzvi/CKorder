@@ -1094,12 +1094,17 @@ export default function App() {
     else setHouseholds([...HOUSEHOLDS.map(h=>({...h,order_counter:0})),{...KITCHEN,order_counter:0}]);
   },[]);
 
-  // READ items from Yoko's existing items table
+  // READ items from Yoko's existing items table (joined with categories)
   const loadItems = useCallback(async()=>{
-    const raw = await db.get("items","select=id,name,category,unit,price&order=name.asc&limit=1000");
+    const raw = await db.get("items","select=id,name,unit,price,category_id,categories(name)&order=name.asc&limit=1000");
     if(raw.length>0){
       const seen=new Map();
-      raw.forEach(it=>{if(!seen.has(it.name))seen.set(it.name,{...it,price:Number(it.price)})});
+      raw.forEach(it=>{
+        if(!seen.has(it.name)){
+          const catName = it.categories?.name || "Other";
+          seen.set(it.name,{id:it.id, name:it.name, unit:it.unit, price:Number(it.price)||0, category:catName});
+        }
+      });
       const deduped=[...seen.values()];
       setItems(deduped);
     } else setItems(DEFAULT_ITEMS);
