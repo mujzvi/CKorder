@@ -1237,15 +1237,23 @@ export default function App() {
 
   // READ items from Yoko's existing items table (joined with categories)
   const loadItems = useCallback(async()=>{
-    // Read items from Yoko (prices sync) + join kitchen categories
-    const raw = await db.get("items","select=id,name,unit,price,kitchen_item_categories(kitchen_category_id,kitchen_categories(id,name))&order=name.asc&limit=1000");
+    // Fetch items from Yoko (prices)
+    const raw = await db.get("items","select=id,name,unit,price&order=name.asc&limit=1000");
+    // Fetch kitchen category mappings
+    const mappings = await db.get("kitchen_item_categories","select=item_id,kitchen_category_id&limit=1000");
+    // Fetch kitchen categories
+    const cats = await db.get("kitchen_categories","select=id,name&order=name.asc");
+    const catMap = {};
+    cats.forEach(c=>catMap[c.id]=c.name);
+    const itemCatMap = {};
+    mappings.forEach(m=>itemCatMap[m.item_id]=m.kitchen_category_id);
+
     if(raw.length>0){
       const seen=new Map();
       raw.forEach(it=>{
         if(!seen.has(it.name)){
-          const kic = it.kitchen_item_categories?.[0];
-          const catName = kic?.kitchen_categories?.name || "Uncategorized";
-          const catId = kic?.kitchen_categories?.id || null;
+          const catId = itemCatMap[it.id]||null;
+          const catName = catId?catMap[catId]:"Uncategorized";
           seen.set(it.name,{id:it.id, name:it.name, unit:it.unit, price:Number(it.price)||0, category:catName, category_id:catId});
         }
       });
@@ -1255,8 +1263,7 @@ export default function App() {
 
   const loadCategories = useCallback(async()=>{
     const cats = await db.get("kitchen_categories","select=*&order=name.asc");
-    if(cats.length>0) setCategories(cats);
-    else setCategories([]);
+    setCategories(cats||[]);
   },[]);
 
   const loadOrders = useCallback(async()=>{
