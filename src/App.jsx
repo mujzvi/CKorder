@@ -1285,7 +1285,8 @@ export default function App() {
     const init=async()=>{setLoading(true);await Promise.all([loadHouseholds(),loadItems(),loadCategories(),loadOrders(),loadDrivers()]);setLoading(false)};
     init();
     const iv=setInterval(loadItems,60000); // Refresh prices every 60s
-    return()=>clearInterval(iv);
+    const ov=setInterval(loadOrders,10000); // Refresh orders every 10s (live sync across devices)
+    return()=>{clearInterval(iv);clearInterval(ov)};
   },[loadHouseholds,loadItems,loadCategories,loadOrders,loadDrivers]);
 
   const handleOrder = async(order) => {
