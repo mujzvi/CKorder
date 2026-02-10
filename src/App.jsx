@@ -800,11 +800,11 @@ function KitchenSettings({ drivers, setDrivers, onLogout, loadDrivers }) {
 }
 
 // Kitchen Dashboard
-function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, drivers, setDrivers, addDriver, onStatusUpdate, onDelivery, onModifyQty, loadDrivers, loadOrders }) {
+function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, drivers, setDrivers, addDriver, onStatusUpdate, onDelivery, onModifyQty, loadDrivers, loadOrders, categories, loadCategories, loadItems }) {
   const [tab, setTab] = useState("orders");
   const [editItem, setEditItem] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
-  const [newItem, setNewItem] = useState({name:"",price:"",category:"Essentials",unit:"pkt"});
+  const [newItem, setNewItem] = useState({name:"",price:"",category_id:"",unit:"kg"});
   const [filterHousehold, setFilterHousehold] = useState("All");
   const [searchItems, setSearchItems] = useState("");
   const [showCostBreakdown, setShowCostBreakdown] = useState(false);
@@ -815,6 +815,16 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
   const [driverName, setDriverName] = useState("");
   const [addingNewDriver, setAddingNewDriver] = useState(false);
   const [newDriverName, setNewDriverName] = useState("");
+  // Category management
+  const [showCatMgmt, setShowCatMgmt] = useState(false);
+  const [newCatName, setNewCatName] = useState("");
+  const [newCatDesc, setNewCatDesc] = useState("");
+  const [editingCat, setEditingCat] = useState(null);
+  const [editCatName, setEditCatName] = useState("");
+  const [confirmDeleteCat, setConfirmDeleteCat] = useState(null);
+  const [catSaving, setCatSaving] = useState(false);
+  // Item filter by category
+  const [itemCatFilter, setItemCatFilter] = useState("All");
 
   const todayOrders = orders.filter(o=>o.date===getToday());
   const filtered = filterHousehold==="All"?todayOrders:todayOrders.filter(o=>o.householdId===filterHousehold);
@@ -853,10 +863,72 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
     setModifying(null);setModQty("");setModReason("");
   };
 
-  const addItem=()=>{if(!newItem.name||!newItem.price)return;const id=Math.max(...items.map(i=>i.id),0)+1;setItems(p=>[...p,{...newItem,id,price:Number(newItem.price)}]);setNewItem({name:"",price:"",category:"Essentials",unit:"pkt"});setShowAdd(false)};
-  const saveEdit=()=>{setItems(p=>p.map(i=>i.id===editItem.id?{...editItem,price:Number(editItem.price)}:i));setEditItem(null)};
-  const deleteItem=(id)=>{setItems(p=>p.filter(i=>i.id!==id));setEditItem(null)};
-  const filteredCatalog=items.filter(i=>i.name.toLowerCase().includes(searchItems.toLowerCase()));
+  // --- Item CRUD (prices in Yoko, categories in kitchen) ---
+  const addItem=async()=>{
+    if(!newItem.name||!newItem.price||!newItem.category_id)return;
+    // Add item to Yoko's items table (no category_id — Yoko manages its own)
+    const res = await db.post("items",{name:newItem.name,price:Number(newItem.price),unit:newItem.unit});
+    if(res&&res[0]){
+      // Map to kitchen category
+      await db.post("kitchen_item_categories",{item_id:res[0].id,kitchen_category_id:Number(newItem.category_id)});
+    }
+    setNewItem({name:"",price:"",category_id:"",unit:"kg"});setShowAdd(false);
+    if(loadItems) await loadItems();
+  };
+  const saveEdit=async()=>{
+    if(!editItem)return;
+    // Update item in Yoko (name, price, unit only)
+    await db.patch("items","id=eq."+editItem.id,{name:editItem.name,price:Number(editItem.price),unit:editItem.unit});
+    // Update kitchen category mapping (upsert)
+    if(editItem.category_id){
+      await db.del("kitchen_item_categories","item_id=eq."+editItem.id);
+      await db.post("kitchen_item_categories",{item_id:editItem.id,kitchen_category_id:Number(editItem.category_id)});
+    }
+    setEditItem(null);
+    if(loadItems) await loadItems();
+  };
+  const deleteItem=async(id)=>{
+    // Remove kitchen category mapping first, then the item
+    await db.del("kitchen_item_categories","item_id=eq."+id);
+    await db.del("items","id=eq."+id);
+    setEditItem(null);
+    if(loadItems) await loadItems();
+  };
+
+  // --- Kitchen Category CRUD (fully independent from Yoko) ---
+  const addCategory=async()=>{
+    const n=newCatName.trim();if(!n)return;
+    setCatSaving(true);
+    await db.post("kitchen_categories",{name:n,description:newCatDesc.trim()||null});
+    setNewCatName("");setNewCatDesc("");
+    if(loadCategories) await loadCategories();
+    setCatSaving(false);
+  };
+  const saveCatEdit=async()=>{
+    const n=editCatName.trim();if(!n||!editingCat)return;
+    setCatSaving(true);
+    await db.patch("kitchen_categories","id=eq."+editingCat.id,{name:n});
+    setEditingCat(null);setEditCatName("");
+    if(loadCategories) await loadCategories();
+    if(loadItems) await loadItems();
+    setCatSaving(false);
+  };
+  const deleteCategory=async(catId)=>{
+    setCatSaving(true);
+    // Remove mappings first, then category
+    await db.del("kitchen_item_categories","kitchen_category_id=eq."+catId);
+    await db.del("kitchen_categories","id=eq."+catId);
+    setConfirmDeleteCat(null);
+    if(loadCategories) await loadCategories();
+    if(loadItems) await loadItems();
+    setCatSaving(false);
+  };
+
+  const filteredCatalog=items.filter(i=>{
+    const matchSearch=i.name.toLowerCase().includes(searchItems.toLowerCase());
+    const matchCat=itemCatFilter==="All"||i.category===itemCatFilter;
+    return matchSearch&&matchCat;
+  });
 
   const appStyle={fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"linear-gradient(145deg,#FFF5E6 0%,#FEE8E0 30%,#F0FAF0 60%,#FFF5E6 100%)",position:"relative",overflow:"hidden"};
 
@@ -1009,22 +1081,38 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
       </div>}
 
       {tab==="items"&&<div style={{padding:"0 16px 90px",minHeight:"50vh"}}>
+        {/* Category Management Toggle */}
         <div style={{display:"flex",gap:8,padding:"14px 0 8px",alignItems:"center"}}>
           <div style={{flex:1,position:"relative"}}>
             <I name="search" size={18} color="rgba(0,0,0,0.28)" style={{position:"absolute",left:14,top:14,pointerEvents:"none"}}/>
             <GlassInput placeholder="Search catalog..." value={searchItems} onChange={e=>setSearchItems(e.target.value)} style={{paddingLeft:38,marginBottom:0}}/>
           </div>
-          <button className="hover-lift" style={{background:"linear-gradient(135deg,#007AFF,#0055D4)",color:"#fff",border:"none",borderRadius:14,padding:"13px 18px",fontSize:14,fontWeight:600,cursor:"pointer",whiteSpace:"nowrap",boxShadow:"0 4px 16px rgba(0,122,255,0.25)"}} onClick={()=>setShowAdd(true)}>+ Add</button>
+          <button className="hover-lift" style={{background:"linear-gradient(135deg,#007AFF,#5856D6)",color:"#fff",border:"none",borderRadius:14,padding:"13px 18px",fontSize:14,fontWeight:600,cursor:"pointer",whiteSpace:"nowrap",boxShadow:"0 6px 20px rgba(0,122,255,0.3)"}} onClick={()=>setShowAdd(true)}>+ Add</button>
         </div>
-        <div style={{fontSize:12,color:"rgba(0,0,0,0.28)",padding:"2px 0 8px"}}>{filteredCatalog.length} items</div>
+
+        {/* Category filter pills */}
+        <div style={{display:"flex",gap:6,padding:"4px 0 6px",overflowX:"auto"}}>
+          <CatPill active={itemCatFilter==="All"} onClick={()=>setItemCatFilter("All")}>All</CatPill>
+          {(categories||[]).map(c=><CatPill key={c.id} active={itemCatFilter===c.name} onClick={()=>setItemCatFilter(c.name)}>{c.name}</CatPill>)}
+        </div>
+
+        {/* Manage Categories button */}
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0 10px"}}>
+          <div style={{fontSize:12,color:"rgba(0,0,0,0.28)"}}>{filteredCatalog.length} items</div>
+          <button className="hover-lift" onClick={()=>setShowCatMgmt(true)} style={{padding:"6px 14px",borderRadius:10,border:"1px solid rgba(88,86,214,0.2)",background:"rgba(88,86,214,0.06)",fontSize:12,fontWeight:600,color:"#5856D6",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}><I name="category" size={14} color="#5856D6"/>Categories</button>
+        </div>
+
+        {/* Item list */}
         {filteredCatalog.map(item=>(
-          <div key={item.id} className="glass hover-lift card-enter" style={{borderRadius:16,padding:"14px 16px",marginBottom:10,cursor:"pointer"}} onClick={()=>setEditItem({...item})}>
+          <div key={item.id} className="glass hover-lift card-enter" style={{borderRadius:16,padding:"14px 16px",marginBottom:10,cursor:"pointer"}} onClick={()=>setEditItem({...item,category_id:item.category_id||(categories||[]).find(c=>c.name===item.category)?.id||""})}>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
               <div style={{flex:1}}><div style={{fontSize:15,fontWeight:600,color:"#1a1a1a",marginBottom:2}}>{item.name}</div><div style={{fontSize:12,color:"rgba(0,0,0,0.28)"}}>{item.category} · per {item.unit}</div></div>
               <div style={{display:"flex",alignItems:"center",gap:8}}><div style={{fontSize:17,fontWeight:700,color:"#30A050"}}>₹{item.price}</div><div style={{fontSize:16,color:"rgba(0,0,0,0.28)"}}>›</div></div>
             </div>
           </div>
         ))}
+
+        {/* Add Item Modal */}
         {showAdd&&<GlassModal onClose={()=>setShowAdd(false)}>
           <div style={{fontSize:20,fontWeight:700,marginBottom:16,color:"#1a1a1a"}}>Add New Item</div>
           <label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Item Name</label>
@@ -1032,25 +1120,76 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
           <label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Price (₹)</label>
           <GlassInput type="number" placeholder="0" value={newItem.price} onChange={e=>setNewItem({...newItem,price:e.target.value})}/>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-            <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Category</label><GlassSelect value={newItem.category} onChange={e=>setNewItem({...newItem,category:e.target.value})}>{[...new Set(items.map(i=>i.category).filter(Boolean))].map(c=><option key={c}>{c}</option>)}</GlassSelect></div>
-            <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Unit</label><GlassSelect value={newItem.unit} onChange={e=>setNewItem({...newItem,unit:e.target.value})}>{["pkt","kg","g","L","ml","pcs","dozen","loaf","bunch","btl","jar","box"].map(u=><option key={u}>{u}</option>)}</GlassSelect></div>
+            <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Category</label><GlassSelect value={newItem.category_id} onChange={e=>setNewItem({...newItem,category_id:e.target.value})}><option value="">Select...</option>{(categories||[]).map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</GlassSelect></div>
+            <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Unit</label><GlassSelect value={newItem.unit} onChange={e=>setNewItem({...newItem,unit:e.target.value})}>{["kg","g","L","ml","pcs","pkt","dozen","loaf","bunch","btl","jar","box","roll","unit"].map(u=><option key={u}>{u}</option>)}</GlassSelect></div>
           </div>
-          <PrimaryBtn onClick={addItem}>Add Item</PrimaryBtn>
+          <PrimaryBtn onClick={addItem} style={{opacity:newItem.name&&newItem.price&&newItem.category_id?1:0.5}}>Add Item</PrimaryBtn>
         </GlassModal>}
+
+        {/* Edit Item Modal */}
         {editItem&&<GlassModal onClose={()=>setEditItem(null)}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
             <div style={{fontSize:20,fontWeight:700,color:"#1a1a1a"}}>Edit Item</div>
-            <button className="hover-lift" style={{padding:"8px 14px",borderRadius:12,border:"1px solid rgba(255,69,58,0.2)",background:"rgba(255,69,58,0.08)",color:"#FF453A",fontSize:13,fontWeight:600,cursor:"pointer"}} onClick={()=>deleteItem(editItem.id)}>Delete</button>
+            <button className="hover-lift" style={{padding:"8px 14px",borderRadius:12,border:"1px solid rgba(255,69,58,0.2)",background:"rgba(255,69,58,0.08)",color:"#FF453A",fontSize:13,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",gap:4}} onClick={()=>deleteItem(editItem.id)}><I name="delete" size={14} color="#FF453A"/>Delete</button>
           </div>
           <label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Item Name</label>
           <GlassInput value={editItem.name} onChange={e=>setEditItem({...editItem,name:e.target.value})}/>
           <label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Price (₹)</label>
           <GlassInput type="number" value={editItem.price} onChange={e=>setEditItem({...editItem,price:e.target.value})}/>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-            <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Category</label><GlassSelect value={editItem.category} onChange={e=>setEditItem({...editItem,category:e.target.value})}>{[...new Set(items.map(i=>i.category).filter(Boolean))].map(c=><option key={c}>{c}</option>)}</GlassSelect></div>
-            <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Unit</label><GlassSelect value={editItem.unit} onChange={e=>setEditItem({...editItem,unit:e.target.value})}>{["pkt","kg","g","L","ml","pcs","dozen","loaf","bunch","btl","jar","box"].map(u=><option key={u}>{u}</option>)}</GlassSelect></div>
+            <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Category</label><GlassSelect value={editItem.category_id} onChange={e=>setEditItem({...editItem,category_id:e.target.value})}>{(categories||[]).map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</GlassSelect></div>
+            <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Unit</label><GlassSelect value={editItem.unit} onChange={e=>setEditItem({...editItem,unit:e.target.value})}>{["kg","g","L","ml","pcs","pkt","dozen","loaf","bunch","btl","jar","box","roll","unit"].map(u=><option key={u}>{u}</option>)}</GlassSelect></div>
           </div>
           <PrimaryBtn onClick={saveEdit}>Save Changes</PrimaryBtn>
+        </GlassModal>}
+
+        {/* Category Management Modal */}
+        {showCatMgmt&&<GlassModal onClose={()=>{setShowCatMgmt(false);setEditingCat(null);setConfirmDeleteCat(null)}}>
+          <div style={{fontSize:20,fontWeight:700,color:"#1a1a1a",marginBottom:4}}>Manage Categories</div>
+          <div style={{fontSize:13,color:"rgba(0,0,0,0.3)",marginBottom:16}}>Add, rename or remove item categories</div>
+
+          {/* Add new category */}
+          <div style={{display:"flex",gap:8,marginBottom:16}}>
+            <GlassInput placeholder="New category name..." value={newCatName} onChange={e=>setNewCatName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&addCategory()} style={{flex:1,marginBottom:0}}/>
+            <button className="hover-lift" onClick={addCategory} disabled={catSaving} style={{padding:"0 18px",borderRadius:14,border:"none",background:newCatName.trim()?"linear-gradient(135deg,#007AFF,#5856D6)":"rgba(0,0,0,0.06)",color:newCatName.trim()?"#fff":"rgba(0,0,0,0.25)",fontSize:14,fontWeight:600,cursor:"pointer"}}><I name="add" size={18} style={{verticalAlign:"middle"}}/></button>
+          </div>
+
+          {/* Category list */}
+          {(categories||[]).length===0&&<div style={{textAlign:"center",padding:"24px 0",color:"rgba(0,0,0,0.3)"}}><I name="category" size={36} color="rgba(0,0,0,0.15)" style={{marginBottom:8}}/><div style={{fontSize:13,fontWeight:500}}>No categories yet</div></div>}
+          {(categories||[]).map(cat=>(
+            <div key={cat.id} className="card-enter" style={{borderRadius:14,marginBottom:8,overflow:"hidden",border:"1px solid rgba(0,0,0,0.06)",background:"rgba(255,255,255,0.5)"}}>
+              {editingCat?.id===cat.id?(
+                <div style={{padding:12}}>
+                  <label style={{fontSize:11,fontWeight:600,color:"rgba(0,0,0,0.35)",display:"block",marginBottom:4,textTransform:"uppercase",letterSpacing:0.5}}>Rename</label>
+                  <GlassInput value={editCatName} onChange={e=>setEditCatName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveCatEdit()} autoFocus style={{marginBottom:8}}/>
+                  <div style={{display:"flex",gap:8}}>
+                    <button className="hover-lift" onClick={saveCatEdit} disabled={catSaving} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"linear-gradient(135deg,#007AFF,#5856D6)",color:"#fff",fontSize:13,fontWeight:600,cursor:"pointer"}}>Save</button>
+                    <button className="hover-lift" onClick={()=>setEditingCat(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"1px solid rgba(0,0,0,0.08)",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
+                  </div>
+                </div>
+              ):confirmDeleteCat===cat.id?(
+                <div style={{padding:12}}>
+                  <div style={{fontSize:13,fontWeight:600,color:"#FF453A",marginBottom:4}}><I name="warning" size={16} color="#FF453A"/> Remove "{cat.name}"?</div>
+                  <div style={{fontSize:11,color:"rgba(0,0,0,0.35)",marginBottom:10}}>Items in this category will lose their category.</div>
+                  <div style={{display:"flex",gap:8}}>
+                    <button className="hover-lift" onClick={()=>deleteCategory(cat.id)} disabled={catSaving} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"linear-gradient(135deg,#FF453A,#D63031)",color:"#fff",fontSize:13,fontWeight:600,cursor:"pointer"}}>Remove</button>
+                    <button className="hover-lift" onClick={()=>setConfirmDeleteCat(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"1px solid rgba(0,0,0,0.08)",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
+                  </div>
+                </div>
+              ):(
+                <div style={{padding:"12px 14px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                  <div style={{display:"flex",alignItems:"center",gap:10}}>
+                    <div style={{width:36,height:36,borderRadius:12,background:"rgba(88,86,214,0.08)",border:"1px solid rgba(88,86,214,0.12)",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="category" size={18} color="#5856D6"/></div>
+                    <div><div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{cat.name}</div>{cat.description&&<div style={{fontSize:11,color:"rgba(0,0,0,0.3)"}}>{cat.description}</div>}</div>
+                  </div>
+                  <div style={{display:"flex",gap:4}}>
+                    <button className="hover-lift" onClick={()=>{setEditingCat(cat);setEditCatName(cat.name);setConfirmDeleteCat(null)}} style={{width:34,height:34,borderRadius:10,border:"1px solid rgba(0,0,0,0.06)",background:"rgba(0,0,0,0.02)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="edit" size={16} color="rgba(0,0,0,0.4)"/></button>
+                    <button className="hover-lift" onClick={()=>{setConfirmDeleteCat(cat.id);setEditingCat(null)}} style={{width:34,height:34,borderRadius:10,border:"1px solid rgba(255,69,58,0.12)",background:"rgba(255,69,58,0.04)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="delete" size={16} color="#FF453A"/></button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </GlassModal>}
       </div>}
 
@@ -1060,6 +1199,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
 
       <BottomTabBar active={tab} onChange={setTab} tabs={[
         {key:"orders",icon:"receipt_long",label:"Orders",badge:todayOrders.filter(o=>o.status==="Pending").length||0},
+        {key:"items",icon:"inventory_2",label:"Items"},
         {key:"history",icon:"history",label:"History"},
         {key:"settings",icon:"settings",label:"Settings"},
       ]}/>
@@ -1086,6 +1226,7 @@ export default function App() {
   const [orders, setOrders] = useState([]);
   const [households, setHouseholds] = useState([]);
   const [drivers, setDrivers] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loadHouseholds = useCallback(async()=>{
@@ -1096,18 +1237,26 @@ export default function App() {
 
   // READ items from Yoko's existing items table (joined with categories)
   const loadItems = useCallback(async()=>{
-    const raw = await db.get("items","select=id,name,unit,price,category_id,categories(name)&order=name.asc&limit=1000");
+    // Read items from Yoko (prices sync) + join kitchen categories
+    const raw = await db.get("items","select=id,name,unit,price,kitchen_item_categories(kitchen_category_id,kitchen_categories(id,name))&order=name.asc&limit=1000");
     if(raw.length>0){
       const seen=new Map();
       raw.forEach(it=>{
         if(!seen.has(it.name)){
-          const catName = it.categories?.name || "Other";
-          seen.set(it.name,{id:it.id, name:it.name, unit:it.unit, price:Number(it.price)||0, category:catName});
+          const kic = it.kitchen_item_categories?.[0];
+          const catName = kic?.kitchen_categories?.name || "Uncategorized";
+          const catId = kic?.kitchen_categories?.id || null;
+          seen.set(it.name,{id:it.id, name:it.name, unit:it.unit, price:Number(it.price)||0, category:catName, category_id:catId});
         }
       });
-      const deduped=[...seen.values()];
-      setItems(deduped);
+      setItems([...seen.values()]);
     } else setItems(DEFAULT_ITEMS);
+  },[]);
+
+  const loadCategories = useCallback(async()=>{
+    const cats = await db.get("kitchen_categories","select=*&order=name.asc");
+    if(cats.length>0) setCategories(cats);
+    else setCategories([]);
   },[]);
 
   const loadOrders = useCallback(async()=>{
@@ -1126,11 +1275,11 @@ export default function App() {
   },[]);
 
   useEffect(()=>{
-    const init=async()=>{setLoading(true);await Promise.all([loadHouseholds(),loadItems(),loadOrders(),loadDrivers()]);setLoading(false)};
+    const init=async()=>{setLoading(true);await Promise.all([loadHouseholds(),loadItems(),loadCategories(),loadOrders(),loadDrivers()]);setLoading(false)};
     init();
     const iv=setInterval(loadItems,60000); // Refresh prices every 60s
     return()=>clearInterval(iv);
-  },[loadHouseholds,loadItems,loadOrders,loadDrivers]);
+  },[loadHouseholds,loadItems,loadCategories,loadOrders,loadDrivers]);
 
   const handleOrder = async(order) => {
     const hid = order.householdId;
@@ -1186,6 +1335,6 @@ export default function App() {
 
   if(loading) return <LoadingScreen/>;
   if(!user) return <LoginScreen onLogin={setUser} pins={pins}/>;
-  if(user.id==="CK") return <KitchenDashboard items={items} setItems={()=>{}} orders={orders} setOrders={setOrders} onLogout={handleLogout} drivers={drivers} setDrivers={setDrivers} addDriver={async(n)=>{await db.post("kitchen_drivers",{name:n});await loadDrivers()}} onStatusUpdate={handleStatusUpdate} onDelivery={handleDelivery} onModifyQty={handleModifyQty} loadDrivers={loadDrivers} loadOrders={loadOrders}/>;
+  if(user.id==="CK") return <KitchenDashboard items={items} setItems={setItems} orders={orders} setOrders={setOrders} onLogout={handleLogout} drivers={drivers} setDrivers={setDrivers} addDriver={async(n)=>{await db.post("kitchen_drivers",{name:n});await loadDrivers()}} onStatusUpdate={handleStatusUpdate} onDelivery={handleDelivery} onModifyQty={handleModifyQty} loadDrivers={loadDrivers} loadOrders={loadOrders} categories={categories} loadCategories={loadCategories} loadItems={loadItems}/>;
   return <HouseholdDashboard user={user} items={items} orders={orders} onOrder={handleOrder} onLogout={handleLogout} pins={pins} onPinChange={handlePinChange}/>;
 }
