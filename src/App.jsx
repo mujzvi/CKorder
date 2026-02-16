@@ -43,36 +43,36 @@ body{margin:0;font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antiali
 input,select,button,textarea{font-family:inherit}
 .micon{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:20px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24}
 
-/* Clean Glass */
-.glass{background:rgba(255,255,255,0.5);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);border:0.5px solid rgba(255,255,255,0.6);box-shadow:0 2px 12px rgba(0,0,0,0.04)}
-.glass-strong{background:rgba(255,255,255,0.65);backdrop-filter:blur(50px) saturate(180%);-webkit-backdrop-filter:blur(50px) saturate(180%);border:0.5px solid rgba(255,255,255,0.7);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
-.glass-vibrant{background:rgba(255,255,255,0.55);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);border:0.5px solid rgba(255,255,255,0.6);box-shadow:0 2px 16px rgba(0,0,0,0.05)}
+/* Liquid Glass */
+.glass{background:rgba(255,255,255,0.38);backdrop-filter:blur(40px) saturate(200%);-webkit-backdrop-filter:blur(40px) saturate(200%);border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,0.7),inset 0 -1px 0 rgba(255,255,255,0.15)}
+.glass-strong{background:rgba(255,255,255,0.55);backdrop-filter:blur(50px) saturate(200%);-webkit-backdrop-filter:blur(50px) saturate(200%);border:1px solid rgba(255,255,255,0.65);box-shadow:0 8px 32px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,0.8)}
+.glass-vibrant{background:linear-gradient(135deg,rgba(255,255,255,0.5),rgba(255,255,255,0.25));backdrop-filter:blur(40px) saturate(200%);-webkit-backdrop-filter:blur(40px) saturate(200%);border:1px solid rgba(255,255,255,0.5);box-shadow:0 12px 40px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.8)}
 
-/* Subtle background orbs */
-.bg-orb{position:fixed;border-radius:50%;filter:blur(100px);opacity:0.35;pointer-events:none;z-index:0}
-.bg-orb-1{width:350px;height:350px;background:radial-gradient(circle,rgba(0,122,255,0.25),transparent 70%);top:-80px;right:-100px}
-.bg-orb-2{width:300px;height:300px;background:radial-gradient(circle,rgba(255,100,130,0.18),transparent 70%);bottom:100px;left:-80px}
-.bg-orb-3{width:250px;height:250px;background:radial-gradient(circle,rgba(100,220,150,0.18),transparent 70%);top:45%;right:-60px}
-.bg-orb-4{width:300px;height:300px;background:radial-gradient(circle,rgba(180,130,255,0.15),transparent 70%);bottom:-60px;left:25%}
+/* Vibrant background orbs */
+.bg-orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.55;pointer-events:none;z-index:0}
+.bg-orb-1{width:320px;height:320px;background:radial-gradient(circle,rgba(0,122,255,0.35),transparent 70%);top:-60px;right:-80px}
+.bg-orb-2{width:280px;height:280px;background:radial-gradient(circle,rgba(255,100,130,0.3),transparent 70%);bottom:100px;left:-70px}
+.bg-orb-3{width:220px;height:220px;background:radial-gradient(circle,rgba(100,220,150,0.28),transparent 70%);top:45%;right:-50px}
+.bg-orb-4{width:300px;height:300px;background:radial-gradient(circle,rgba(180,130,255,0.25),transparent 70%);bottom:-40px;left:25%}
 
-/* Kitchen Orbs */
-.bg-orb-k1{width:350px;height:350px;background:radial-gradient(circle,rgba(255,159,10,0.22),transparent 70%);top:-80px;left:-100px}
-.bg-orb-k2{width:300px;height:300px;background:radial-gradient(circle,rgba(255,69,58,0.15),transparent 70%);bottom:150px;right:-80px}
-.bg-orb-k3{width:250px;height:250px;background:radial-gradient(circle,rgba(48,209,88,0.15),transparent 70%);top:40%;left:-60px}
+/* Kitchen Orbs - warm vibrant */
+.bg-orb-k1{width:320px;height:320px;background:radial-gradient(circle,rgba(255,159,10,0.35),transparent 70%);top:-60px;left:-80px}
+.bg-orb-k2{width:280px;height:280px;background:radial-gradient(circle,rgba(255,69,58,0.22),transparent 70%);bottom:150px;right:-70px}
+.bg-orb-k3{width:220px;height:220px;background:radial-gradient(circle,rgba(48,209,88,0.25),transparent 70%);top:40%;left:-50px}
 
 /* Animations */
 @keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.97) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-16px) scale(0.95)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-6px)}}
-.modal-enter{animation:slideUp 0.35s cubic-bezier(0.32,0.72,0,1) forwards}
-.card-enter{animation:fadeIn 0.3s ease-out forwards}
-.toast-enter{animation:toastIn 0.3s ease-out forwards}
-.hover-lift{transition:transform 0.15s ease,box-shadow 0.15s ease}
-.hover-lift:active{transform:scale(0.98)}
-.orb-float{animation:orbFloat 15s ease-in-out infinite}
-input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(0,122,255,0.4)!important;box-shadow:0 0 0 3px rgba(0,122,255,0.08)!important}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(12px,-8px) scale(1.03)}66%{transform:translate(-8px,6px) scale(0.97)}}
+.modal-enter{animation:slideUp 0.38s cubic-bezier(0.32,0.72,0,1) forwards}
+.card-enter{animation:fadeIn 0.3s cubic-bezier(0.32,0.72,0,1) forwards}
+.toast-enter{animation:toastIn 0.35s cubic-bezier(0.32,0.72,0,1) forwards}
+.hover-lift{transition:transform 0.18s cubic-bezier(0.32,0.72,0,1),box-shadow 0.18s ease}
+.hover-lift:active{transform:scale(0.97)}
+.orb-float{animation:orbFloat 12s ease-in-out infinite}
+input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(0,122,255,0.5)!important;box-shadow:0 0 0 4px rgba(0,122,255,0.1),0 0 20px rgba(0,122,255,0.06)!important}
 ::-webkit-scrollbar{display:none}
 `;
 
@@ -91,12 +91,14 @@ const I = ({name, size, color, style}) => (
 
 // Bottom Tab Bar component
 const BottomTabBar = ({tabs, active, onChange}) => (
-  <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:430,display:"flex",alignItems:"stretch",justifyContent:"space-around",zIndex:150,padding:"8px 0 env(safe-area-inset-bottom, 10px)",background:"rgba(255,255,255,0.7)",backdropFilter:"blur(40px) saturate(180%)",WebkitBackdropFilter:"blur(40px) saturate(180%)",borderTop:"0.5px solid rgba(0,0,0,0.06)"}}>
+  <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:430,display:"flex",alignItems:"stretch",justifyContent:"space-around",zIndex:150,padding:"6px 0 env(safe-area-inset-bottom, 8px)",background:"rgba(255,255,255,0.55)",backdropFilter:"blur(50px) saturate(200%)",WebkitBackdropFilter:"blur(50px) saturate(200%)",borderTop:"1px solid rgba(255,255,255,0.5)",boxShadow:"0 -4px 20px rgba(0,0,0,0.04),inset 0 1px 0 rgba(255,255,255,0.7)"}}>
     {tabs.map(t=>(
       <div key={t.key} onClick={()=>onChange(t.key)} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"6px 0",cursor:"pointer",position:"relative"}}>
-        <I name={t.icon} size={22} color={active===t.key?"#007AFF":"rgba(0,0,0,0.25)"}/>
-        <span style={{fontSize:10,fontWeight:active===t.key?600:400,color:active===t.key?"#007AFF":"rgba(0,0,0,0.25)"}}>{t.label}</span>
-        {t.badge>0&&<span style={{position:"absolute",top:0,marginLeft:20,minWidth:16,height:16,borderRadius:8,background:"#FF453A",color:"#fff",fontSize:9,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",padding:"0 4px"}}>{t.badge}</span>}
+        <div style={{padding:"4px 14px",borderRadius:14,background:active===t.key?"linear-gradient(135deg,rgba(0,122,255,0.12),rgba(88,86,214,0.08))":"transparent",transition:"all 0.25s"}}>
+          <I name={t.icon} size={22} color={active===t.key?"#007AFF":"rgba(0,0,0,0.25)"}/>
+        </div>
+        <span style={{fontSize:10,fontWeight:active===t.key?700:500,color:active===t.key?"#007AFF":"rgba(0,0,0,0.25)"}}>{t.label}</span>
+        {t.badge>0&&<span style={{position:"absolute",top:0,marginLeft:22,minWidth:17,height:17,borderRadius:9,background:"linear-gradient(135deg,#FF453A,#FF6B6B)",color:"#fff",fontSize:9,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",padding:"0 5px",boxShadow:"0 2px 8px rgba(255,69,58,0.35)"}}>{t.badge}</span>}
       </div>
     ))}
   </div>
@@ -104,42 +106,55 @@ const BottomTabBar = ({tabs, active, onChange}) => (
 
 // Shared components
 const GlassModal = ({ children, onClose }) => (
-  <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.18)",backdropFilter:"blur(8px)",WebkitBackdropFilter:"blur(8px)",zIndex:200,display:"flex",alignItems:"flex-end",justifyContent:"center"}} onClick={(e)=>e.target===e.currentTarget&&onClose()}>
-    <div className="modal-enter" style={{borderRadius:"20px 20px 0 0",padding:"6px 20px 32px",width:"100%",maxWidth:430,maxHeight:"88vh",overflowY:"auto",background:"rgba(255,255,255,0.92)",backdropFilter:"blur(40px)",WebkitBackdropFilter:"blur(40px)",borderTop:"0.5px solid rgba(255,255,255,0.8)"}}>
-      <div style={{width:36,height:4,borderRadius:2,background:"rgba(0,0,0,0.12)",margin:"8px auto 18px"}}/>
+  <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.2)",backdropFilter:"blur(12px) saturate(150%)",WebkitBackdropFilter:"blur(12px) saturate(150%)",zIndex:200,display:"flex",alignItems:"flex-end",justifyContent:"center"}} onClick={(e)=>e.target===e.currentTarget&&onClose()}>
+    <div className="modal-enter" style={{borderRadius:"24px 24px 0 0",padding:"6px 20px 32px",width:"100%",maxWidth:430,maxHeight:"88vh",overflowY:"auto",background:"linear-gradient(180deg,rgba(255,255,255,0.88),rgba(255,255,255,0.78))",backdropFilter:"blur(50px) saturate(200%)",WebkitBackdropFilter:"blur(50px) saturate(200%)",border:"1px solid rgba(255,255,255,0.7)",borderBottom:"none",boxShadow:"0 -8px 40px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.9)"}}>
+      <div style={{width:36,height:5,borderRadius:3,background:"rgba(0,0,0,0.1)",margin:"8px auto 18px"}}/>
       {children}
     </div>
   </div>
 );
 
 const GlassInput = (props) => (
-  <input {...props} style={{width:"100%",padding:"12px 14px",borderRadius:12,border:"0.5px solid rgba(0,0,0,0.08)",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.6)",transition:"all 0.2s",...(props.style||{})}}/>
+  <input {...props} style={{width:"100%",padding:"13px 16px",borderRadius:14,border:"1px solid rgba(255,255,255,0.5)",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.45)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:"inset 0 1px 2px rgba(0,0,0,0.04),0 1px 0 rgba(255,255,255,0.5)",transition:"all 0.25s",...(props.style||{})}}/>
 );
 
 const GlassSelect = (props) => (
-  <select {...props} style={{width:"100%",padding:"12px 14px",borderRadius:12,border:"0.5px solid rgba(0,0,0,0.08)",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.6)",appearance:"auto",...(props.style||{})}}/>
+  <select {...props} style={{width:"100%",padding:"13px 16px",borderRadius:14,border:"1px solid rgba(0,0,0,0.08)",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.6)",backdropFilter:"blur(10px)",appearance:"auto",...(props.style||{})}}/>
 );
 
 const PrimaryBtn = ({children,...props}) => (
-  <button className="hover-lift" {...props} style={{width:"100%",padding:14,borderRadius:14,border:"none",background:"#007AFF",color:"#fff",fontSize:15,fontWeight:600,cursor:"pointer",marginTop:8,...(props.style||{})}}>{children}</button>
+  <button className="hover-lift" {...props} style={{width:"100%",padding:15,borderRadius:16,border:"none",background:"linear-gradient(135deg,#007AFF 0%,#5856D6 100%)",color:"#fff",fontSize:16,fontWeight:600,cursor:"pointer",marginTop:8,boxShadow:"0 6px 20px rgba(0,122,255,0.3),inset 0 1px 0 rgba(255,255,255,0.2)",letterSpacing:0.3,...(props.style||{})}}>{children}</button>
 );
 
 const Badge = ({status}) => {
-  const c = {Pending:{bg:"rgba(255,69,58,0.1)",fg:"#FF453A"},Preparing:{bg:"rgba(255,159,10,0.1)",fg:"#FF9F0A"},Delivered:{bg:"rgba(48,209,88,0.1)",fg:"#30D158"},Modified:{bg:"rgba(88,86,214,0.1)",fg:"#5856D6"}}[status]||{bg:"rgba(255,69,58,0.1)",fg:"#FF453A"};
-  return <span style={{display:"inline-block",padding:"3px 10px",borderRadius:6,fontSize:11,fontWeight:600,background:c.bg,color:c.fg}}>{status}</span>;
+  const c = {Pending:{bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",fg:"#fff"},Preparing:{bg:"linear-gradient(135deg,#FF9F0A,#FFB840)",fg:"#fff"},Sent:{bg:"linear-gradient(135deg,#30D158,#5BE07A)",fg:"#fff"},Modified:{bg:"linear-gradient(135deg,#5856D6,#7B79E8)",fg:"#fff"},Delivered:{bg:"linear-gradient(135deg,#30D158,#5BE07A)",fg:"#fff"}}[status]||{bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",fg:"#fff"};
+  return <span style={{display:"inline-block",padding:"4px 12px",borderRadius:20,fontSize:10,fontWeight:700,background:c.bg,color:c.fg,boxShadow:`0 2px 8px ${status==="Pending"?"rgba(255,69,58,0.3)":status==="Preparing"?"rgba(255,159,10,0.3)":"rgba(48,209,88,0.3)"}`,letterSpacing:0.3,textTransform:"uppercase"}}>{status}</span>;
 };
 
 const Stepper = ({qty,onMinus,onPlus}) => (
-  <div style={{display:"flex",alignItems:"center",background:"rgba(0,122,255,0.06)",borderRadius:10,overflow:"hidden"}}>
-    <button style={{width:32,height:32,border:"none",background:"transparent",fontSize:18,color:"#007AFF",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}} onClick={onMinus}>−</button>
-    <div style={{width:24,textAlign:"center",fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{qty}</div>
-    <button style={{width:32,height:32,border:"none",background:"transparent",fontSize:18,color:"#007AFF",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}} onClick={onPlus}>+</button>
+  <div style={{display:"flex",alignItems:"center",background:"linear-gradient(135deg,rgba(0,122,255,0.08),rgba(88,86,214,0.06))",borderRadius:12,border:"1px solid rgba(0,122,255,0.15)",overflow:"hidden"}}>
+    <button style={{width:34,height:34,border:"none",background:"transparent",fontSize:20,fontWeight:500,color:"#007AFF",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}} onClick={onMinus}>−</button>
+    <div style={{width:26,textAlign:"center",fontSize:15,fontWeight:700,color:"#1a1a1a"}}>{qty}</div>
+    <button style={{width:34,height:34,border:"none",background:"transparent",fontSize:20,fontWeight:500,color:"#007AFF",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}} onClick={onPlus}>+</button>
   </div>
 );
 
-const CatPill = ({active,children,...props}) => (
-  <button {...props} style={{padding:"6px 16px",borderRadius:18,fontSize:12,fontWeight:500,whiteSpace:"nowrap",cursor:"pointer",border:"none",background:active?"#007AFF":"rgba(0,0,0,0.04)",color:active?"#fff":"rgba(0,0,0,0.4)",transition:"all 0.2s"}}>{children}</button>
-);
+const CAT_COLORS = [
+  {bg:"linear-gradient(135deg,#007AFF,#5856D6)",shadow:"rgba(0,122,255,0.3)"},
+  {bg:"linear-gradient(135deg,#FF9F0A,#FF6B35)",shadow:"rgba(255,159,10,0.3)"},
+  {bg:"linear-gradient(135deg,#30D158,#00C853)",shadow:"rgba(48,209,88,0.3)"},
+  {bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",shadow:"rgba(255,69,58,0.3)"},
+  {bg:"linear-gradient(135deg,#BF5AF2,#9B59B6)",shadow:"rgba(191,90,242,0.3)"},
+  {bg:"linear-gradient(135deg,#FF375F,#FF6B81)",shadow:"rgba(255,55,95,0.3)"},
+  {bg:"linear-gradient(135deg,#64D2FF,#5AC8FA)",shadow:"rgba(100,210,255,0.3)"},
+  {bg:"linear-gradient(135deg,#FFD60A,#FFCC02)",shadow:"rgba(255,214,10,0.3)"},
+];
+
+const CatPill = ({active,children,colorIndex,...props}) => {
+  const ci = (colorIndex||0)%CAT_COLORS.length;
+  const col = CAT_COLORS[ci];
+  return <button className="hover-lift" {...props} style={{padding:"7px 18px",borderRadius:20,fontSize:12,fontWeight:600,whiteSpace:"nowrap",cursor:"pointer",border:active?"none":"1px solid rgba(255,255,255,0.4)",background:active?col.bg:"rgba(255,255,255,0.45)",color:active?"#fff":"rgba(0,0,0,0.4)",boxShadow:active?`0 4px 14px ${col.shadow}`:"0 2px 8px rgba(0,0,0,0.03)",backdropFilter:active?"none":"blur(10px)",transition:"all 0.25s"}}>{children}</button>;
+};
 
 // Login Screen
 function LoginScreen({ onLogin, pins }) {
@@ -305,7 +320,7 @@ function HouseholdOrderHistory({ orders, onDispute }) {
       :filteredOrders.map(order=>{
         const isExpanded = expandedOrder === order.id;
         return (
-        <div key={order.id} className="glass card-enter" style={{borderRadius:16,marginBottom:10,overflow:"hidden",borderLeft:`4px solid ${order.status==="Delivered"?"#30D158":order.status==="Preparing"?"#FF9F0A":"#FF453A"}`}}>
+        <div key={order.id} className="glass card-enter" style={{borderRadius:16,marginBottom:10,overflow:"hidden",borderLeft:`4px solid ${order.status==="Sent"?"#30D158":order.status==="Preparing"?"#FF9F0A":"#FF453A"}`}}>
           {/* Collapsed header - always visible */}
           <div style={{padding:"14px 16px",cursor:"pointer"}} onClick={()=>setExpandedOrder(isExpanded?null:order.id)}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
@@ -426,7 +441,7 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
     setTimeout(()=>setPinMsg(null),3000);
   };
 
-  const appStyle = {fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"#f5f5f7",position:"relative",overflow:"hidden"};
+  const appStyle = {fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"linear-gradient(145deg,#E8F0FE 0%,#F0E6F6 25%,#FEF3E2 50%,#E6F7ED 75%,#E8F0FE 100%)",position:"relative",overflow:"hidden"};
 
   const Orbs = ()=><>{[1,2,3,4].map(i=><div key={i} className={`bg-orb bg-orb-${i} orb-float`} style={{animationDelay:`${i*3}s`}}/>)}</>;
 
@@ -437,7 +452,7 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
       {orderSuccess&&<div className="toast-enter" style={{position:"fixed",top:16,left:"50%",transform:"translateX(-50%)",background:"rgba(48,209,88,0.95)",backdropFilter:"blur(20px)",color:"#fff",padding:"12px 24px",borderRadius:20,fontSize:14,fontWeight:600,zIndex:999,boxShadow:"0 8px 32px rgba(48,209,88,0.3)",display:"flex",alignItems:"center",gap:8,maxWidth:340}}><I name="check_circle" size={18} color="#fff"/> Order placed</div>}
 
       {/* Header */}
-      <div style={{padding:"16px 20px 14px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"relative",zIndex:10}}>
+      <div style={{background:"linear-gradient(135deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35))",backdropFilter:"blur(50px) saturate(200%)",WebkitBackdropFilter:"blur(50px) saturate(200%)",padding:"18px 20px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:"1px solid rgba(255,255,255,0.5)",boxShadow:"0 4px 20px rgba(0,0,0,0.04)",position:"relative",zIndex:10}}>
         <div>
           <div style={{fontSize:17,fontWeight:700,color:"#1a1a1a",letterSpacing:-0.3}}>{user.name}</div>
           <div style={{fontSize:12,color:"rgba(0,0,0,0.35)",fontWeight:400,marginTop:2}}>{new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short"})}</div>
@@ -451,29 +466,29 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
           <GlassInput placeholder="Search items..." value={search} onChange={e=>setSearch(e.target.value)} style={{paddingLeft:40,marginBottom:0}}/>
         </div>
         <div style={{display:"flex",gap:8,padding:"12px 16px 6px",overflowX:"auto"}}>
-          {["All",...[...new Set(items.map(i=>i.category).filter(Boolean))]].map(c=><CatPill key={c} active={category===c} onClick={()=>setCategory(c)}>{c}</CatPill>)}
+          {["All",...[...new Set(items.map(i=>i.category).filter(Boolean))]].map((c,ci)=><CatPill key={c} active={category===c} colorIndex={ci} onClick={()=>setCategory(c)}>{c}</CatPill>)}
         </div>
         <div style={{padding:"6px 16px 160px",minHeight:"50vh"}}>
           {filteredItems.length===0?<div style={{textAlign:"center",padding:"60px 20px",color:"rgba(0,0,0,0.2)"}}><I name="search_off" size={40} color="rgba(0,0,0,0.1)" style={{marginBottom:8}}/><div style={{fontSize:14,fontWeight:500}}>No items found</div></div>
           :filteredItems.map(item=>(
-            <div key={item.id} className="card-enter" style={{borderRadius:14,padding:"14px 16px",marginBottom:8,background:"rgba(255,255,255,0.5)",backdropFilter:"blur(20px)",border:"0.5px solid rgba(255,255,255,0.6)"}}>
+            <div key={item.id} className="glass card-enter hover-lift" style={{borderRadius:16,padding:"14px 16px",marginBottom:10}}>
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                 <div style={{flex:1,minWidth:0}}>
                   <div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{item.name}</div>
-                  <div style={{fontSize:12,color:"rgba(0,0,0,0.25)",marginTop:1}}>{item.category} · {item.unit}</div>
+                  <div style={{fontSize:12,color:"rgba(0,0,0,0.28)",marginTop:1}}>{item.category} · {item.unit}</div>
                 </div>
                 <div style={{display:"flex",alignItems:"center",gap:12}}>
-                  <div style={{fontSize:16,fontWeight:600,color:"#1a1a1a"}}>₹{item.price}</div>
+                  <div style={{fontSize:17,fontWeight:700,color:"#30A050"}}>₹{item.price}</div>
                   {cart[item.id]?<Stepper qty={cart[item.id]} onMinus={()=>setQty(item.id,-1)} onPlus={()=>setQty(item.id,1)}/>
-                  :<button style={{padding:"6px 16px",borderRadius:8,border:"none",background:"#007AFF",fontSize:13,fontWeight:600,color:"#fff",cursor:"pointer"}} onClick={()=>setQty(item.id,1)}>Add</button>}
+                  :<button className="hover-lift" style={{padding:"7px 18px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#007AFF,#5856D6)",fontSize:13,fontWeight:600,color:"#fff",cursor:"pointer",boxShadow:"0 3px 12px rgba(0,122,255,0.25)"}} onClick={()=>setQty(item.id,1)}>Add</button>}
                 </div>
               </div>
             </div>
           ))}
         </div>
-        {cartCount>0&&<div style={{position:"fixed",bottom:68,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 32px)",maxWidth:398,padding:"12px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",zIndex:100,borderRadius:16,background:"rgba(255,255,255,0.75)",backdropFilter:"blur(40px)",WebkitBackdropFilter:"blur(40px)",border:"0.5px solid rgba(0,0,0,0.06)"}}>
-          <div><div style={{fontSize:14,fontWeight:600,color:"#1a1a1a"}}>{cartCount} item{cartCount>1?"s":""}</div><div style={{fontSize:14,fontWeight:600,color:"#30D158",marginTop:1}}>₹{cartTotal}</div></div>
-          <button style={{background:"#007AFF",color:"#fff",border:"none",borderRadius:12,padding:"10px 20px",fontSize:14,fontWeight:600,cursor:"pointer"}} onClick={()=>setShowCart(true)}>View Cart</button>
+        {cartCount>0&&<div className="glass-vibrant" style={{position:"fixed",bottom:68,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 32px)",maxWidth:398,padding:"14px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",zIndex:100,borderRadius:20}}>
+          <div><div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{cartCount} item{cartCount>1?"s":""}</div><div style={{fontSize:14,fontWeight:700,background:"linear-gradient(135deg,#30D158,#28A745)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",marginTop:1}}>₹{cartTotal}</div></div>
+          <button className="hover-lift" style={{background:"linear-gradient(135deg,#007AFF,#5856D6)",color:"#fff",border:"none",borderRadius:14,padding:"12px 22px",fontSize:14,fontWeight:600,cursor:"pointer",boxShadow:"0 6px 20px rgba(0,122,255,0.3)"}} onClick={()=>setShowCart(true)}><I name="shopping_cart" size={16} color="#fff" style={{verticalAlign:"middle",marginRight:4}}/>View Cart</button>
         </div>}
         {showCart&&<GlassModal onClose={()=>setShowCart(false)}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
@@ -621,7 +636,7 @@ function KitchenOrderHistory({ orders }) {
         const hh = HOUSEHOLDS.find(h=>h.id===order.householdId);
         const isExp = expandedOrder===order.id;
         return(
-        <div key={order.id} className="glass card-enter" style={{borderRadius:16,marginBottom:10,overflow:"hidden",borderLeft:`4px solid ${order.status==="Delivered"?"#30D158":order.status==="Preparing"?"#FF9F0A":"#FF453A"}`}}>
+        <div key={order.id} className="glass card-enter" style={{borderRadius:16,marginBottom:10,overflow:"hidden",borderLeft:`4px solid ${order.status==="Sent"?"#30D158":order.status==="Preparing"?"#FF9F0A":"#FF453A"}`}}>
           {/* Collapsed */}
           <div style={{padding:"14px 16px",cursor:"pointer"}} onClick={()=>setExpandedOrder(isExp?null:order.id)}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
@@ -682,7 +697,7 @@ function KitchenOrderHistory({ orders }) {
             {order.disputeStatus==="Resolved"&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"1px solid rgba(48,209,88,0.12)",display:"flex",alignItems:"center",gap:6}}>
               <I name="check_circle" size={16} color="#30D158"/><span style={{fontSize:12,fontWeight:600,color:"#30D158"}}>Dispute Resolved</span>
             </div>}
-            {order.status==="Delivered"&&!order.disputeStatus&&<button className="hover-lift" onClick={()=>{setDisputeModal(order.id);setDisputeReason("")}} style={{marginTop:10,width:"100%",padding:"10px 0",borderRadius:12,border:"1px solid rgba(255,69,58,0.15)",background:"rgba(255,69,58,0.04)",color:"#FF453A",fontSize:13,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}><I name="flag" size={16} color="#FF453A"/>Raise Dispute</button>}
+            {order.status==="Sent"&&!order.disputeStatus&&<button className="hover-lift" onClick={()=>{setDisputeModal(order.id);setDisputeReason("")}} style={{marginTop:10,width:"100%",padding:"10px 0",borderRadius:12,border:"1px solid rgba(255,69,58,0.15)",background:"rgba(255,69,58,0.04)",color:"#FF453A",fontSize:13,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}><I name="flag" size={16} color="#FF453A"/>Raise Dispute</button>}
           </div>}
         </div>
       )})}
@@ -859,7 +874,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
   });
 
   const updateStatus=async(oid,st)=>{
-    if(st==="Delivered"){setDriverModal(oid);setDriverName("");return;}
+    if(st==="Sent"){setDriverModal(oid);setDriverName("");return;}
     setOrders(p=>p.map(o=>o.id===oid?{...o,status:st}:o));
     if(onStatusUpdate) onStatusUpdate(oid,st);
   };
@@ -868,7 +883,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
     if(!dn)return;
     if(addingNewDriver && dn) { if(addDriver) await addDriver(dn); }
     const now = new Date().toISOString();
-    setOrders(p=>p.map(o=>o.id===driverModal?{...o,status:"Delivered",deliveredBy:dn,deliveredAt:now}:o));
+    setOrders(p=>p.map(o=>o.id===driverModal?{...o,status:"Sent",deliveredBy:dn,deliveredAt:now}:o));
     if(onDelivery) onDelivery(driverModal, dn);
     setDriverModal(null);setDriverName("");setAddingNewDriver(false);setNewDriverName("");
   };
@@ -975,7 +990,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
     return matchSearch&&matchCat;
   });
 
-  const appStyle={fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"#f5f5f7",position:"relative",overflow:"hidden"};
+  const appStyle={fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"linear-gradient(145deg,#FFF5E6 0%,#FEE8E0 30%,#F0FAF0 60%,#FFF5E6 100%)",position:"relative",overflow:"hidden"};
 
   const KitchenOrbs=()=><>{[1,2,3].map(i=><div key={i} className={`bg-orb bg-orb-k${i} orb-float`} style={{animationDelay:`${i*4}s`}}/>)}</>;
 
@@ -985,7 +1000,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
       <GlassStyle/>
 
       {/* Header */}
-      <div style={{padding:"16px 20px 14px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"relative",zIndex:10}}>
+      <div style={{background:"linear-gradient(135deg,rgba(255,255,255,0.55),rgba(255,240,220,0.4))",backdropFilter:"blur(50px) saturate(200%)",WebkitBackdropFilter:"blur(50px) saturate(200%)",padding:"18px 20px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:"1px solid rgba(255,255,255,0.5)",boxShadow:"0 4px 20px rgba(0,0,0,0.04)",position:"relative",zIndex:10}}>
         <div>
           <div style={{fontSize:17,fontWeight:700,color:"#1a1a1a",letterSpacing:-0.3}}>Central Kitchen</div>
           <div style={{fontSize:12,color:"rgba(0,0,0,0.35)",fontWeight:400,marginTop:2}}>Admin · {new Date().toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"})}</div>
@@ -994,22 +1009,22 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
       </div>
 
       {/* Stats - only on orders tab */}
-      {tab==="orders"&&<div style={{display:"grid",gridTemplateColumns:disputedOrders.length>0?"1fr 1fr 1fr 1fr":"1fr 1fr 1fr",gap:8,padding:"8px 16px",position:"relative",zIndex:1}}>
-        <div className="hover-lift" style={{borderRadius:14,padding:"12px",textAlign:"center",cursor:"pointer",background:"rgba(255,255,255,0.5)",border:"0.5px solid rgba(0,0,0,0.04)"}} onClick={()=>setShowOrdersList("all")}>
-          <div style={{fontSize:22,fontWeight:700,color:"#1a1a1a"}}>{todayOrders.length}</div>
-          <div style={{fontSize:10,fontWeight:500,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.5,marginTop:2}}>Orders ▾</div>
+      {tab==="orders"&&<div style={{display:"grid",gridTemplateColumns:disputedOrders.length>0?"1fr 1fr 1fr 1fr":"1fr 1fr 1fr",gap:10,padding:"10px 16px",position:"relative",zIndex:1}}>
+        <div className="glass-vibrant hover-lift" style={{borderRadius:18,padding:"14px 12px",textAlign:"center",cursor:"pointer",borderLeft:"3px solid rgba(0,122,255,0.4)"}} onClick={()=>setShowOrdersList("all")}>
+          <div style={{fontSize:24,fontWeight:800,color:"#1a1a1a",lineHeight:1}}>{todayOrders.length}</div>
+          <div style={{fontSize:10,fontWeight:600,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.8,marginTop:4}}>Orders ▾</div>
         </div>
-        <div className="hover-lift" style={{borderRadius:14,padding:"12px",textAlign:"center",cursor:"pointer",background:"rgba(255,255,255,0.5)",border:"0.5px solid rgba(0,0,0,0.04)"}} onClick={()=>setShowCostBreakdown(true)}>
-          <div style={{fontSize:22,fontWeight:700,color:"#30D158"}}>₹{grandTotal}</div>
-          <div style={{fontSize:10,fontWeight:500,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.5,marginTop:2}}>Cost ▾</div>
+        <div className="glass-vibrant hover-lift" style={{borderRadius:18,padding:"14px 12px",textAlign:"center",cursor:"pointer",borderLeft:"3px solid rgba(48,209,88,0.4)"}} onClick={()=>setShowCostBreakdown(true)}>
+          <div style={{fontSize:24,fontWeight:800,background:"linear-gradient(135deg,#30D158,#28A745)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",lineHeight:1}}>₹{grandTotal}</div>
+          <div style={{fontSize:10,fontWeight:600,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.8,marginTop:4}}>Cost ▾</div>
         </div>
-        <div className="hover-lift" style={{borderRadius:14,padding:"12px",textAlign:"center",cursor:"pointer",background:"rgba(255,255,255,0.5)",border:"0.5px solid rgba(0,0,0,0.04)"}} onClick={()=>setShowOrdersList("pending")}>
-          <div style={{fontSize:22,fontWeight:700,color:"#FF9F0A"}}>{todayOrders.filter(o=>o.status==="Pending").length}</div>
-          <div style={{fontSize:10,fontWeight:500,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.5,marginTop:2}}>Pending ▾</div>
+        <div className="glass-vibrant hover-lift" style={{borderRadius:18,padding:"14px 12px",textAlign:"center",cursor:"pointer",borderLeft:"3px solid rgba(255,159,10,0.4)"}} onClick={()=>setShowOrdersList("pending")}>
+          <div style={{fontSize:24,fontWeight:800,color:"#FF9F0A",lineHeight:1}}>{todayOrders.filter(o=>o.status==="Pending").length}</div>
+          <div style={{fontSize:10,fontWeight:600,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.8,marginTop:4}}>Pending ▾</div>
         </div>
-        {disputedOrders.length>0&&<div className="hover-lift" style={{borderRadius:14,padding:"12px",textAlign:"center",cursor:"pointer",background:"rgba(255,69,58,0.04)",border:"0.5px solid rgba(255,69,58,0.1)"}} onClick={()=>setShowOrdersList("disputed")}>
-          <div style={{fontSize:22,fontWeight:700,color:"#FF453A"}}>{disputedOrders.length}</div>
-          <div style={{fontSize:10,fontWeight:500,color:"rgba(255,69,58,0.5)",textTransform:"uppercase",letterSpacing:0.5,marginTop:2}}>Disputes ▾</div>
+        {disputedOrders.length>0&&<div className="glass-vibrant hover-lift" style={{borderRadius:18,padding:"14px 12px",textAlign:"center",cursor:"pointer",borderLeft:"3px solid rgba(255,69,58,0.4)"}} onClick={()=>setShowOrdersList("disputed")}>
+          <div style={{fontSize:24,fontWeight:800,color:"#FF453A",lineHeight:1}}>{disputedOrders.length}</div>
+          <div style={{fontSize:10,fontWeight:600,color:"rgba(255,69,58,0.5)",textTransform:"uppercase",letterSpacing:0.8,marginTop:4}}>Disputes ▾</div>
         </div>}
       </div>}
 
@@ -1113,12 +1128,12 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
 
       {tab==="orders"&&<div style={{padding:"0 16px 90px",minHeight:"50vh"}}>
         <div style={{display:"flex",gap:8,padding:"12px 0 6px",overflowX:"auto"}}>
-          <CatPill active={filterHousehold==="All"} onClick={()=>setFilterHousehold("All")}>All</CatPill>
-          {HOUSEHOLDS.map(h=><CatPill key={h.id} active={filterHousehold===h.id} onClick={()=>setFilterHousehold(h.id)}><I name={h.icon} size={14}/> {h.name.replace(" Floor","F")}</CatPill>)}
+          <CatPill active={filterHousehold==="All"} colorIndex={0} onClick={()=>setFilterHousehold("All")}>All</CatPill>
+          {HOUSEHOLDS.map((h,hi)=><CatPill key={h.id} active={filterHousehold===h.id} colorIndex={hi+1} onClick={()=>setFilterHousehold(h.id)}><I name={h.icon} size={14}/> {h.name.replace(" Floor","F")}</CatPill>)}
         </div>
         {filtered.length===0?<div style={{textAlign:"center",padding:"60px 20px",color:"rgba(0,0,0,0.28)"}}><I name="inbox" size={52} color="rgba(0,0,0,0.18)" style={{marginBottom:12}}/><div style={{fontWeight:600,color:"rgba(0,0,0,0.45)"}}>No orders today</div></div>
         :filtered.sort((a,b)=>b.id-a.id).map(order=>{const hh=HOUSEHOLDS.find(h=>h.id===order.householdId);return(
-          <div key={order.id} className="glass card-enter" style={{borderRadius:16,padding:16,marginBottom:10,borderLeft:`4px solid ${order.status==="Delivered"?"#30D158":order.status==="Preparing"?"#FF9F0A":order.status==="Modified"?"#007AFF":"#FF453A"}`}}>
+          <div key={order.id} className="glass card-enter" style={{borderRadius:16,padding:16,marginBottom:10,borderLeft:`4px solid ${order.status==="Sent"?"#30D158":order.status==="Preparing"?"#FF9F0A":order.status==="Modified"?"#007AFF":"#FF453A"}`}}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
               <div style={{display:"flex",alignItems:"center",gap:6}}>
                 <span style={{display:"inline-flex",alignItems:"center",gap:4,padding:"3px 10px",borderRadius:10,fontSize:12,fontWeight:600,background:`${hh?.color}25`,border:`1px solid ${hh?.color}40`,color:"#1a1a1a"}}><I name={hh?.icon} size={14} style={{verticalAlign:"middle"}}/> {order.householdName}</span>
@@ -1157,8 +1172,8 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
             </div>}
             <div style={{display:"flex",justifyContent:"space-between",fontSize:16,fontWeight:700,paddingTop:10,borderTop:"1px solid rgba(0,0,0,0.05)",marginTop:8,color:"#1a1a1a"}}><span>Total</span><span>₹{getActualTotal(order)}</span></div>
             <div style={{display:"flex",gap:8,marginTop:10}}>
-              {["Pending","Preparing","Delivered"].map(st=>{const active=order.status===st;const cols={Pending:"#FF453A",Preparing:"#FF9F0A",Delivered:"#30D158"};return(
-                <button key={st} className="hover-lift" onClick={()=>updateStatus(order.id,st)} style={{flex:1,padding:"9px 0",borderRadius:12,fontSize:12,fontWeight:600,cursor:"pointer",background:active?cols[st]:"rgba(0,0,0,0.03)",color:active?"#fff":"rgba(0,0,0,0.28)",border:`1px solid ${active?cols[st]:"rgba(0,0,0,0.05)"}`,boxShadow:active?`0 2px 10px ${cols[st]}40`:"none",transition:"all 0.2s"}}>{st}</button>
+              {["Pending","Preparing","Sent"].map(st=>{const active=order.status===st;const cols={Pending:{bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",sh:"rgba(255,69,58,0.3)"},Preparing:{bg:"linear-gradient(135deg,#FF9F0A,#FFB840)",sh:"rgba(255,159,10,0.3)"},Sent:{bg:"linear-gradient(135deg,#30D158,#5BE07A)",sh:"rgba(48,209,88,0.3)"}};const c=cols[st];return(
+                <button key={st} className="hover-lift" onClick={()=>updateStatus(order.id,st)} style={{flex:1,padding:"9px 0",borderRadius:14,fontSize:12,fontWeight:600,cursor:"pointer",background:active?c.bg:"rgba(255,255,255,0.45)",color:active?"#fff":"rgba(0,0,0,0.28)",border:`1px solid ${active?"transparent":"rgba(255,255,255,0.4)"}`,boxShadow:active?`0 4px 14px ${c.sh}`:"0 2px 8px rgba(0,0,0,0.03)",backdropFilter:active?"none":"blur(10px)",transition:"all 0.25s"}}>{st}</button>
               )})}
             </div>
           </div>
@@ -1177,8 +1192,8 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
 
         {/* Category filter pills */}
         <div style={{display:"flex",gap:6,padding:"4px 0 6px",overflowX:"auto"}}>
-          <CatPill active={itemCatFilter==="All"} onClick={()=>setItemCatFilter("All")}>All</CatPill>
-          {(categories||[]).map(c=><CatPill key={c.id} active={itemCatFilter===c.name} onClick={()=>setItemCatFilter(c.name)}>{c.name}</CatPill>)}
+          <CatPill active={itemCatFilter==="All"} colorIndex={0} onClick={()=>setItemCatFilter("All")}>All</CatPill>
+          {(categories||[]).map((c,ci)=><CatPill key={c.id} active={itemCatFilter===c.name} colorIndex={ci+1} onClick={()=>setItemCatFilter(c.name)}>{c.name}</CatPill>)}
         </div>
 
         {/* Manage Categories & Bulk Update buttons */}
@@ -1412,7 +1427,7 @@ export default function App() {
   };
 
   const handleDelivery = async(orderId, driverName) => {
-    await db.patch("orders","id=eq."+orderId,{status:"Delivered",delivered_by:driverName,delivered_at:new Date().toISOString()});
+    await db.patch("orders","id=eq."+orderId,{status:"Sent",delivered_by:driverName,delivered_at:new Date().toISOString()});
     await loadOrders();
   };
 
