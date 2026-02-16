@@ -140,14 +140,14 @@ const Stepper = ({qty,onMinus,onPlus}) => (
 );
 
 const CAT_COLORS = [
-  {bg:"linear-gradient(135deg,#007AFF,#5856D6)",shadow:"rgba(0,122,255,0.3)"},
-  {bg:"linear-gradient(135deg,#FF9F0A,#FF6B35)",shadow:"rgba(255,159,10,0.3)"},
-  {bg:"linear-gradient(135deg,#30D158,#00C853)",shadow:"rgba(48,209,88,0.3)"},
-  {bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",shadow:"rgba(255,69,58,0.3)"},
-  {bg:"linear-gradient(135deg,#BF5AF2,#9B59B6)",shadow:"rgba(191,90,242,0.3)"},
-  {bg:"linear-gradient(135deg,#FF375F,#FF6B81)",shadow:"rgba(255,55,95,0.3)"},
-  {bg:"linear-gradient(135deg,#64D2FF,#5AC8FA)",shadow:"rgba(100,210,255,0.3)"},
-  {bg:"linear-gradient(135deg,#FFD60A,#FFCC02)",shadow:"rgba(255,214,10,0.3)"},
+  {bg:"linear-gradient(135deg,#007AFF,#5856D6)",shadow:"rgba(0,122,255,0.3)"},       // 0: All
+  {bg:"linear-gradient(135deg,#30D158,#00C853)",shadow:"rgba(48,209,88,0.3)"},        // 1: Vegetables & Greens
+  {bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",shadow:"rgba(255,69,58,0.3)"},        // 2: Poultry, Meat & Seafood
+  {bg:"linear-gradient(135deg,#C7B299,#E8DDD0)",shadow:"rgba(199,178,153,0.3)"},      // 3: Eggs & Dairy (off-white/cream)
+  {bg:"linear-gradient(135deg,#FF9F0A,#FFB840)",shadow:"rgba(255,159,10,0.3)"},       // 4: Grains, Staples & Dry Goods
+  {bg:"linear-gradient(135deg,#BF5AF2,#9B59B6)",shadow:"rgba(191,90,242,0.3)"},       // 5: Bakery & Bread
+  {bg:"linear-gradient(135deg,#FF375F,#FF6B81)",shadow:"rgba(255,55,95,0.3)"},        // 6: Sauces, Condiments & Oils
+  {bg:"linear-gradient(135deg,#64D2FF,#5AC8FA)",shadow:"rgba(100,210,255,0.3)"},      // 7: Packaging & Misc
 ];
 
 const CatPill = ({active,children,colorIndex,...props}) => {
