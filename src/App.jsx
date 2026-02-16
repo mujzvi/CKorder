@@ -690,30 +690,16 @@ function KitchenOrderHistory({ orders }) {
               <div><div style={{fontSize:10,color:"rgba(0,0,0,0.3)",fontWeight:600}}>Note</div><div style={{fontSize:12,color:"rgba(0,0,0,0.55)",lineHeight:1.4}}>{order.note}</div></div>
             </div>}
             <div style={{display:"flex",justifyContent:"space-between",fontSize:15,fontWeight:700,paddingTop:10,borderTop:"1px solid rgba(0,0,0,0.06)",marginTop:8,color:"#1a1a1a"}}><span>Order Total</span><span style={{color:"#30A050"}}>₹{getActualTotal(order)}</span></div>
-            {/* Dispute */}
+            {/* Dispute info (view only for CK) */}
             {order.disputeStatus==="Disputed"&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(255,69,58,0.06)",border:"1px solid rgba(255,69,58,0.12)",display:"flex",alignItems:"center",gap:6}}>
               <I name="warning" size={16} color="#FF453A"/><span style={{fontSize:12,fontWeight:600,color:"#FF453A"}}>Disputed: {order.disputeReason}</span>
             </div>}
             {order.disputeStatus==="Resolved"&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"1px solid rgba(48,209,88,0.12)",display:"flex",alignItems:"center",gap:6}}>
               <I name="check_circle" size={16} color="#30D158"/><span style={{fontSize:12,fontWeight:600,color:"#30D158"}}>Dispute Resolved</span>
             </div>}
-            {order.status==="Sent"&&!order.disputeStatus&&<button className="hover-lift" onClick={()=>{setDisputeModal(order.id);setDisputeReason("")}} style={{marginTop:10,width:"100%",padding:"10px 0",borderRadius:12,border:"1px solid rgba(255,69,58,0.15)",background:"rgba(255,69,58,0.04)",color:"#FF453A",fontSize:13,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:5}}><I name="flag" size={16} color="#FF453A"/>Raise Dispute</button>}
           </div>}
         </div>
       )})}
-
-      {/* Dispute Modal */}
-      {disputeModal&&<GlassModal onClose={()=>setDisputeModal(null)}>
-        <div style={{fontSize:20,fontWeight:700,color:"#1a1a1a",marginBottom:4}}>Raise Dispute</div>
-        <div style={{fontSize:13,color:"rgba(0,0,0,0.35)",marginBottom:18}}>Select the reason for your dispute</div>
-        <label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Reason</label>
-        <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:16}}>
-          {["Less items sent","Wrong items sent","Spoilt items sent"].map(r=>(
-            <button key={r} className="hover-lift" onClick={()=>setDisputeReason(r)} style={{padding:"12px 16px",borderRadius:12,border:`1px solid ${disputeReason===r?"#FF453A":"rgba(0,0,0,0.06)"}`,background:disputeReason===r?"rgba(255,69,58,0.06)":"rgba(255,255,255,0.6)",color:disputeReason===r?"#FF453A":"rgba(0,0,0,0.5)",fontSize:14,fontWeight:disputeReason===r?600:500,cursor:"pointer",textAlign:"left",transition:"all 0.2s"}}>{r}</button>
-          ))}
-        </div>
-        <PrimaryBtn onClick={()=>{if(disputeReason&&onDispute){onDispute(disputeModal,disputeReason);setDisputeModal(null)}}} style={{opacity:disputeReason?1:0.5,background:disputeReason?"#FF453A":"rgba(0,0,0,0.1)"}}>Submit Dispute</PrimaryBtn>
-      </GlassModal>}
     </div>
   );
 }
@@ -947,16 +933,11 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
     setCatSaving(false);
   };
 
-  const filteredCatalog=items.filter(i=>{
-
   // --- Bulk Price Update ---
   const parseBulkText=(text)=>{
-    // Supports formats:
-    // "Item Name - 150" or "Item Name 150" or "Item Name, 150" or "Item Name : 150" or "Item Name	150" (tab)
     const lines=text.split("\n").filter(l=>l.trim());
     const parsed=[];
     for(const line of lines){
-      // Try various separators: tab, dash, comma, colon, last number
       let match = line.match(/^(.+?)[\t\-,:|]+\s*₹?\s*(\d+\.?\d*)\s*$/);
       if(!match) match = line.match(/^(.+?)\s+₹?\s*(\d+\.?\d*)\s*$/);
       if(match){
@@ -985,6 +966,8 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
     const msg=`Updated ${updated} item${updated!==1?"s":""}${notFound.length>0?" · Not found: "+notFound.join(", "):""}`;
     setBulkResult({type:notFound.length>0?"warning":"success",msg});
   };
+
+  const filteredCatalog=items.filter(i=>{
     const matchSearch=i.name.toLowerCase().includes(searchItems.toLowerCase());
     const matchCat=itemCatFilter==="All"||i.category===itemCatFilter;
     return matchSearch&&matchCat;
