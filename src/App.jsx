@@ -457,7 +457,7 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
           <div style={{fontSize:17,fontWeight:700,color:"#1a1a1a",letterSpacing:-0.3}}>{user.name}</div>
           <div style={{fontSize:12,color:"rgba(0,0,0,0.35)",fontWeight:400,marginTop:2}}>{new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short"})}</div>
         </div>
-        <button className="hover-lift" style={{background:"none",border:"none",color:"rgba(0,0,0,0.3)",fontSize:13,cursor:"pointer",fontWeight:500,padding:"8px 0"}} onClick={onLogout}>Sign Out</button>
+        <button className="hover-lift" style={{background:"linear-gradient(135deg,#FF453A,#FF6B6B)",border:"none",color:"#fff",fontSize:12,cursor:"pointer",fontWeight:600,padding:"7px 14px",borderRadius:12,boxShadow:"0 3px 12px rgba(255,69,58,0.3)",backdropFilter:"blur(10px)"}} onClick={onLogout}>Sign Out</button>
       </div>
 
       {tab==="order"&&<>
@@ -988,7 +988,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
           <div style={{fontSize:17,fontWeight:700,color:"#1a1a1a",letterSpacing:-0.3}}>Central Kitchen</div>
           <div style={{fontSize:12,color:"rgba(0,0,0,0.35)",fontWeight:400,marginTop:2}}>Admin · {new Date().toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"})}</div>
         </div>
-        <button className="hover-lift" style={{background:"none",border:"none",color:"rgba(0,0,0,0.3)",fontSize:13,cursor:"pointer",fontWeight:500,padding:"8px 0"}} onClick={onLogout}>Sign Out</button>
+        <button className="hover-lift" style={{background:"linear-gradient(135deg,#FF453A,#FF6B6B)",border:"none",color:"#fff",fontSize:12,cursor:"pointer",fontWeight:600,padding:"7px 14px",borderRadius:12,boxShadow:"0 3px 12px rgba(255,69,58,0.3)",backdropFilter:"blur(10px)"}} onClick={onLogout}>Sign Out</button>
       </div>
 
       {/* Stats - only on orders tab */}
