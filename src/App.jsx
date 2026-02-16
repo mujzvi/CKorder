@@ -139,20 +139,20 @@ const Stepper = ({qty,onMinus,onPlus}) => (
   </div>
 );
 
-const CAT_COLORS = [
-  {bg:"linear-gradient(135deg,#007AFF,#5856D6)",shadow:"rgba(0,122,255,0.3)"},       // 0: All
-  {bg:"linear-gradient(135deg,#30D158,#00C853)",shadow:"rgba(48,209,88,0.3)"},        // 1: Vegetables & Greens
-  {bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",shadow:"rgba(255,69,58,0.3)"},        // 2: Poultry, Meat & Seafood
-  {bg:"linear-gradient(135deg,#C7B299,#E8DDD0)",shadow:"rgba(199,178,153,0.3)"},      // 3: Eggs & Dairy (off-white/cream)
-  {bg:"linear-gradient(135deg,#FF9F0A,#FFB840)",shadow:"rgba(255,159,10,0.3)"},       // 4: Grains, Staples & Dry Goods
-  {bg:"linear-gradient(135deg,#BF5AF2,#9B59B6)",shadow:"rgba(191,90,242,0.3)"},       // 5: Bakery & Bread
-  {bg:"linear-gradient(135deg,#FF375F,#FF6B81)",shadow:"rgba(255,55,95,0.3)"},        // 6: Sauces, Condiments & Oils
-  {bg:"linear-gradient(135deg,#64D2FF,#5AC8FA)",shadow:"rgba(100,210,255,0.3)"},      // 7: Packaging & Misc
-];
+const CAT_COLOR_MAP = {
+  "All":{bg:"linear-gradient(135deg,#007AFF,#5856D6)",shadow:"rgba(0,122,255,0.3)"},
+  "Vegetables & Greens":{bg:"linear-gradient(135deg,#30D158,#00C853)",shadow:"rgba(48,209,88,0.3)"},
+  "Poultry, Meat & Seafood":{bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",shadow:"rgba(255,69,58,0.3)"},
+  "Eggs & Dairy":{bg:"linear-gradient(135deg,#C7B299,#E8DDD0)",shadow:"rgba(199,178,153,0.3)"},
+  "Grains, Staples & Dry Goods":{bg:"linear-gradient(135deg,#FF9F0A,#FFB840)",shadow:"rgba(255,159,10,0.3)"},
+  "Bakery & Bread":{bg:"linear-gradient(135deg,#BF5AF2,#9B59B6)",shadow:"rgba(191,90,242,0.3)"},
+  "Sauces, Condiments & Oils":{bg:"linear-gradient(135deg,#FF375F,#FF6B81)",shadow:"rgba(255,55,95,0.3)"},
+  "Packaging & Miscellaneous":{bg:"linear-gradient(135deg,#64D2FF,#5AC8FA)",shadow:"rgba(100,210,255,0.3)"},
+};
+const CAT_COLOR_DEFAULT = {bg:"linear-gradient(135deg,#007AFF,#5856D6)",shadow:"rgba(0,122,255,0.3)"};
 
-const CatPill = ({active,children,colorIndex,...props}) => {
-  const ci = (colorIndex||0)%CAT_COLORS.length;
-  const col = CAT_COLORS[ci];
+const CatPill = ({active,children,catName,...props}) => {
+  const col = CAT_COLOR_MAP[catName] || CAT_COLOR_DEFAULT;
   return <button className="hover-lift" {...props} style={{padding:"7px 18px",borderRadius:20,fontSize:12,fontWeight:600,whiteSpace:"nowrap",cursor:"pointer",border:active?"none":"1px solid rgba(255,255,255,0.4)",background:active?col.bg:"rgba(255,255,255,0.45)",color:active?"#fff":"rgba(0,0,0,0.4)",boxShadow:active?`0 4px 14px ${col.shadow}`:"0 2px 8px rgba(0,0,0,0.03)",backdropFilter:active?"none":"blur(10px)",transition:"all 0.25s"}}>{children}</button>;
 };
 
@@ -466,7 +466,7 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
           <GlassInput placeholder="Search items..." value={search} onChange={e=>setSearch(e.target.value)} style={{paddingLeft:40,marginBottom:0}}/>
         </div>
         <div style={{display:"flex",gap:8,padding:"12px 16px 6px",overflowX:"auto"}}>
-          {["All",...[...new Set(items.map(i=>i.category).filter(Boolean))]].map((c,ci)=><CatPill key={c} active={category===c} colorIndex={ci} onClick={()=>setCategory(c)}>{c}</CatPill>)}
+          {["All",...[...new Set(items.map(i=>i.category).filter(Boolean))]].map(c=><CatPill key={c} active={category===c} catName={c} onClick={()=>setCategory(c)}>{c}</CatPill>)}
         </div>
         <div style={{padding:"6px 16px 160px",minHeight:"50vh"}}>
           {filteredItems.length===0?<div style={{textAlign:"center",padding:"60px 20px",color:"rgba(0,0,0,0.2)"}}><I name="search_off" size={40} color="rgba(0,0,0,0.1)" style={{marginBottom:8}}/><div style={{fontSize:14,fontWeight:500}}>No items found</div></div>
@@ -1111,8 +1111,8 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
 
       {tab==="orders"&&<div style={{padding:"0 16px 90px",minHeight:"50vh"}}>
         <div style={{display:"flex",gap:8,padding:"12px 0 6px",overflowX:"auto"}}>
-          <CatPill active={filterHousehold==="All"} colorIndex={0} onClick={()=>setFilterHousehold("All")}>All</CatPill>
-          {HOUSEHOLDS.map((h,hi)=><CatPill key={h.id} active={filterHousehold===h.id} colorIndex={hi+1} onClick={()=>setFilterHousehold(h.id)}><I name={h.icon} size={14}/> {h.name.replace(" Floor","F")}</CatPill>)}
+          <CatPill active={filterHousehold==="All"} catName="All" onClick={()=>setFilterHousehold("All")}>All</CatPill>
+          {HOUSEHOLDS.map(h=><CatPill key={h.id} active={filterHousehold===h.id} catName={h.name} onClick={()=>setFilterHousehold(h.id)}><I name={h.icon} size={14}/> {h.name.replace(" Floor","F")}</CatPill>)}
         </div>
         {filtered.length===0?<div style={{textAlign:"center",padding:"60px 20px",color:"rgba(0,0,0,0.28)"}}><I name="inbox" size={52} color="rgba(0,0,0,0.18)" style={{marginBottom:12}}/><div style={{fontWeight:600,color:"rgba(0,0,0,0.45)"}}>No orders today</div></div>
         :filtered.sort((a,b)=>b.id-a.id).map(order=>{const hh=HOUSEHOLDS.find(h=>h.id===order.householdId);return(
@@ -1175,8 +1175,8 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
 
         {/* Category filter pills */}
         <div style={{display:"flex",gap:6,padding:"4px 0 6px",overflowX:"auto"}}>
-          <CatPill active={itemCatFilter==="All"} colorIndex={0} onClick={()=>setItemCatFilter("All")}>All</CatPill>
-          {(categories||[]).map((c,ci)=><CatPill key={c.id} active={itemCatFilter===c.name} colorIndex={ci+1} onClick={()=>setItemCatFilter(c.name)}>{c.name}</CatPill>)}
+          <CatPill active={itemCatFilter==="All"} catName="All" onClick={()=>setItemCatFilter("All")}>All</CatPill>
+          {(categories||[]).map(c=><CatPill key={c.id} active={itemCatFilter===c.name} catName={c.name} onClick={()=>setItemCatFilter(c.name)}>{c.name}</CatPill>)}
         </div>
 
         {/* Manage Categories & Bulk Update buttons */}
