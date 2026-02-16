@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 
 // ==================== SUPABASE ====================
-const SB="https://rrmscslchpjpatcdimtv.supabase.co/rest/v1";
-const SK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJybXNjc2xjaHBqcGF0Y2RpbXR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk5NzQxMzUsImV4cCI6MjA4NTU1MDEzNX0.tJAgiO6_yp2yTQbCEEYhaCbA0O6aG0cZsodbGBnGX5w";
+const SB="https://yuvhvafqbldybssowjlg.supabase.co/rest/v1";
+const SK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dmh2YWZxYmxkeWJzc293amxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNDgzOTIsImV4cCI6MjA4NjgyNDM5Mn0.3SigmIjBW0vTBm4mOX7aFufb_bw0MzvWV4G_Ld4RkLA";
 const SH={"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json","Prefer":"return=representation"};
 const db={
   get:async(t,q="")=>{try{const r=await fetch(SB+"/"+t+"?"+q,{headers:SH});return r.ok?r.json():[]}catch{return[]}},
@@ -702,7 +702,7 @@ function KitchenSettings({ drivers, setDrivers, onLogout, loadDrivers }) {
     const n = newDriver.trim();
     if (!n) return;
     setSaving(true);
-    const result = await db.post("kitchen_drivers", {name: n});
+    const result = await db.post("drivers", {name: n});
     if(result) { if(loadDrivers) await loadDrivers(); else setDrivers(p => [...p, result[0]||{id:Date.now(),name:n}]); }
     setNewDriver("");
     setSaving(false);
@@ -719,7 +719,7 @@ function KitchenSettings({ drivers, setDrivers, onLogout, loadDrivers }) {
     if (!n || editingIdx === null) return;
     setSaving(true);
     const id = driverId(drivers[editingIdx]);
-    if(id) { await db.patch("kitchen_drivers", "id=eq."+id, {name: n}); if(loadDrivers) await loadDrivers(); }
+    if(id) { await db.patch("drivers", "id=eq."+id, {name: n}); if(loadDrivers) await loadDrivers(); }
     else setDrivers(p => p.map((d, i) => i === editingIdx ? (typeof d==="string"?n:{...d,name:n}) : d));
     setEditingIdx(null); setEditName(""); setSaving(false);
   };
@@ -727,7 +727,7 @@ function KitchenSettings({ drivers, setDrivers, onLogout, loadDrivers }) {
   const removeDriver = async(idx) => {
     setSaving(true);
     const id = driverId(drivers[idx]);
-    if(id) { await db.del("kitchen_drivers", "id=eq."+id); if(loadDrivers) await loadDrivers(); }
+    if(id) { await db.del("drivers", "id=eq."+id); if(loadDrivers) await loadDrivers(); }
     else setDrivers(p => p.filter((_, i) => i !== idx));
     setConfirmDelete(null); setEditingIdx(null); setSaving(false);
   };
@@ -825,6 +825,11 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
   const [catSaving, setCatSaving] = useState(false);
   // Item filter by category
   const [itemCatFilter, setItemCatFilter] = useState("All");
+  // Bulk price update
+  const [showBulkUpdate, setShowBulkUpdate] = useState(false);
+  const [bulkText, setBulkText] = useState("");
+  const [bulkResult, setBulkResult] = useState(null);
+  const [bulkUpdating, setBulkUpdating] = useState(false);
 
   const todayOrders = orders.filter(o=>o.date===getToday());
   const filtered = filterHousehold==="All"?todayOrders:todayOrders.filter(o=>o.householdId===filterHousehold);
@@ -863,43 +868,30 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
     setModifying(null);setModQty("");setModReason("");
   };
 
-  // --- Item CRUD (prices in Yoko, categories in kitchen) ---
+  // --- Item CRUD ---
   const addItem=async()=>{
     if(!newItem.name||!newItem.price||!newItem.category_id)return;
-    // Add item to Yoko's items table (no category_id — Yoko manages its own)
-    const res = await db.post("items",{name:newItem.name,price:Number(newItem.price),unit:newItem.unit});
-    if(res&&res[0]){
-      // Map to kitchen category
-      await db.post("kitchen_item_categories",{item_id:res[0].id,kitchen_category_id:Number(newItem.category_id)});
-    }
+    await db.post("items",{name:newItem.name,price:Number(newItem.price),unit:newItem.unit,category_id:Number(newItem.category_id)});
     setNewItem({name:"",price:"",category_id:"",unit:"kg"});setShowAdd(false);
     if(loadItems) await loadItems();
   };
   const saveEdit=async()=>{
     if(!editItem)return;
-    // Update item in Yoko (name, price, unit only)
-    await db.patch("items","id=eq."+editItem.id,{name:editItem.name,price:Number(editItem.price),unit:editItem.unit});
-    // Update kitchen category mapping (upsert)
-    if(editItem.category_id){
-      await db.del("kitchen_item_categories","item_id=eq."+editItem.id);
-      await db.post("kitchen_item_categories",{item_id:editItem.id,kitchen_category_id:Number(editItem.category_id)});
-    }
+    await db.patch("items","id=eq."+editItem.id,{name:editItem.name,price:Number(editItem.price),unit:editItem.unit,category_id:Number(editItem.category_id)});
     setEditItem(null);
     if(loadItems) await loadItems();
   };
   const deleteItem=async(id)=>{
-    // Remove kitchen category mapping first, then the item
-    await db.del("kitchen_item_categories","item_id=eq."+id);
     await db.del("items","id=eq."+id);
     setEditItem(null);
     if(loadItems) await loadItems();
   };
 
-  // --- Kitchen Category CRUD (fully independent from Yoko) ---
+  // --- Category CRUD ---
   const addCategory=async()=>{
     const n=newCatName.trim();if(!n)return;
     setCatSaving(true);
-    await db.post("kitchen_categories",{name:n,description:newCatDesc.trim()||null});
+    await db.post("categories",{name:n,description:newCatDesc.trim()||null});
     setNewCatName("");setNewCatDesc("");
     if(loadCategories) await loadCategories();
     setCatSaving(false);
@@ -907,7 +899,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
   const saveCatEdit=async()=>{
     const n=editCatName.trim();if(!n||!editingCat)return;
     setCatSaving(true);
-    await db.patch("kitchen_categories","id=eq."+editingCat.id,{name:n});
+    await db.patch("categories","id=eq."+editingCat.id,{name:n});
     setEditingCat(null);setEditCatName("");
     if(loadCategories) await loadCategories();
     if(loadItems) await loadItems();
@@ -915,9 +907,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
   };
   const deleteCategory=async(catId)=>{
     setCatSaving(true);
-    // Remove mappings first, then category
-    await db.del("kitchen_item_categories","kitchen_category_id=eq."+catId);
-    await db.del("kitchen_categories","id=eq."+catId);
+    await db.del("categories","id=eq."+catId);
     setConfirmDeleteCat(null);
     if(loadCategories) await loadCategories();
     if(loadItems) await loadItems();
@@ -925,6 +915,43 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
   };
 
   const filteredCatalog=items.filter(i=>{
+
+  // --- Bulk Price Update ---
+  const parseBulkText=(text)=>{
+    // Supports formats:
+    // "Item Name - 150" or "Item Name 150" or "Item Name, 150" or "Item Name : 150" or "Item Name	150" (tab)
+    const lines=text.split("\n").filter(l=>l.trim());
+    const parsed=[];
+    for(const line of lines){
+      // Try various separators: tab, dash, comma, colon, last number
+      let match = line.match(/^(.+?)[\t\-,:|]+\s*₹?\s*(\d+\.?\d*)\s*$/);
+      if(!match) match = line.match(/^(.+?)\s+₹?\s*(\d+\.?\d*)\s*$/);
+      if(match){
+        const name=match[1].trim();
+        const price=parseFloat(match[2]);
+        if(name&&!isNaN(price)) parsed.push({name,price});
+      }
+    }
+    return parsed;
+  };
+
+  const executeBulkUpdate=async()=>{
+    const parsed=parseBulkText(bulkText);
+    if(parsed.length===0){setBulkResult({type:"error",msg:"No valid entries found. Use format: Item Name - Price"});return}
+    setBulkUpdating(true);
+    let updated=0,notFound=[];
+    for(const p of parsed){
+      const item=items.find(i=>i.name.toLowerCase()===p.name.toLowerCase());
+      if(item){
+        await db.patch("items","id=eq."+item.id,{price:p.price});
+        updated++;
+      } else notFound.push(p.name);
+    }
+    await loadItems();
+    setBulkUpdating(false);
+    const msg=`Updated ${updated} item${updated!==1?"s":""}${notFound.length>0?" · Not found: "+notFound.join(", "):""}`;
+    setBulkResult({type:notFound.length>0?"warning":"success",msg});
+  };
     const matchSearch=i.name.toLowerCase().includes(searchItems.toLowerCase());
     const matchCat=itemCatFilter==="All"||i.category===itemCatFilter;
     return matchSearch&&matchCat;
@@ -1096,10 +1123,13 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
           {(categories||[]).map(c=><CatPill key={c.id} active={itemCatFilter===c.name} onClick={()=>setItemCatFilter(c.name)}>{c.name}</CatPill>)}
         </div>
 
-        {/* Manage Categories button */}
+        {/* Manage Categories & Bulk Update buttons */}
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0 10px"}}>
           <div style={{fontSize:12,color:"rgba(0,0,0,0.28)"}}>{filteredCatalog.length} items</div>
-          <button className="hover-lift" onClick={()=>setShowCatMgmt(true)} style={{padding:"6px 14px",borderRadius:10,border:"1px solid rgba(88,86,214,0.2)",background:"rgba(88,86,214,0.06)",fontSize:12,fontWeight:600,color:"#5856D6",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}><I name="category" size={14} color="#5856D6"/>Categories</button>
+          <div style={{display:"flex",gap:6}}>
+            <button className="hover-lift" onClick={()=>{setShowBulkUpdate(true);setBulkText("");setBulkResult(null)}} style={{padding:"6px 14px",borderRadius:10,border:"1px solid rgba(48,209,88,0.2)",background:"rgba(48,209,88,0.06)",fontSize:12,fontWeight:600,color:"#30D158",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}><I name="upload" size={14} color="#30D158"/>Bulk Prices</button>
+            <button className="hover-lift" onClick={()=>setShowCatMgmt(true)} style={{padding:"6px 14px",borderRadius:10,border:"1px solid rgba(88,86,214,0.2)",background:"rgba(88,86,214,0.06)",fontSize:12,fontWeight:600,color:"#5856D6",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}><I name="category" size={14} color="#5856D6"/>Categories</button>
+          </div>
         </div>
 
         {/* Item list */}
@@ -1141,6 +1171,21 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
             <div><label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Unit</label><GlassSelect value={editItem.unit} onChange={e=>setEditItem({...editItem,unit:e.target.value})}>{["kg","g","L","ml","pcs","pkt","dozen","loaf","bunch","btl","jar","box","roll","unit"].map(u=><option key={u}>{u}</option>)}</GlassSelect></div>
           </div>
           <PrimaryBtn onClick={saveEdit}>Save Changes</PrimaryBtn>
+        </GlassModal>}
+
+        {/* Bulk Price Update Modal */}
+        {showBulkUpdate&&<GlassModal onClose={()=>setShowBulkUpdate(false)}>
+          <div style={{fontSize:20,fontWeight:700,color:"#1a1a1a",marginBottom:4}}>Bulk Price Update</div>
+          <div style={{fontSize:13,color:"rgba(0,0,0,0.3)",marginBottom:12}}>Paste item names with prices, one per line</div>
+          <div style={{fontSize:11,color:"rgba(0,0,0,0.25)",marginBottom:12,padding:"10px 12px",borderRadius:10,background:"rgba(0,0,0,0.03)",fontFamily:"monospace",lineHeight:1.6}}>
+            Onion - 45<br/>Potato - 30<br/>Tomato, 50<br/>Rice : 80<br/>Chicken	250
+          </div>
+          <textarea value={bulkText} onChange={e=>setBulkText(e.target.value)} placeholder={"Paste your price list here...\nItem Name - Price\nItem Name - Price"} style={{width:"100%",minHeight:180,padding:14,borderRadius:14,border:"1px solid rgba(255,255,255,0.5)",fontSize:14,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.45)",backdropFilter:"blur(20px)",resize:"vertical",lineHeight:1.6}}/>
+          {bulkText.trim()&&<div style={{fontSize:12,color:"rgba(0,0,0,0.3)",marginBottom:8}}>{parseBulkText(bulkText).length} items detected</div>}
+          {bulkResult&&<div style={{padding:"10px 14px",borderRadius:12,marginBottom:10,fontSize:13,fontWeight:500,background:bulkResult.type==="success"?"rgba(48,209,88,0.1)":bulkResult.type==="warning"?"rgba(255,159,10,0.1)":"rgba(255,69,58,0.1)",color:bulkResult.type==="success"?"#30D158":bulkResult.type==="warning"?"#FF9F0A":"#FF453A",border:`1px solid ${bulkResult.type==="success"?"rgba(48,209,88,0.2)":bulkResult.type==="warning"?"rgba(255,159,10,0.2)":"rgba(255,69,58,0.2)"}`}}>{bulkResult.msg}</div>}
+          <PrimaryBtn onClick={executeBulkUpdate} style={{opacity:bulkText.trim()&&!bulkUpdating?1:0.5,background:bulkUpdating?"rgba(0,0,0,0.1)":"linear-gradient(135deg,#30D158,#28A745)",boxShadow:"0 6px 20px rgba(48,209,88,0.3)"}}>
+            {bulkUpdating?"Updating...":"Update Prices"}
+          </PrimaryBtn>
         </GlassModal>}
 
         {/* Category Management Modal */}
@@ -1230,45 +1275,30 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   const loadHouseholds = useCallback(async()=>{
-    const hh = await db.get("kitchen_households","select=*&order=id.asc");
+    const hh = await db.get("households","select=*&order=id.asc");
     if(hh.length>0) setHouseholds(hh);
     else setHouseholds([...HOUSEHOLDS.map(h=>({...h,order_counter:0})),{...KITCHEN,order_counter:0}]);
   },[]);
 
   // READ items from Yoko's existing items table (joined with categories)
   const loadItems = useCallback(async()=>{
-    // Fetch items from Yoko (prices)
-    const raw = await db.get("items","select=id,name,unit,price&order=name.asc&limit=1000");
-    // Fetch kitchen category mappings
-    const mappings = await db.get("kitchen_item_categories","select=item_id,kitchen_category_id&limit=1000");
-    // Fetch kitchen categories
-    const cats = await db.get("kitchen_categories","select=id,name&order=name.asc");
+    const raw = await db.get("items","select=id,name,unit,price,category_id&order=name.asc&limit=1000");
+    const cats = await db.get("categories","select=id,name&order=name.asc");
     const catMap = {};
     cats.forEach(c=>catMap[c.id]=c.name);
-    const itemCatMap = {};
-    mappings.forEach(m=>itemCatMap[m.item_id]=m.kitchen_category_id);
-
     if(raw.length>0){
-      const seen=new Map();
-      raw.forEach(it=>{
-        if(!seen.has(it.name)){
-          const catId = itemCatMap[it.id]||null;
-          const catName = catId?catMap[catId]:"Uncategorized";
-          seen.set(it.name,{id:it.id, name:it.name, unit:it.unit, price:Number(it.price)||0, category:catName, category_id:catId});
-        }
-      });
-      setItems([...seen.values()]);
+      setItems(raw.map(it=>({...it, price:Number(it.price)||0, category:catMap[it.category_id]||"Uncategorized"})));
     } else setItems(DEFAULT_ITEMS);
   },[]);
 
   const loadCategories = useCallback(async()=>{
-    const cats = await db.get("kitchen_categories","select=*&order=name.asc");
+    const cats = await db.get("categories","select=*&order=name.asc");
     setCategories(cats||[]);
   },[]);
 
   const loadOrders = useCallback(async()=>{
-    const ords = await db.get("kitchen_orders","select=*&order=id.desc");
-    const ois = await db.get("kitchen_order_items","select=*&order=id.asc");
+    const ords = await db.get("orders","select=*&order=id.desc");
+    const ois = await db.get("order_items","select=*&order=id.asc");
     if(ords.length>0||ois.length>0){
       const grouped={};ois.forEach(oi=>{if(!grouped[oi.order_id])grouped[oi.order_id]=[];grouped[oi.order_id].push(oi)});
       setOrders(ords.map(o=>normalizeOrder(o,grouped[o.id]||[])));
@@ -1276,7 +1306,7 @@ export default function App() {
   },[]);
 
   const loadDrivers = useCallback(async()=>{
-    const d = await db.get("kitchen_drivers","select=*&order=name.asc");
+    const d = await db.get("drivers","select=*&order=name.asc");
     if(d.length>0) setDrivers(d);
     else setDrivers([{id:1,name:"Ramesh"},{id:2,name:"Sunil"},{id:3,name:"Arjun"}]);
   },[]);
@@ -1296,12 +1326,12 @@ export default function App() {
     const prefix = ORDER_PREFIX[hid]||"Y00";
     const orderNumber = prefix + String(nextNum).padStart(3,"0");
 
-    const result = await db.post("kitchen_orders",{order_number:orderNumber,household_id:hid,household_name:order.householdName,status:"Pending",total:order.total,date:getToday(),placed_at:new Date().toISOString()});
+    const result = await db.post("orders",{order_number:orderNumber,household_id:hid,household_name:order.householdName,status:"Pending",total:order.total,date:getToday(),placed_at:new Date().toISOString()});
     if(result&&result[0]){
       const orderId=result[0].id;
       const ois=order.items.map(it=>({order_id:orderId,item_id:it.id,name:it.name,price:it.price,category:it.category,unit:it.unit,qty:it.qty,sent_qty:it.qty}));
-      await db.post("kitchen_order_items",ois);
-      await db.patch("kitchen_households","id=eq."+hid,{order_counter:nextNum});
+      await db.post("order_items",ois);
+      await db.patch("households","id=eq."+hid,{order_counter:nextNum});
       await loadHouseholds();
     }
     // Also update local state immediately for responsiveness
@@ -1312,27 +1342,27 @@ export default function App() {
   const handleLogout = () => setUser(null);
 
   const handlePinChange = async(userId, newPin) => {
-    await db.patch("kitchen_households","id=eq."+userId,{pin:newPin});
+    await db.patch("households","id=eq."+userId,{pin:newPin});
     await loadHouseholds();
   };
 
   const handleStatusUpdate = async(orderId, status) => {
-    await db.patch("kitchen_orders","id=eq."+orderId,{status});
+    await db.patch("orders","id=eq."+orderId,{status});
     await loadOrders();
   };
 
   const handleDelivery = async(orderId, driverName) => {
-    await db.patch("kitchen_orders","id=eq."+orderId,{status:"Delivered",delivered_by:driverName,delivered_at:new Date().toISOString()});
+    await db.patch("orders","id=eq."+orderId,{status:"Delivered",delivered_by:driverName,delivered_at:new Date().toISOString()});
     await loadOrders();
   };
 
   const handleModifyQty = async(orderId, item, newQty, reason) => {
-    if(item.dbId) await db.patch("kitchen_order_items","id=eq."+item.dbId,{sent_qty:newQty,modify_reason:reason});
+    if(item.dbId) await db.patch("order_items","id=eq."+item.dbId,{sent_qty:newQty,modify_reason:reason});
     const order=orders.find(o=>o.id===orderId);
     if(order){
       const updItems=(order.items||[]).map(it=>it===item?{...it,sentQty:newQty,modifyReason:reason}:it);
       const newTotal=updItems.reduce((s,it)=>s+(Number(it.price)||0)*(it.sentQty!=null?it.sentQty:it.qty),0);
-      await db.patch("kitchen_orders","id=eq."+orderId,{total:newTotal});
+      await db.patch("orders","id=eq."+orderId,{total:newTotal});
     }
     await loadOrders();
   };
@@ -1343,6 +1373,6 @@ export default function App() {
 
   if(loading) return <LoadingScreen/>;
   if(!user) return <LoginScreen onLogin={setUser} pins={pins}/>;
-  if(user.id==="CK") return <KitchenDashboard items={items} setItems={setItems} orders={orders} setOrders={setOrders} onLogout={handleLogout} drivers={drivers} setDrivers={setDrivers} addDriver={async(n)=>{await db.post("kitchen_drivers",{name:n});await loadDrivers()}} onStatusUpdate={handleStatusUpdate} onDelivery={handleDelivery} onModifyQty={handleModifyQty} loadDrivers={loadDrivers} loadOrders={loadOrders} categories={categories} loadCategories={loadCategories} loadItems={loadItems}/>;
+  if(user.id==="CK") return <KitchenDashboard items={items} setItems={setItems} orders={orders} setOrders={setOrders} onLogout={handleLogout} drivers={drivers} setDrivers={setDrivers} addDriver={async(n)=>{await db.post("drivers",{name:n});await loadDrivers()}} onStatusUpdate={handleStatusUpdate} onDelivery={handleDelivery} onModifyQty={handleModifyQty} loadDrivers={loadDrivers} loadOrders={loadOrders} categories={categories} loadCategories={loadCategories} loadItems={loadItems}/>;
   return <HouseholdDashboard user={user} items={items} orders={orders} onOrder={handleOrder} onLogout={handleLogout} pins={pins} onPinChange={handlePinChange}/>;
 }
