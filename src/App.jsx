@@ -43,36 +43,42 @@ body{margin:0;font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antiali
 input,select,button,textarea{font-family:inherit}
 .micon{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:20px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24}
 
-/* Liquid Glass */
-.glass{background:rgba(255,255,255,0.38);backdrop-filter:blur(40px) saturate(200%);-webkit-backdrop-filter:blur(40px) saturate(200%);border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,0.7),inset 0 -1px 0 rgba(255,255,255,0.15)}
-.glass-strong{background:rgba(255,255,255,0.55);backdrop-filter:blur(50px) saturate(200%);-webkit-backdrop-filter:blur(50px) saturate(200%);border:1px solid rgba(255,255,255,0.65);box-shadow:0 8px 32px rgba(0,0,0,0.06),inset 0 1px 0 rgba(255,255,255,0.8)}
-.glass-vibrant{background:linear-gradient(135deg,rgba(255,255,255,0.5),rgba(255,255,255,0.25));backdrop-filter:blur(40px) saturate(200%);-webkit-backdrop-filter:blur(40px) saturate(200%);border:1px solid rgba(255,255,255,0.5);box-shadow:0 12px 40px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.8)}
+/* Neumorphic surfaces */
+.glass{background:#e8edf2;border:none;border-radius:18px;box-shadow:6px 6px 14px rgba(163,177,198,0.35),-6px -6px 14px rgba(255,255,255,0.8)}
+.glass-strong{background:#e8edf2;border:none;border-radius:18px;box-shadow:8px 8px 16px rgba(163,177,198,0.4),-8px -8px 16px rgba(255,255,255,0.85)}
+.glass-vibrant{background:#e8edf2;border:none;border-radius:18px;box-shadow:6px 6px 14px rgba(163,177,198,0.35),-6px -6px 14px rgba(255,255,255,0.8)}
 
-/* Vibrant background orbs */
-.bg-orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.55;pointer-events:none;z-index:0}
-.bg-orb-1{width:320px;height:320px;background:radial-gradient(circle,rgba(0,122,255,0.35),transparent 70%);top:-60px;right:-80px}
-.bg-orb-2{width:280px;height:280px;background:radial-gradient(circle,rgba(255,100,130,0.3),transparent 70%);bottom:100px;left:-70px}
-.bg-orb-3{width:220px;height:220px;background:radial-gradient(circle,rgba(100,220,150,0.28),transparent 70%);top:45%;right:-50px}
-.bg-orb-4{width:300px;height:300px;background:radial-gradient(circle,rgba(180,130,255,0.25),transparent 70%);bottom:-40px;left:25%}
+/* Inset / pressed surface */
+.neu-inset{background:#e8edf2;border:none;border-radius:14px;box-shadow:inset 3px 3px 8px rgba(163,177,198,0.35),inset -3px -3px 8px rgba(255,255,255,0.7)}
 
-/* Kitchen Orbs - warm vibrant */
-.bg-orb-k1{width:320px;height:320px;background:radial-gradient(circle,rgba(255,159,10,0.35),transparent 70%);top:-60px;left:-80px}
-.bg-orb-k2{width:280px;height:280px;background:radial-gradient(circle,rgba(255,69,58,0.22),transparent 70%);bottom:150px;right:-70px}
-.bg-orb-k3{width:220px;height:220px;background:radial-gradient(circle,rgba(48,209,88,0.25),transparent 70%);top:40%;left:-50px}
+/* Soft aurora orbs — very subtle on light bg */
+.bg-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+.bg-orb-1{width:280px;height:280px;background:radial-gradient(circle,rgba(180,220,255,0.25),transparent 70%);filter:blur(70px);top:-30px;right:-50px}
+.bg-orb-2{width:240px;height:240px;background:radial-gradient(circle,rgba(210,180,255,0.2),transparent 70%);filter:blur(70px);bottom:120px;left:-40px}
+.bg-orb-3{width:180px;height:180px;background:radial-gradient(circle,rgba(180,255,210,0.2),transparent 70%);filter:blur(60px);top:40%;right:-20px}
+.bg-orb-4{width:220px;height:220px;background:radial-gradient(circle,rgba(255,200,220,0.18),transparent 70%);filter:blur(60px);bottom:-10px;left:30%}
+
+/* Kitchen Orbs */
+.bg-orb-k1{width:260px;height:260px;background:radial-gradient(circle,rgba(255,220,180,0.25),transparent 70%);filter:blur(70px);top:-30px;left:-50px}
+.bg-orb-k2{width:220px;height:220px;background:radial-gradient(circle,rgba(255,190,190,0.2),transparent 70%);filter:blur(60px);bottom:150px;right:-40px}
+.bg-orb-k3{width:180px;height:180px;background:radial-gradient(circle,rgba(180,230,210,0.22),transparent 70%);filter:blur(60px);top:35%;left:-30px}
 
 /* Animations */
 @keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
-@keyframes fadeIn{from{opacity:0;transform:scale(0.97) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-16px) scale(0.95)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-20px) scale(0.9)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(12px,-8px) scale(1.03)}66%{transform:translate(-8px,6px) scale(0.97)}}
-.modal-enter{animation:slideUp 0.38s cubic-bezier(0.32,0.72,0,1) forwards}
-.card-enter{animation:fadeIn 0.3s cubic-bezier(0.32,0.72,0,1) forwards}
-.toast-enter{animation:toastIn 0.35s cubic-bezier(0.32,0.72,0,1) forwards}
-.hover-lift{transition:transform 0.18s cubic-bezier(0.32,0.72,0,1),box-shadow 0.18s ease}
-.hover-lift:active{transform:scale(0.97)}
-.orb-float{animation:orbFloat 12s ease-in-out infinite}
-input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(0,122,255,0.5)!important;box-shadow:0 0 0 4px rgba(0,122,255,0.1),0 0 20px rgba(0,122,255,0.06)!important}
+@keyframes orbDrift{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(8px,-10px) scale(1.03)}50%{transform:translate(-6px,6px) scale(0.97)}75%{transform:translate(5px,3px) scale(1.01)}}
+@keyframes staggerIn{from{opacity:0;transform:translateY(12px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes orderPlacedPulse{0%{transform:translateX(-50%) scale(1)}15%{transform:translateX(-50%) scale(1.06)}30%{transform:translateX(-50%) scale(1)}100%{transform:translateX(-50%) scale(1)}}
+.modal-enter{animation:slideUp 0.4s cubic-bezier(0.32,0.72,0,1) forwards}
+.card-enter{animation:staggerIn 0.35s cubic-bezier(0.32,0.72,0,1) both}
+.toast-enter{animation:toastIn 0.4s cubic-bezier(0.32,0.72,0,1) forwards}
+.hover-lift{transition:transform 0.2s cubic-bezier(0.32,0.72,0,1),box-shadow 0.2s ease}
+.hover-lift:active{transform:scale(0.96);box-shadow:inset 2px 2px 6px rgba(163,177,198,0.3),inset -2px -2px 6px rgba(255,255,255,0.6)!important}
+.orb-float{animation:orbDrift 18s ease-in-out infinite}
+input:focus,select:focus,textarea:focus{outline:none;box-shadow:inset 3px 3px 8px rgba(163,177,198,0.4),inset -3px -3px 8px rgba(255,255,255,0.7),0 0 0 2px rgba(0,122,255,0.15)!important}
 ::-webkit-scrollbar{display:none}
 `;
 
@@ -89,53 +95,51 @@ const I = ({name, size, color, style}) => (
   <span className="micon" style={{fontSize:size||20,color:color||"inherit",...(style||{})}}>{name}</span>
 );
 
-// Bottom Tab Bar component
+// Bottom Tab Bar — neumorphic
 const BottomTabBar = ({tabs, active, onChange}) => (
-  <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:430,display:"flex",alignItems:"stretch",justifyContent:"space-around",zIndex:150,padding:"6px 0 env(safe-area-inset-bottom, 8px)",background:"rgba(255,255,255,0.55)",backdropFilter:"blur(50px) saturate(200%)",WebkitBackdropFilter:"blur(50px) saturate(200%)",borderTop:"1px solid rgba(255,255,255,0.5)",boxShadow:"0 -4px 20px rgba(0,0,0,0.04),inset 0 1px 0 rgba(255,255,255,0.7)"}}>
+  <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:430,display:"flex",alignItems:"stretch",justifyContent:"space-around",zIndex:150,padding:"10px 12px env(safe-area-inset-bottom, 12px)",background:"#e8edf2"}}>
     {tabs.map(t=>(
-      <div key={t.key} onClick={()=>onChange(t.key)} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"6px 0",cursor:"pointer",position:"relative"}}>
-        <div style={{padding:"4px 14px",borderRadius:14,background:active===t.key?"linear-gradient(135deg,rgba(0,122,255,0.12),rgba(88,86,214,0.08))":"transparent",transition:"all 0.25s"}}>
-          <I name={t.icon} size={22} color={active===t.key?"#007AFF":"rgba(0,0,0,0.25)"}/>
-        </div>
-        <span style={{fontSize:10,fontWeight:active===t.key?700:500,color:active===t.key?"#007AFF":"rgba(0,0,0,0.25)"}}>{t.label}</span>
-        {t.badge>0&&<span style={{position:"absolute",top:0,marginLeft:22,minWidth:17,height:17,borderRadius:9,background:"linear-gradient(135deg,#FF453A,#FF6B6B)",color:"#fff",fontSize:9,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",padding:"0 5px",boxShadow:"0 2px 8px rgba(255,69,58,0.35)"}}>{t.badge}</span>}
+      <div key={t.key} onClick={()=>onChange(t.key)} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"8px 0",cursor:"pointer",position:"relative",borderRadius:16,background:active===t.key?"#e8edf2":"transparent",boxShadow:active===t.key?"inset 3px 3px 6px rgba(163,177,198,0.35),inset -3px -3px 6px rgba(255,255,255,0.7)":"none",transition:"all 0.25s",margin:"0 3px"}}>
+        <I name={t.icon} size={22} color={active===t.key?"#4a6fa5":"rgba(0,0,0,0.2)"}/>
+        <span style={{fontSize:9,fontWeight:active===t.key?600:400,color:active===t.key?"#4a6fa5":"rgba(0,0,0,0.2)",letterSpacing:1.2,textTransform:"uppercase"}}>{t.label}</span>
+        {t.badge>0&&<span style={{position:"absolute",top:2,marginLeft:22,minWidth:17,height:17,borderRadius:9,background:"linear-gradient(135deg,#FF6B81,#FF9F0A)",color:"#fff",fontSize:9,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center",padding:"0 5px",boxShadow:"2px 2px 6px rgba(255,100,130,0.3)"}}>{t.badge}</span>}
       </div>
     ))}
   </div>
 );
 
-// Shared components
+// Shared components — neumorphic
 const GlassModal = ({ children, onClose }) => (
-  <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.2)",backdropFilter:"blur(12px) saturate(150%)",WebkitBackdropFilter:"blur(12px) saturate(150%)",zIndex:200,display:"flex",alignItems:"flex-end",justifyContent:"center"}} onClick={(e)=>e.target===e.currentTarget&&onClose()}>
-    <div className="modal-enter" style={{borderRadius:"24px 24px 0 0",padding:"6px 20px 32px",width:"100%",maxWidth:430,maxHeight:"88vh",overflowY:"auto",background:"linear-gradient(180deg,rgba(255,255,255,0.88),rgba(255,255,255,0.78))",backdropFilter:"blur(50px) saturate(200%)",WebkitBackdropFilter:"blur(50px) saturate(200%)",border:"1px solid rgba(255,255,255,0.7)",borderBottom:"none",boxShadow:"0 -8px 40px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.9)"}}>
-      <div style={{width:36,height:5,borderRadius:3,background:"rgba(0,0,0,0.1)",margin:"8px auto 18px"}}/>
+  <div style={{position:"fixed",inset:0,background:"rgba(200,210,220,0.6)",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",zIndex:200,display:"flex",alignItems:"flex-end",justifyContent:"center"}} onClick={(e)=>e.target===e.currentTarget&&onClose()}>
+    <div className="modal-enter" style={{borderRadius:"28px 28px 0 0",padding:"6px 22px 36px",width:"100%",maxWidth:430,maxHeight:"88vh",overflowY:"auto",background:"#e8edf2",boxShadow:"0 -10px 40px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.6)"}}>
+      <div style={{width:36,height:4,borderRadius:2,background:"rgba(0,0,0,0.08)",margin:"10px auto 20px"}}/>
       {children}
     </div>
   </div>
 );
 
 const GlassInput = (props) => (
-  <input {...props} style={{width:"100%",padding:"13px 16px",borderRadius:14,border:"1px solid rgba(255,255,255,0.5)",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.45)",backdropFilter:"blur(20px)",WebkitBackdropFilter:"blur(20px)",boxShadow:"inset 0 1px 2px rgba(0,0,0,0.04),0 1px 0 rgba(255,255,255,0.5)",transition:"all 0.25s",...(props.style||{})}}/>
+  <input {...props} style={{width:"100%",padding:"14px 16px",borderRadius:14,border:"none",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"#e8edf2",color:"#2d3748",boxShadow:"inset 3px 3px 8px rgba(163,177,198,0.35),inset -3px -3px 8px rgba(255,255,255,0.7)",transition:"all 0.25s",...(props.style||{})}}/>
 );
 
 const GlassSelect = (props) => (
-  <select {...props} style={{width:"100%",padding:"13px 16px",borderRadius:14,border:"1px solid rgba(0,0,0,0.08)",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.6)",backdropFilter:"blur(10px)",appearance:"auto",...(props.style||{})}}/>
+  <select {...props} style={{width:"100%",padding:"14px 16px",borderRadius:14,border:"none",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"#e8edf2",color:"#2d3748",boxShadow:"inset 3px 3px 8px rgba(163,177,198,0.35),inset -3px -3px 8px rgba(255,255,255,0.7)",appearance:"auto",...(props.style||{})}}/>
 );
 
 const PrimaryBtn = ({children,...props}) => (
-  <button className="hover-lift" {...props} style={{width:"100%",padding:15,borderRadius:16,border:"none",background:"linear-gradient(135deg,#007AFF 0%,#5856D6 100%)",color:"#fff",fontSize:16,fontWeight:600,cursor:"pointer",marginTop:8,boxShadow:"0 6px 20px rgba(0,122,255,0.3),inset 0 1px 0 rgba(255,255,255,0.2)",letterSpacing:0.3,...(props.style||{})}}>{children}</button>
+  <button className="hover-lift" {...props} style={{width:"100%",padding:15,borderRadius:16,border:"none",background:"linear-gradient(135deg,#667eea,#764ba2)",color:"#fff",fontSize:15,fontWeight:600,cursor:"pointer",marginTop:8,boxShadow:"4px 4px 12px rgba(163,177,198,0.4),-4px -4px 12px rgba(255,255,255,0.7),0 4px 16px rgba(102,126,234,0.25)",letterSpacing:0.3,...(props.style||{})}}>{children}</button>
 );
 
 const Badge = ({status}) => {
-  const c = {Pending:{bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",fg:"#fff"},Preparing:{bg:"linear-gradient(135deg,#FF9F0A,#FFB840)",fg:"#fff"},Sent:{bg:"linear-gradient(135deg,#30D158,#5BE07A)",fg:"#fff"},Modified:{bg:"linear-gradient(135deg,#5856D6,#7B79E8)",fg:"#fff"},Delivered:{bg:"linear-gradient(135deg,#30D158,#5BE07A)",fg:"#fff"}}[status]||{bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",fg:"#fff"};
-  return <span style={{display:"inline-block",padding:"4px 12px",borderRadius:20,fontSize:10,fontWeight:700,background:c.bg,color:c.fg,boxShadow:`0 2px 8px ${status==="Pending"?"rgba(255,69,58,0.3)":status==="Preparing"?"rgba(255,159,10,0.3)":"rgba(48,209,88,0.3)"}`,letterSpacing:0.3,textTransform:"uppercase"}}>{status}</span>;
+  const c = {Pending:{bg:"linear-gradient(135deg,#FF6B81,#FF453A)",fg:"#fff"},Preparing:{bg:"linear-gradient(135deg,#FFB840,#FF9F0A)",fg:"#fff"},Sent:{bg:"linear-gradient(135deg,#5BE07A,#28A745)",fg:"#fff"},Modified:{bg:"linear-gradient(135deg,#7B79E8,#5856D6)",fg:"#fff"},Delivered:{bg:"linear-gradient(135deg,#5BE07A,#28A745)",fg:"#fff"}}[status]||{bg:"linear-gradient(135deg,#FF6B81,#FF453A)",fg:"#fff"};
+  return <span style={{display:"inline-block",padding:"4px 10px",borderRadius:10,fontSize:10,fontWeight:600,background:c.bg,color:c.fg,letterSpacing:0.8,textTransform:"uppercase",boxShadow:"2px 2px 6px rgba(163,177,198,0.3)"}}>{status==="Delivered"?"Sent":status}</span>;
 };
 
 const Stepper = ({qty,onMinus,onPlus}) => (
-  <div style={{display:"flex",alignItems:"center",background:"linear-gradient(135deg,rgba(0,122,255,0.08),rgba(88,86,214,0.06))",borderRadius:12,border:"1px solid rgba(0,122,255,0.15)",overflow:"hidden"}}>
-    <button style={{width:34,height:34,border:"none",background:"transparent",fontSize:20,fontWeight:500,color:"#007AFF",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}} onClick={onMinus}>−</button>
-    <div style={{width:26,textAlign:"center",fontSize:15,fontWeight:700,color:"#1a1a1a"}}>{qty}</div>
-    <button style={{width:34,height:34,border:"none",background:"transparent",fontSize:20,fontWeight:500,color:"#007AFF",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}} onClick={onPlus}>+</button>
+  <div style={{display:"flex",alignItems:"center",background:"#e8edf2",borderRadius:14,boxShadow:"inset 2px 2px 5px rgba(163,177,198,0.3),inset -2px -2px 5px rgba(255,255,255,0.6)",overflow:"hidden"}}>
+    <button style={{width:34,height:34,border:"none",background:"transparent",fontSize:18,fontWeight:500,color:"#4a6fa5",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}} onClick={onMinus}>−</button>
+    <div style={{width:26,textAlign:"center",fontSize:15,fontWeight:700,color:"#2d3748"}}>{qty}</div>
+    <button style={{width:34,height:34,border:"none",background:"transparent",fontSize:18,fontWeight:500,color:"#4a6fa5",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}} onClick={onPlus}>+</button>
   </div>
 );
 
@@ -153,80 +157,235 @@ const CAT_COLOR_DEFAULT = {bg:"linear-gradient(135deg,#007AFF,#5856D6)",shadow:"
 
 const CatPill = ({active,children,catName,...props}) => {
   const col = CAT_COLOR_MAP[catName] || CAT_COLOR_DEFAULT;
-  return <button className="hover-lift" {...props} style={{padding:"7px 18px",borderRadius:20,fontSize:12,fontWeight:600,whiteSpace:"nowrap",cursor:"pointer",border:active?"none":"1px solid rgba(255,255,255,0.4)",background:active?col.bg:"rgba(255,255,255,0.45)",color:active?"#fff":"rgba(0,0,0,0.4)",boxShadow:active?`0 4px 14px ${col.shadow}`:"0 2px 8px rgba(0,0,0,0.03)",backdropFilter:active?"none":"blur(10px)",transition:"all 0.25s"}}>{children}</button>;
+  return <button className="hover-lift" {...props} style={{padding:"8px 18px",borderRadius:22,fontSize:12,fontWeight:active?600:500,whiteSpace:"nowrap",cursor:"pointer",border:"none",background:active?col.bg:"#e8edf2",color:active?"#fff":"rgba(45,55,72,0.5)",boxShadow:active?`3px 3px 10px ${col.shadow},-2px -2px 8px rgba(255,255,255,0.5),0 0 20px ${col.shadow}`:"4px 4px 10px rgba(163,177,198,0.3),-4px -4px 10px rgba(255,255,255,0.7)",transition:"all 0.3s cubic-bezier(0.32,0.72,0,1)",letterSpacing:0.3}}>{children}</button>;
 };
 
-// Login Screen
+
+// Login Screen — Deep liquid glass
 function LoginScreen({ onLogin, pins }) {
-  const [selected, setSelected] = useState(null);
+  const [step, setStep] = useState("username");
+  const [username, setUsername] = useState("");
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
+  const [shaking, setShaking] = useState(false);
+  const [successUser, setSuccessUser] = useState(null);
+  const [cardAnim, setCardAnim] = useState("cardAppear");
   const allUsers = [...HOUSEHOLDS, KITCHEN];
+  const USERNAMES = {"3rd":"3F","4th":"4F","5th":"5F","6th":"6F","office":"OF","ck":"CK"};
+
+  const resolvedUser = ()=>{
+    const uid = USERNAMES[username.toLowerCase().trim()];
+    return uid ? allUsers.find(u=>u.id===uid) : null;
+  };
+
+  const handleUsernameSubmit = () => {
+    const user = resolvedUser();
+    if(!user){setError("User not found");triggerShake();return}
+    setError("");
+    setCardAnim("cardSlideOut");
+    setTimeout(()=>{setStep("pin");setCardAnim("cardSlideIn")},400);
+  };
 
   const handleNum = (n) => {
-    if (pin.length < 4) {
-      const next = pin + n; setPin(next); setError("");
-      if (next.length === 4) {
-        const user = allUsers.find((u) => u.id === selected);
-        if (user && pins[user.id] === next) setTimeout(() => onLogin(user), 200);
-        else setTimeout(() => { setError("Incorrect PIN"); setPin(""); }, 300);
+    if(pin.length>=4) return;
+    const next = pin + n;
+    setPin(next);
+    setError("");
+    if(next.length===4){
+      const uid = USERNAMES[username.toLowerCase().trim()];
+      if(pins[uid]===next){
+        const user = allUsers.find(u=>u.id===uid);
+        setSuccessUser(user);
+        setCardAnim("cardLift");
+        setTimeout(()=>setStep("success"),500);
+        setTimeout(()=>onLogin(user),1800);
+      } else {
+        setError("Incorrect PIN");
+        triggerShake();
+        setTimeout(()=>setPin(""),400);
       }
     }
   };
 
-  if (selected) {
-    const user = allUsers.find((u) => u.id === selected);
-    return (
-      <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#0a0a1a 0%,#1a1a3e 40%,#0d1b2a 100%)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:24}}>
-        <GlassStyle/>
-        <div style={{marginBottom:12}}><I name={user.icon} size={56} color="#fff" style={{filter:"drop-shadow(0 4px 12px rgba(0,0,0,0.3))"}}/></div>
-        <div style={{fontSize:26,fontWeight:700,color:"#fff",marginBottom:4,letterSpacing:-0.5}}>{user.name}</div>
-        <div style={{fontSize:13,color:"rgba(255,255,255,0.4)",marginBottom:4,letterSpacing:2,textTransform:"uppercase",fontWeight:500}}>Enter PIN</div>
-        {error&&<div style={{color:"#FF453A",fontSize:13,fontWeight:600,marginBottom:4}}>{error}</div>}
-        <div style={{display:"flex",gap:14,justifyContent:"center",margin:"20px 0 28px"}}>
-          {[0,1,2,3].map(i=>(
-            <div key={i} style={{width:52,height:52,borderRadius:16,background:pin.length>i?"rgba(0,122,255,0.2)":"rgba(255,255,255,0.06)",border:`2px solid ${pin.length>i?"rgba(0,122,255,0.6)":"rgba(255,255,255,0.12)"}`,backdropFilter:"blur(20px)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,color:"#fff",fontWeight:700,transition:"all 0.25s cubic-bezier(0.32,0.72,0,1)",boxShadow:pin.length>i?"0 0 20px rgba(0,122,255,0.15)":"none"}}>
-              {pin.length>i?"●":""}
-            </div>
-          ))}
-        </div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,maxWidth:270,margin:"0 auto"}}>
-          {[1,2,3,4,5,6,7,8,9].map(n=>(
-            <button key={n} className="hover-lift" style={{height:58,borderRadius:18,border:"1px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.07)",backdropFilter:"blur(10px)",color:"#fff",fontSize:24,fontWeight:500,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"inset 0 1px 0 rgba(255,255,255,0.1)"}} onClick={()=>handleNum(String(n))}>{n}</button>
-          ))}
-          <button className="hover-lift" style={{height:58,borderRadius:18,border:"1px solid rgba(255,255,255,0.08)",background:"rgba(255,255,255,0.04)",color:"rgba(255,255,255,0.5)",fontSize:14,fontWeight:600,cursor:"pointer"}} onClick={()=>{setSelected(null);setPin("");setError("")}}>← Back</button>
-          <button className="hover-lift" style={{height:58,borderRadius:18,border:"1px solid rgba(255,255,255,0.1)",background:"rgba(255,255,255,0.07)",backdropFilter:"blur(10px)",color:"#fff",fontSize:24,fontWeight:500,cursor:"pointer",boxShadow:"inset 0 1px 0 rgba(255,255,255,0.1)"}} onClick={()=>handleNum("0")}>0</button>
-          <button className="hover-lift" style={{height:58,borderRadius:18,border:"1px solid rgba(255,255,255,0.08)",background:"rgba(255,255,255,0.04)",color:"rgba(255,255,255,0.5)",fontSize:18,cursor:"pointer"}} onClick={()=>{setPin(p=>p.slice(0,-1));setError("")}}>⌫</button>
-        </div>
-      </div>
-    );
-  }
+  const handleBack = ()=>{
+    setPin("");setError("");
+    setCardAnim("cardSlideOutRight");
+    setTimeout(()=>{setStep("username");setCardAnim("cardSlideIn")},400);
+  };
+
+  const triggerShake = ()=>{setShaking(true);setTimeout(()=>setShaking(false),500)};
+  const handleKeyDown = (e)=>{if(e.key==="Enter"&&step==="username") handleUsernameSubmit()};
 
   return (
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#0a0a1a 0%,#1a1a3e 40%,#0d1b2a 100%)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:24}}>
+    <div style={{minHeight:"100vh",background:"#050507",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:24,position:"relative",overflow:"hidden"}}>
       <GlassStyle/>
-      <div style={{marginBottom:10}}><I name="soup_kitchen" size={56} color="#fff" style={{filter:"drop-shadow(0 4px 16px rgba(0,0,0,0.3))"}}/></div>
-      <div style={{fontSize:30,fontWeight:700,color:"#fff",marginBottom:4,letterSpacing:-0.8}}>Central Kitchen</div>
-      <div style={{fontSize:12,color:"rgba(255,255,255,0.35)",marginBottom:32,letterSpacing:3,textTransform:"uppercase",fontWeight:500}}>Ordering System</div>
-      <div style={{width:"100%",maxWidth:400,marginBottom:16}}>
-        <div style={{color:"rgba(255,255,255,0.3)",fontSize:11,fontWeight:600,letterSpacing:2,textTransform:"uppercase",marginBottom:10,paddingLeft:4}}>Households</div>
-        {HOUSEHOLDS.map((h,idx)=>(
-          <div key={h.id} className="hover-lift card-enter" style={{width:"100%",borderRadius:18,padding:"14px 18px",marginBottom:8,display:"flex",alignItems:"center",gap:14,cursor:"pointer",background:"rgba(255,255,255,0.06)",backdropFilter:"blur(20px)",border:"1px solid rgba(255,255,255,0.1)",boxShadow:"inset 0 1px 0 rgba(255,255,255,0.08),0 4px 16px rgba(0,0,0,0.1)",animationDelay:`${idx*0.05}s`}} onClick={()=>setSelected(h.id)}>
-            <div style={{width:44,height:44,borderRadius:14,background:`${h.color}22`,border:`1px solid ${h.color}44`,display:"flex",alignItems:"center",justifyContent:"center"}}><I name={h.icon} size={22} color="#1a1a1a"/></div>
-            <div><div style={{color:"#fff",fontSize:15,fontWeight:600}}>{h.name}</div><div style={{color:"rgba(255,255,255,0.35)",fontSize:12}}>Household</div></div>
-            <div style={{marginLeft:"auto",color:"rgba(255,255,255,0.2)",fontSize:18}}>›</div>
+      <style>{`
+        @keyframes shake{0%,100%{transform:translateX(0)}15%,45%,75%{transform:translateX(-6px)}30%,60%,90%{transform:translateX(6px)}}
+        @keyframes cardAppear{0%{opacity:0;transform:scale(0.92) translateY(30px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+        @keyframes cardSlideOut{0%{opacity:1;transform:translateX(0) scale(1)}100%{opacity:0;transform:translateX(-50px) scale(0.96)}}
+        @keyframes cardSlideOutRight{0%{opacity:1;transform:translateX(0) scale(1)}100%{opacity:0;transform:translateX(50px) scale(0.96)}}
+        @keyframes cardSlideIn{0%{opacity:0;transform:translateX(50px) scale(0.96)}100%{opacity:1;transform:translateX(0) scale(1)}}
+        @keyframes cardLift{0%{transform:translateY(0) scale(1);opacity:1}50%{transform:translateY(-20px) scale(1.03);opacity:0.7}100%{transform:translateY(10px) scale(0.92);opacity:0}}
+        @keyframes auroraMove{0%{transform:translateX(-50%) rotate(0deg) scale(1)}33%{transform:translateX(-45%) rotate(3deg) scale(1.05)}66%{transform:translateX(-55%) rotate(-2deg) scale(0.95)}100%{transform:translateX(-50%) rotate(0deg) scale(1)}}
+        @keyframes sheenSlide{0%{transform:translateX(-100%) rotate(-15deg)}100%{transform:translateX(200%) rotate(-15deg)}}
+        @keyframes checkDraw{0%{stroke-dashoffset:24}100%{stroke-dashoffset:0}}
+        @keyframes ringPulse{0%{transform:translate(-50%,-50%) scale(0.5);opacity:0}30%{opacity:0.7}100%{transform:translate(-50%,-50%) scale(3.5);opacity:0}}
+        @keyframes welcomeUp{0%{opacity:0;transform:translate(-50%,-50%) scale(0.9) translateY(24px)}100%{opacity:1;transform:translate(-50%,-50%) scale(1) translateY(0)}}
+        @keyframes glowPulse{0%{opacity:0;transform:translate(-50%,-50%) scale(0.3)}40%{opacity:0.8}100%{opacity:0;transform:translate(-50%,-50%) scale(3)}}
+        @keyframes dotBounce{0%{transform:scale(0) translateY(4px)}60%{transform:scale(1.25) translateY(-2px)}100%{transform:scale(1) translateY(0)}}
+        @keyframes numPress{0%{transform:scale(1)}50%{transform:scale(0.92)}100%{transform:scale(1)}}
+        .shake-anim{animation:shake 0.45s ease}
+      `}</style>
+
+      {/* Ambient aurora blobs */}
+      <div style={{position:"fixed",top:"-10%",left:"50%",width:500,height:280,transform:"translateX(-50%)",background:"conic-gradient(from 180deg,rgba(48,209,88,0.18),rgba(0,180,255,0.12),rgba(130,80,255,0.08),rgba(48,209,88,0.18))",filter:"blur(90px)",borderRadius:"50%",animation:"auroraMove 10s ease-in-out infinite",opacity:0.8}}/>
+      <div style={{position:"fixed",top:"15%",left:"30%",width:200,height:200,background:"radial-gradient(circle,rgba(0,200,150,0.12),transparent 70%)",filter:"blur(60px)",borderRadius:"50%"}}/>
+      <div style={{position:"fixed",top:"10%",right:"20%",width:160,height:160,background:"radial-gradient(circle,rgba(80,120,255,0.1),transparent 70%)",filter:"blur(50px)",borderRadius:"50%"}}/>
+
+      {/* ======= SUCCESS OVERLAY ======= */}
+      {step==="success"&&<>
+        <div style={{position:"fixed",top:"50%",left:"50%",width:100,height:100,borderRadius:"50%",border:"2px solid rgba(48,209,88,0.5)",transform:"translate(-50%,-50%)",animation:"ringPulse 1.1s ease-out forwards",zIndex:10}}/>
+        <div style={{position:"fixed",top:"50%",left:"50%",width:100,height:100,borderRadius:"50%",border:"1.5px solid rgba(100,220,255,0.35)",transform:"translate(-50%,-50%)",animation:"ringPulse 1.1s 0.2s ease-out forwards",zIndex:10}}/>
+        <div style={{position:"fixed",top:"50%",left:"50%",width:300,height:300,borderRadius:"50%",background:"radial-gradient(circle,rgba(48,209,88,0.15),transparent 65%)",transform:"translate(-50%,-50%)",animation:"glowPulse 1.4s ease-out forwards",zIndex:9}}/>
+        <div style={{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%,-50%)",zIndex:20,textAlign:"center",animation:"welcomeUp 0.7s 0.35s cubic-bezier(0.32,0.72,0,1) both"}}>
+          <div style={{width:72,height:72,borderRadius:"50%",background:"linear-gradient(135deg,rgba(48,209,88,0.15),rgba(0,180,200,0.1))",border:"1px solid rgba(48,209,88,0.25)",backdropFilter:"blur(30px)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px",boxShadow:"0 0 40px rgba(48,209,88,0.15),inset 0 1px 0 rgba(255,255,255,0.1)"}}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#30D158" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{strokeDasharray:24,animation:"checkDraw 0.4s 0.5s ease forwards",strokeDashoffset:24}}/></svg>
           </div>
-        ))}
-      </div>
-      <div style={{width:"100%",maxWidth:400,borderTop:"1px solid rgba(255,255,255,0.06)",paddingTop:16}}>
-        <div style={{color:"rgba(255,255,255,0.3)",fontSize:11,fontWeight:600,letterSpacing:2,textTransform:"uppercase",marginBottom:10,paddingLeft:4}}>Admin</div>
-        <div className="hover-lift card-enter" style={{width:"100%",borderRadius:18,padding:"14px 18px",display:"flex",alignItems:"center",gap:14,cursor:"pointer",background:"rgba(255,150,50,0.08)",backdropFilter:"blur(20px)",border:"1px solid rgba(255,150,50,0.2)",boxShadow:"inset 0 1px 0 rgba(255,255,255,0.06),0 4px 16px rgba(0,0,0,0.1)"}} onClick={()=>setSelected(KITCHEN.id)}>
-          <div style={{width:44,height:44,borderRadius:14,background:"rgba(255,150,50,0.15)",border:"1px solid rgba(255,150,50,0.3)",display:"flex",alignItems:"center",justifyContent:"center"}}><I name={KITCHEN.icon} size={22} color="#1a1a1a"/></div>
-          <div><div style={{color:"#fff",fontSize:15,fontWeight:600}}>{KITCHEN.name}</div><div style={{color:"rgba(255,255,255,0.35)",fontSize:12}}>Admin Dashboard</div></div>
-          <div style={{marginLeft:"auto",color:"rgba(255,255,255,0.2)",fontSize:18}}>›</div>
+          <div style={{fontSize:26,fontWeight:700,color:"#fff",letterSpacing:-0.5}}>Welcome, {successUser?.name}</div>
+          <div style={{fontSize:13,color:"rgba(255,255,255,0.3)",marginTop:10,fontWeight:400}}>Loading your dashboard...</div>
         </div>
+      </>}
+
+      {/* ======= GLASS CARD ======= */}
+      {step!=="success"&&<div
+        className={shaking?"shake-anim":""}
+        style={{
+          width:"100%",maxWidth:380,borderRadius:32,position:"relative",zIndex:1,overflow:"hidden",
+          background:"linear-gradient(170deg,rgba(255,255,255,0.09) 0%,rgba(255,255,255,0.03) 40%,rgba(0,0,0,0.02) 100%)",
+          backdropFilter:"blur(60px) saturate(180%)",WebkitBackdropFilter:"blur(60px) saturate(180%)",
+          border:"1px solid rgba(255,255,255,0.12)",
+          boxShadow:"0 30px 100px rgba(0,0,0,0.5),0 0 0 0.5px rgba(255,255,255,0.08) inset,0 1px 0 rgba(255,255,255,0.12) inset",
+          animation:`${cardAnim} 0.4s cubic-bezier(0.32,0.72,0,1) both`
+        }}
+      >
+        {/* Glass sheen / reflection at top */}
+        <div style={{position:"absolute",top:0,left:0,right:0,height:120,background:"linear-gradient(180deg,rgba(255,255,255,0.06) 0%,transparent 100%)",pointerEvents:"none",borderRadius:"32px 32px 0 0"}}/>
+        {/* Animated sheen sweep */}
+        <div style={{position:"absolute",top:0,left:0,right:0,bottom:0,overflow:"hidden",borderRadius:32,pointerEvents:"none"}}>
+          <div style={{position:"absolute",top:-20,width:60,height:"150%",background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.04),transparent)",animation:"sheenSlide 6s 1s ease-in-out infinite"}}/>
+        </div>
+        {/* Top aurora edge - brighter */}
+        <div style={{position:"absolute",top:-1,left:"50%",transform:"translateX(-50%)",width:"60%",height:4,borderRadius:"0 0 4px 4px",background:"linear-gradient(90deg,transparent,rgba(48,209,88,0.6),rgba(0,180,255,0.4),rgba(130,80,255,0.2),transparent)",filter:"blur(1px)"}}/>
+
+        <div style={{padding:"42px 28px 36px",position:"relative",zIndex:1}}>
+
+          {/* === USERNAME STEP === */}
+          {step==="username"&&<>
+            <div style={{textAlign:"center",marginBottom:36}}>
+              <div style={{fontSize:30,fontWeight:700,color:"#fff",letterSpacing:-1}}>Welcome back</div>
+              <div style={{fontSize:14,color:"rgba(255,255,255,0.3)",fontWeight:400,marginTop:8}}>Sign in to your account</div>
+            </div>
+
+            {/* Input container - glass pill */}
+            <div style={{
+              borderRadius:18,padding:"14px 18px",marginBottom:16,position:"relative",
+              background:"linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))",
+              border:"1px solid rgba(255,255,255,0.08)",
+              boxShadow:"inset 0 1px 0 rgba(255,255,255,0.06),0 2px 8px rgba(0,0,0,0.2)"
+            }}>
+              <div style={{fontSize:11,color:"rgba(255,255,255,0.3)",fontWeight:500,marginBottom:6,letterSpacing:0.5}}>Username</div>
+              <div style={{display:"flex",alignItems:"center",gap:12}}>
+                <input
+                  type="text" placeholder="Enter username"
+                  value={username} onChange={e=>{setUsername(e.target.value);setError("")}}
+                  onKeyDown={handleKeyDown} autoFocus autoCapitalize="none" autoCorrect="off"
+                  style={{flex:1,background:"none",border:"none",color:"#fff",fontSize:17,fontWeight:500,fontFamily:"inherit",outline:"none",padding:0}}
+                />
+                {/* Circular submit button */}
+                <button className="hover-lift" onClick={handleUsernameSubmit} style={{
+                  width:44,height:44,borderRadius:"50%",border:"none",cursor:"pointer",flexShrink:0,
+                  background:"linear-gradient(135deg,#30D158,#00C9A7)",
+                  boxShadow:"0 4px 16px rgba(48,209,88,0.35),inset 0 1px 0 rgba(255,255,255,0.2)",
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  color:"#fff",fontSize:20,fontWeight:600
+                }}>→</button>
+              </div>
+            </div>
+
+            {error&&<div style={{color:"#FF453A",fontSize:13,fontWeight:600,textAlign:"center",marginTop:4}}>{error}</div>}
+          </>}
+
+          {/* === PIN STEP === */}
+          {step==="pin"&&<>
+            <div style={{textAlign:"center",marginBottom:28}}>
+              <div style={{fontSize:24,fontWeight:700,color:"#fff",letterSpacing:-0.5,marginBottom:4}}>{resolvedUser()?.name}</div>
+              <div style={{fontSize:12,color:"rgba(255,255,255,0.25)",letterSpacing:2,textTransform:"uppercase",fontWeight:500}}>Enter PIN</div>
+            </div>
+
+            {/* PIN dots in glass container */}
+            <div style={{
+              borderRadius:18,padding:"18px 24px",marginBottom:20,
+              background:"linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))",
+              border:"1px solid rgba(255,255,255,0.07)",
+              boxShadow:"inset 0 1px 0 rgba(255,255,255,0.05),0 2px 8px rgba(0,0,0,0.15)",
+              display:"flex",justifyContent:"center",gap:18
+            }}>
+              {[0,1,2,3].map(i=>(
+                <div key={i} style={{
+                  width:44,height:44,borderRadius:14,
+                  background:pin.length>i?"rgba(48,209,88,0.12)":"rgba(255,255,255,0.03)",
+                  border:`1.5px solid ${pin.length>i?"rgba(48,209,88,0.45)":"rgba(255,255,255,0.06)"}`,
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  transition:"all 0.2s cubic-bezier(0.32,0.72,0,1)",
+                  boxShadow:pin.length>i?"0 0 16px rgba(48,209,88,0.08),inset 0 1px 0 rgba(48,209,88,0.1)":"inset 0 1px 0 rgba(255,255,255,0.03)"
+                }}>
+                  {pin.length>i&&<div style={{width:12,height:12,borderRadius:"50%",background:"linear-gradient(135deg,#30D158,#00C9A7)",animation:"dotBounce 0.25s ease",boxShadow:"0 0 10px rgba(48,209,88,0.4)"}}/>}
+                </div>
+              ))}
+            </div>
+
+            {error&&<div style={{color:"#FF453A",fontSize:13,fontWeight:600,textAlign:"center",marginBottom:10}}>{error}</div>}
+
+            {/* Numpad - glass buttons */}
+            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10,maxWidth:264,margin:"0 auto"}}>
+              {[1,2,3,4,5,6,7,8,9].map(n=>(
+                <button key={n} className="hover-lift" style={{
+                  height:56,borderRadius:16,cursor:"pointer",
+                  background:"linear-gradient(170deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))",
+                  border:"1px solid rgba(255,255,255,0.08)",
+                  boxShadow:"inset 0 1px 0 rgba(255,255,255,0.06),0 2px 6px rgba(0,0,0,0.2)",
+                  color:"#fff",fontSize:22,fontWeight:500,display:"flex",alignItems:"center",justifyContent:"center",
+                  transition:"all 0.12s"
+                }} onClick={()=>handleNum(String(n))}>{n}</button>
+              ))}
+              <button className="hover-lift" style={{
+                height:56,borderRadius:16,cursor:"pointer",
+                background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.05)",
+                color:"rgba(255,255,255,0.35)",fontSize:13,fontWeight:600,
+                display:"flex",alignItems:"center",justifyContent:"center",gap:4
+              }} onClick={handleBack}><span style={{fontSize:15}}>←</span> Back</button>
+              <button className="hover-lift" style={{
+                height:56,borderRadius:16,cursor:"pointer",
+                background:"linear-gradient(170deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))",
+                border:"1px solid rgba(255,255,255,0.08)",
+                boxShadow:"inset 0 1px 0 rgba(255,255,255,0.06),0 2px 6px rgba(0,0,0,0.2)",
+                color:"#fff",fontSize:22,fontWeight:500,display:"flex",alignItems:"center",justifyContent:"center"
+              }} onClick={()=>handleNum("0")}>0</button>
+              <button className="hover-lift" style={{
+                height:56,borderRadius:16,cursor:"pointer",
+                background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.05)",
+                color:"rgba(255,255,255,0.35)",fontSize:18,
+                display:"flex",alignItems:"center",justifyContent:"center"
+              }} onClick={()=>{setPin(p=>p.slice(0,-1));setError("")}}>⌫</button>
+            </div>
+          </>}
+        </div>
+      </div>}
+
+      {/* Footer */}
+      <div style={{color:"rgba(255,255,255,0.08)",fontSize:10,marginTop:36,textAlign:"center",zIndex:1,fontWeight:400}}>
+        Central Kitchen Ordering System
       </div>
-      <div style={{color:"rgba(255,255,255,0.15)",fontSize:10,marginTop:28,textAlign:"center",lineHeight:1.6}}>PINs — Floors: floor# ×4 (e.g. 3333) · Office: 0000 · Kitchen: 1234</div>
     </div>
   );
 }
@@ -342,7 +501,7 @@ function HouseholdOrderHistory({ orders, onDispute }) {
           </div>
 
           {/* Expanded detail */}
-          {isExpanded&&<div style={{padding:"0 16px 14px",borderTop:"1px solid rgba(0,0,0,0.05)"}}>
+          {isExpanded&&<div style={{padding:"0 16px 14px",borderTop:"none"}}>
             {/* Timestamps */}
             <div style={{display:"flex",gap:12,padding:"10px 0",flexWrap:"wrap"}}>
               {order.placedAt&&<div style={{display:"flex",alignItems:"center",gap:4,fontSize:11,color:"rgba(0,0,0,0.35)"}}><I name="schedule" size={13} color="rgba(0,0,0,0.3)"/>Placed: {new Date(order.placedAt).toLocaleString("en-IN",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</div>}
@@ -350,7 +509,7 @@ function HouseholdOrderHistory({ orders, onDispute }) {
             </div>
             {/* Item detail table */}
             <div style={{padding:"10px 0 2px"}}>
-              <div style={{display:"flex",justifyContent:"space-between",fontSize:11,fontWeight:600,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.5,padding:"0 0 6px",borderBottom:"1px solid rgba(0,0,0,0.05)"}}>
+              <div style={{display:"flex",justifyContent:"space-between",fontSize:11,fontWeight:600,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.5,padding:"0 0 6px",borderBottom:"none"}}>
                 <span style={{flex:2}}>Item</span>
                 <span style={{flex:0.5,textAlign:"center"}}>Qty</span>
                 <span style={{flex:0.7,textAlign:"right"}}>Price</span>
@@ -360,7 +519,7 @@ function HouseholdOrderHistory({ orders, onDispute }) {
                 const mod=it.sentQty!=null&&it.sentQty!==it.qty;
                 const effectiveQty = it.sentQty!=null?it.sentQty:it.qty;
                 return(
-                <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",fontSize:13,padding:"8px 0",borderBottom:"1px solid rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.55)"}}>
+                <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",fontSize:13,padding:"8px 0",borderBottom:"none",color:"rgba(0,0,0,0.55)"}}>
                   <span style={{flex:2,fontWeight:500}}>{it.name}</span>
                   <span style={{flex:0.5,textAlign:"center"}}>
                     {mod?<><span style={{textDecoration:"line-through",color:"rgba(0,0,0,0.25)",fontSize:11}}>{it.qty}</span><span style={{color:"#007AFF",fontWeight:700,marginLeft:2}}>{it.sentQty}</span></>:it.qty}
@@ -372,24 +531,24 @@ function HouseholdOrderHistory({ orders, onDispute }) {
             </div>
 
             {/* Modification reasons */}
-            {order.items.some(it=>it.modifyReason)&&<div style={{marginTop:8,padding:"8px 10px",borderRadius:10,background:"rgba(0,122,255,0.05)",border:"1px solid rgba(0,122,255,0.1)"}}>
+            {order.items.some(it=>it.modifyReason)&&<div style={{marginTop:8,padding:"8px 10px",borderRadius:10,background:"rgba(0,122,255,0.05)",border:"none"}}>
               {order.items.filter(it=>it.modifyReason).map((it,i)=><div key={i} style={{fontSize:11,color:"#007AFF",fontWeight:500,lineHeight:1.5}}><b>{it.name}:</b> {it.modifyReason}</div>)}
             </div>}
 
             {/* Delivered by */}
-            {order.deliveredBy&&<div style={{marginTop:8,padding:"10px 12px",borderRadius:12,background:"rgba(48,209,88,0.06)",border:"1px solid rgba(48,209,88,0.12)",display:"flex",alignItems:"center",gap:8}}>
+            {order.deliveredBy&&<div style={{marginTop:8,padding:"10px 12px",borderRadius:12,background:"rgba(48,209,88,0.06)",border:"none",display:"flex",alignItems:"center",gap:8}}>
               <I name="local_shipping" size={24} color="#30A050"/>
               <div><div style={{fontSize:12,color:"rgba(0,0,0,0.35)",fontWeight:500}}>Delivered by</div><div style={{fontSize:14,fontWeight:700,color:"#30A050"}}>{order.deliveredBy}</div></div>
             </div>}
 
             {/* Note */}
-            {order.note&&<div style={{marginTop:8,padding:"10px 12px",borderRadius:12,background:"rgba(255,159,10,0.06)",border:"1px solid rgba(255,159,10,0.15)",display:"flex",alignItems:"flex-start",gap:8}}>
+            {order.note&&<div style={{marginTop:8,padding:"10px 12px",borderRadius:12,background:"rgba(255,159,10,0.06)",border:"none",display:"flex",alignItems:"flex-start",gap:8}}>
               <I name="sticky_note_2" size={18} color="#FF9F0A" style={{marginTop:1}}/>
               <div><div style={{fontSize:11,color:"rgba(0,0,0,0.35)",fontWeight:600,marginBottom:2}}>Note</div><div style={{fontSize:13,color:"rgba(0,0,0,0.6)",lineHeight:1.4}}>{order.note}</div></div>
             </div>}
 
             {/* Order total */}
-            <div style={{display:"flex",justifyContent:"space-between",fontSize:16,fontWeight:700,paddingTop:10,borderTop:"1px solid rgba(0,0,0,0.06)",marginTop:10,color:"#1a1a1a"}}>
+            <div style={{display:"flex",justifyContent:"space-between",fontSize:16,fontWeight:700,paddingTop:10,borderTop:"none",marginTop:10,color:"#1a1a1a"}}>
               <span>Order Total</span><span style={{color:"#30A050"}}>₹{getActualTotal(order)}</span>
             </div>
           </div>}
@@ -427,7 +586,7 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
     const orderData = {id:Date.now(),householdId:user.id,householdName:user.name,items:oi,total:cartTotal,date:getToday(),time:new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}),status:"Pending"};
     if(orderNote.trim()) orderData.note = orderNote.trim();
     onOrder(orderData);
-    setCart({});setShowCart(false);setOrderNote("");setOrderSuccess(true);setTimeout(()=>setOrderSuccess(false),2500);
+    setCart({});setShowCart(false);setOrderNote("");setOrderSuccess(true);setTimeout(()=>setOrderSuccess(false),2800);
   };
 
   const handlePinChange = () => {
@@ -441,7 +600,7 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
     setTimeout(()=>setPinMsg(null),3000);
   };
 
-  const appStyle = {fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"linear-gradient(145deg,#E8F0FE 0%,#F0E6F6 25%,#FEF3E2 50%,#E6F7ED 75%,#E8F0FE 100%)",position:"relative",overflow:"hidden"};
+  const appStyle = {fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"#e8edf2",position:"relative",overflow:"hidden"};
 
   const Orbs = ()=><>{[1,2,3,4].map(i=><div key={i} className={`bg-orb bg-orb-${i} orb-float`} style={{animationDelay:`${i*3}s`}}/>)}</>;
 
@@ -449,15 +608,49 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
     <div style={appStyle}>
       <Orbs/>
       <GlassStyle/>
-      {orderSuccess&&<div className="toast-enter" style={{position:"fixed",top:16,left:"50%",transform:"translateX(-50%)",background:"rgba(48,209,88,0.95)",backdropFilter:"blur(20px)",color:"#fff",padding:"12px 24px",borderRadius:20,fontSize:14,fontWeight:600,zIndex:999,boxShadow:"0 8px 32px rgba(48,209,88,0.3)",display:"flex",alignItems:"center",gap:8,maxWidth:340}}><I name="check_circle" size={18} color="#fff"/> Order placed</div>}
+      <style>{`
+        @keyframes orderCheckDraw{0%{stroke-dashoffset:24}100%{stroke-dashoffset:0}}
+        @keyframes orderRing{0%{transform:translate(-50%,-50%) scale(0.5);opacity:0}30%{opacity:0.5}100%{transform:translate(-50%,-50%) scale(3.5);opacity:0}}
+        @keyframes orderFadeIn{0%{opacity:0;transform:translate(-50%,-50%) scale(0.85) translateY(20px)}100%{opacity:1;transform:translate(-50%,-50%) scale(1) translateY(0)}}
+        @keyframes orderGlow{0%{opacity:0;transform:translate(-50%,-50%) scale(0.3)}30%{opacity:0.8}100%{opacity:0;transform:translate(-50%,-50%) scale(3)}}
+        @keyframes orderOverlayIn{0%{opacity:0}100%{opacity:1}}
+        @keyframes orderDot{0%{opacity:0;transform:translate(-50%,-50%) scale(0)}40%{opacity:0.7}100%{opacity:0;transform:translate(-50%,-50%) translateY(-80px) scale(0)}}
+        @keyframes orderDot2{0%{opacity:0;transform:translate(-50%,-50%) scale(0)}40%{opacity:0.5}100%{opacity:0;transform:translate(-50%,-50%) translate(60px,-50px) scale(0)}}
+        @keyframes orderDot3{0%{opacity:0;transform:translate(-50%,-50%) scale(0)}40%{opacity:0.5}100%{opacity:0;transform:translate(-50%,-50%) translate(-60px,-50px) scale(0)}}
+        @keyframes iconBounce{0%{transform:scale(0)}50%{transform:scale(1.15)}70%{transform:scale(0.95)}100%{transform:scale(1)}}
+      `}</style>
+
+      {/* Order Success Overlay */}
+      {orderSuccess&&<div style={{position:"fixed",inset:0,zIndex:999,background:"rgba(232,237,242,0.92)",backdropFilter:"blur(30px)",WebkitBackdropFilter:"blur(30px)",animation:"orderOverlayIn 0.3s ease both"}}>
+        {/* Soft aurora glows */}
+        <div style={{position:"absolute",top:"50%",left:"50%",width:280,height:280,borderRadius:"50%",background:"radial-gradient(circle,rgba(102,126,234,0.1),transparent 70%)",transform:"translate(-50%,-50%)",animation:"orderGlow 1.8s ease-out forwards"}}/>
+        <div style={{position:"absolute",top:"50%",left:"45%",width:200,height:200,borderRadius:"50%",background:"radial-gradient(circle,rgba(48,209,88,0.08),transparent 70%)",transform:"translate(-50%,-50%)",animation:"orderGlow 1.8s 0.2s ease-out forwards"}}/>
+        {/* Expanding rings */}
+        <div style={{position:"absolute",top:"50%",left:"50%",width:80,height:80,borderRadius:"50%",border:"1.5px solid rgba(102,126,234,0.15)",transform:"translate(-50%,-50%)",animation:"orderRing 1.4s 0.1s ease-out forwards"}}/>
+        <div style={{position:"absolute",top:"50%",left:"50%",width:80,height:80,borderRadius:"50%",border:"1px solid rgba(48,209,88,0.12)",transform:"translate(-50%,-50%)",animation:"orderRing 1.4s 0.3s ease-out forwards"}}/>
+        <div style={{position:"absolute",top:"50%",left:"50%",width:80,height:80,borderRadius:"50%",border:"1px solid rgba(220,180,255,0.1)",transform:"translate(-50%,-50%)",animation:"orderRing 1.4s 0.5s ease-out forwards"}}/>
+        {/* Floating particles */}
+        <div style={{position:"absolute",top:"50%",left:"50%",width:8,height:8,borderRadius:"50%",background:"rgba(102,126,234,0.4)",animation:"orderDot 1.2s 0.3s ease-out forwards"}}/>
+        <div style={{position:"absolute",top:"50%",left:"50%",width:6,height:6,borderRadius:"50%",background:"rgba(48,209,88,0.35)",animation:"orderDot2 1.2s 0.4s ease-out forwards"}}/>
+        <div style={{position:"absolute",top:"50%",left:"50%",width:6,height:6,borderRadius:"50%",background:"rgba(220,180,255,0.35)",animation:"orderDot3 1.2s 0.5s ease-out forwards"}}/>
+        {/* Center content — neumorphic icon */}
+        <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",textAlign:"center",animation:"orderFadeIn 0.6s 0.15s cubic-bezier(0.32,0.72,0,1) both"}}>
+          <div style={{width:80,height:80,borderRadius:24,background:"#e8edf2",boxShadow:"8px 8px 18px rgba(163,177,198,0.4),-8px -8px 18px rgba(255,255,255,0.85)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 28px",animation:"iconBounce 0.5s 0.2s cubic-bezier(0.32,0.72,0,1) both"}}>
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="url(#checkGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{strokeDasharray:24,animation:"orderCheckDraw 0.4s 0.5s ease forwards",strokeDashoffset:24}}/><defs><linearGradient id="checkGrad" x1="5" y1="7" x2="19" y2="17"><stop offset="0%" stopColor="#667eea"/><stop offset="100%" stopColor="#28A745"/></linearGradient></defs></svg>
+          </div>
+          <div style={{fontSize:11,fontWeight:500,color:"rgba(45,55,72,0.3)",letterSpacing:4,textTransform:"uppercase",marginBottom:10}}>Order Placed</div>
+          <div style={{fontSize:28,fontWeight:700,color:"#2d3748",letterSpacing:-0.8}}>Sent to Kitchen</div>
+          <div style={{fontSize:13,color:"rgba(45,55,72,0.3)",marginTop:14,fontWeight:400}}>You'll be notified when it's ready</div>
+        </div>
+      </div>}
 
       {/* Header */}
-      <div style={{background:"linear-gradient(135deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35))",backdropFilter:"blur(50px) saturate(200%)",WebkitBackdropFilter:"blur(50px) saturate(200%)",padding:"18px 20px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:"1px solid rgba(255,255,255,0.5)",boxShadow:"0 4px 20px rgba(0,0,0,0.04)",position:"relative",zIndex:10}}>
+      <div style={{padding:"22px 20px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"relative",zIndex:10}}>
         <div>
-          <div style={{fontSize:17,fontWeight:700,color:"#1a1a1a",letterSpacing:-0.3}}>{user.name}</div>
-          <div style={{fontSize:12,color:"rgba(0,0,0,0.35)",fontWeight:400,marginTop:2}}>{new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short"})}</div>
+          <div style={{fontSize:13,fontWeight:500,color:"rgba(0,0,0,0.3)",letterSpacing:3,textTransform:"uppercase",marginBottom:4}}>{new Date().toLocaleDateString("en-IN",{weekday:"long"})}</div>
+          <div style={{fontSize:22,fontWeight:700,color:"#2d3748",letterSpacing:-0.5}}>{user.name}</div>
         </div>
-        <button className="hover-lift" style={{background:"linear-gradient(135deg,#FF453A,#FF6B6B)",border:"none",color:"#fff",fontSize:12,cursor:"pointer",fontWeight:600,padding:"7px 14px",borderRadius:12,boxShadow:"0 3px 12px rgba(255,69,58,0.3)",backdropFilter:"blur(10px)"}} onClick={onLogout}>Sign Out</button>
+        <button className="hover-lift" style={{background:"linear-gradient(135deg,#FF6B81,#FF453A)",border:"none",color:"#fff",fontSize:12,cursor:"pointer",fontWeight:600,padding:"8px 16px",borderRadius:14,boxShadow:"3px 3px 8px rgba(163,177,198,0.35),-3px -3px 8px rgba(255,255,255,0.7),0 3px 10px rgba(255,69,58,0.2)"}} onClick={onLogout}>Sign Out</button>
       </div>
 
       {tab==="order"&&<>
@@ -470,25 +663,25 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
         </div>
         <div style={{padding:"6px 16px 160px",minHeight:"50vh"}}>
           {filteredItems.length===0?<div style={{textAlign:"center",padding:"60px 20px",color:"rgba(0,0,0,0.2)"}}><I name="search_off" size={40} color="rgba(0,0,0,0.1)" style={{marginBottom:8}}/><div style={{fontSize:14,fontWeight:500}}>No items found</div></div>
-          :filteredItems.map(item=>(
-            <div key={item.id} className="glass card-enter hover-lift" style={{borderRadius:16,padding:"14px 16px",marginBottom:10}}>
+          :filteredItems.map((item,idx)=>(
+            <div key={item.id} className="glass card-enter hover-lift" style={{borderRadius:16,padding:"14px 16px",marginBottom:10,animationDelay:`${idx*0.04}s`}}>
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                 <div style={{flex:1,minWidth:0}}>
-                  <div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{item.name}</div>
+                  <div style={{fontSize:15,fontWeight:600,color:"#2d3748"}}>{item.name}</div>
                   <div style={{fontSize:12,color:"rgba(0,0,0,0.28)",marginTop:1}}>{item.category} · {item.unit}</div>
                 </div>
                 <div style={{display:"flex",alignItems:"center",gap:12}}>
                   <div style={{fontSize:17,fontWeight:700,color:"#30A050"}}>₹{item.price}</div>
                   {cart[item.id]?<Stepper qty={cart[item.id]} onMinus={()=>setQty(item.id,-1)} onPlus={()=>setQty(item.id,1)}/>
-                  :<button className="hover-lift" style={{padding:"7px 18px",borderRadius:12,border:"none",background:"linear-gradient(135deg,#007AFF,#5856D6)",fontSize:13,fontWeight:600,color:"#fff",cursor:"pointer",boxShadow:"0 3px 12px rgba(0,122,255,0.25)"}} onClick={()=>setQty(item.id,1)}>Add</button>}
+                  :<button className="hover-lift" style={{padding:"7px 18px",borderRadius:14,border:"none",background:"linear-gradient(135deg,#667eea,#764ba2)",fontSize:13,fontWeight:600,color:"#fff",cursor:"pointer",boxShadow:"3px 3px 8px rgba(163,177,198,0.35),-3px -3px 8px rgba(255,255,255,0.7),0 3px 10px rgba(102,126,234,0.2)"}} onClick={()=>setQty(item.id,1)}>Add</button>}
                 </div>
               </div>
             </div>
           ))}
         </div>
-        {cartCount>0&&<div className="glass-vibrant" style={{position:"fixed",bottom:68,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 32px)",maxWidth:398,padding:"14px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",zIndex:100,borderRadius:20}}>
-          <div><div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{cartCount} item{cartCount>1?"s":""}</div><div style={{fontSize:14,fontWeight:700,background:"linear-gradient(135deg,#30D158,#28A745)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",marginTop:1}}>₹{cartTotal}</div></div>
-          <button className="hover-lift" style={{background:"linear-gradient(135deg,#007AFF,#5856D6)",color:"#fff",border:"none",borderRadius:14,padding:"12px 22px",fontSize:14,fontWeight:600,cursor:"pointer",boxShadow:"0 6px 20px rgba(0,122,255,0.3)"}} onClick={()=>setShowCart(true)}><I name="shopping_cart" size={16} color="#fff" style={{verticalAlign:"middle",marginRight:4}}/>View Cart</button>
+        {cartCount>0&&<div style={{position:"fixed",bottom:72,left:"50%",transform:"translateX(-50%)",width:"calc(100% - 32px)",maxWidth:398,padding:"14px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",zIndex:100,borderRadius:20,background:"#e8edf2",boxShadow:"6px 6px 14px rgba(163,177,198,0.35),-6px -6px 14px rgba(255,255,255,0.8)"}}>
+          <div><div style={{fontSize:15,fontWeight:600,color:"#2d3748"}}>{cartCount} item{cartCount>1?"s":""}</div><div style={{fontSize:14,fontWeight:700,color:"#28A745",marginTop:1}}>₹{cartTotal}</div></div>
+          <button className="hover-lift" style={{background:"linear-gradient(135deg,#667eea,#764ba2)",color:"#fff",border:"none",borderRadius:14,padding:"12px 22px",fontSize:14,fontWeight:600,cursor:"pointer",boxShadow:"3px 3px 10px rgba(163,177,198,0.3),-2px -2px 8px rgba(255,255,255,0.5),0 4px 14px rgba(102,126,234,0.25)"}} onClick={()=>setShowCart(true)}>View Cart</button>
         </div>}
         {showCart&&<GlassModal onClose={()=>setShowCart(false)}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
@@ -496,7 +689,7 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
             <button style={{background:"none",border:"none",fontSize:24,cursor:"pointer",color:"rgba(0,0,0,0.28)",padding:4}} onClick={()=>setShowCart(false)}><I name="close" size={22}/></button>
           </div>
           {cartItems.map(([id,qty])=>{const item=items.find(i=>i.id===Number(id));if(!item)return null;return(
-            <div key={id} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 0",borderBottom:"1px solid rgba(0,0,0,0.05)"}}>
+            <div key={id} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 0",borderBottom:"none"}}>
               <div style={{flex:1}}><div style={{fontSize:15,fontWeight:600}}>{item.name}</div><div style={{fontSize:13,color:"rgba(0,0,0,0.28)"}}>₹{item.price} × {qty}</div></div>
               <div style={{display:"flex",alignItems:"center",gap:12}}>
                 <div style={{fontWeight:700,color:"#30A050",fontSize:16}}>₹{item.price*qty}</div>
@@ -504,13 +697,13 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
               </div>
             </div>
           )})}
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"18px 0 8px",borderTop:"2px solid rgba(0,0,0,0.1)",marginTop:12}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"18px 0 8px",borderTop:"none",marginTop:12}}>
             <div style={{fontSize:17,fontWeight:600}}>Total</div>
             <div style={{fontSize:24,fontWeight:800,color:"#30A050"}}>₹{cartTotal}</div>
           </div>
           <div style={{marginBottom:4}}>
             <label style={{fontSize:12,fontWeight:600,color:"rgba(0,0,0,0.4)",display:"flex",alignItems:"center",gap:4,marginBottom:5}}><I name="sticky_note_2" size={14} color="rgba(0,0,0,0.3)"/>Add a note (optional)</label>
-            <textarea placeholder="e.g. Please send ripe tomatoes, no plastic bags..." value={orderNote} onChange={e=>setOrderNote(e.target.value)} rows={2} style={{width:"100%",padding:"11px 14px",borderRadius:12,border:"1px solid rgba(0,0,0,0.08)",fontSize:13,fontFamily:"inherit",outline:"none",boxSizing:"border-box",background:"rgba(255,255,255,0.6)",backdropFilter:"blur(10px)",resize:"none",transition:"border-color 0.2s,box-shadow 0.2s"}}/>
+            <textarea placeholder="e.g. Please send ripe tomatoes, no plastic bags..." value={orderNote} onChange={e=>setOrderNote(e.target.value)} rows={2} style={{width:"100%",padding:"11px 14px",borderRadius:12,border:"none",fontSize:13,fontFamily:"inherit",outline:"none",boxSizing:"border-box",background:"rgba(255,255,255,0.6)",backdropFilter:"blur(10px)",resize:"none",transition:"border-color 0.2s,box-shadow 0.2s"}}/>
           </div>
           <PrimaryBtn onClick={placeOrder}>Place Order</PrimaryBtn>
         </GlassModal>}
@@ -547,7 +740,7 @@ function HouseholdDashboard({ user, items, orders, onOrder, onDispute, onLogout,
         </div>
 
         {/* Sign out */}
-        <button className="hover-lift" onClick={onLogout} style={{width:"100%",padding:14,borderRadius:14,border:"1px solid rgba(255,69,58,0.2)",background:"rgba(255,69,58,0.06)",color:"#FF453A",fontSize:15,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+        <button className="hover-lift" onClick={onLogout} style={{width:"100%",padding:14,borderRadius:14,border:"none",background:"rgba(255,69,58,0.06)",color:"#FF453A",fontSize:15,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
           <I name="logout" size={18} color="#FF453A"/> Sign Out
         </button>
       </div>}
@@ -606,7 +799,7 @@ function KitchenOrderHistory({ orders }) {
           <div style={{fontSize:11,color:"rgba(0,0,0,0.35)",fontWeight:500}}>{periodOrders.length} order{periodOrders.length!==1?"s":""}</div>
         </div>
         {costByHH.filter(h=>h.orderCount>0).map(h=>(
-          <div key={h.id} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"8px 0",borderBottom:"1px solid rgba(0,0,0,0.04)"}}>
+          <div key={h.id} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"8px 0",borderBottom:"none"}}>
             <div style={{display:"flex",alignItems:"center",gap:10}}>
               <div style={{width:32,height:32,borderRadius:10,background:`${h.color}28`,border:`1px solid ${h.color}40`,display:"flex",alignItems:"center",justifyContent:"center"}}><I name={h.icon} size={16}/></div>
               <div>
@@ -618,7 +811,7 @@ function KitchenOrderHistory({ orders }) {
           </div>
         ))}
         {costByHH.filter(h=>h.orderCount>0).length===0&&<div style={{fontSize:13,color:"rgba(0,0,0,0.3)",textAlign:"center",padding:8}}>No orders</div>}
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:10,marginTop:4,borderTop:"2px solid rgba(0,0,0,0.08)"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:10,marginTop:4,borderTop:"none"}}>
           <div style={{fontSize:15,fontWeight:700,color:"#1a1a1a"}}>Total</div>
           <div style={{fontSize:22,fontWeight:800,color:"#30A050"}}>₹{periodOrders.reduce((s,o)=>s+getActualTotal(o),0)}</div>
         </div>
@@ -659,18 +852,18 @@ function KitchenOrderHistory({ orders }) {
             </div>
           </div>
           {/* Expanded */}
-          {isExp&&<div style={{padding:"0 16px 14px",borderTop:"1px solid rgba(0,0,0,0.05)"}}>
+          {isExp&&<div style={{padding:"0 16px 14px",borderTop:"none"}}>
             {/* Timestamps */}
             <div style={{display:"flex",gap:12,padding:"10px 0",flexWrap:"wrap"}}>
               {order.placedAt&&<div style={{display:"flex",alignItems:"center",gap:4,fontSize:11,color:"rgba(0,0,0,0.35)"}}><I name="schedule" size={13} color="rgba(0,0,0,0.3)"/>Placed: {new Date(order.placedAt).toLocaleString("en-IN",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</div>}
               {order.deliveredAt&&<div style={{display:"flex",alignItems:"center",gap:4,fontSize:11,color:"#30A050"}}><I name="check_circle" size={13} color="#30A050"/>Delivered: {new Date(order.deliveredAt).toLocaleString("en-IN",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</div>}
             </div>
             <div style={{padding:"0 0 2px"}}>
-              <div style={{display:"flex",justifyContent:"space-between",fontSize:10,fontWeight:700,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.5,padding:"0 0 6px",borderBottom:"1px solid rgba(0,0,0,0.05)"}}>
+              <div style={{display:"flex",justifyContent:"space-between",fontSize:10,fontWeight:700,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.5,padding:"0 0 6px",borderBottom:"none"}}>
                 <span style={{flex:2}}>Item</span><span style={{flex:0.5,textAlign:"center"}}>Qty</span><span style={{flex:0.7,textAlign:"right"}}>Rate</span><span style={{flex:0.7,textAlign:"right"}}>Total</span>
               </div>
               {order.items.map((it,i)=>{const mod=it.sentQty!=null&&it.sentQty!==it.qty;const eq=it.sentQty!=null?it.sentQty:it.qty;return(
-                <div key={i} style={{display:"flex",alignItems:"center",fontSize:13,padding:"7px 0",borderBottom:"1px solid rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.55)"}}>
+                <div key={i} style={{display:"flex",alignItems:"center",fontSize:13,padding:"7px 0",borderBottom:"none",color:"rgba(0,0,0,0.55)"}}>
                   <span style={{flex:2,fontWeight:500}}>{it.name}</span>
                   <span style={{flex:0.5,textAlign:"center"}}>{mod?<><span style={{textDecoration:"line-through",color:"rgba(0,0,0,0.2)",fontSize:11}}>{it.qty}</span><span style={{color:"#007AFF",fontWeight:700,marginLeft:2}}>{it.sentQty}</span></>:it.qty}</span>
                   <span style={{flex:0.7,textAlign:"right",color:"rgba(0,0,0,0.35)"}}>₹{it.price}</span>
@@ -678,23 +871,23 @@ function KitchenOrderHistory({ orders }) {
                 </div>
               )})}
             </div>
-            {order.items.some(it=>it.modifyReason)&&<div style={{marginTop:6,padding:"6px 10px",borderRadius:10,background:"rgba(0,122,255,0.05)",border:"1px solid rgba(0,122,255,0.1)"}}>
+            {order.items.some(it=>it.modifyReason)&&<div style={{marginTop:6,padding:"6px 10px",borderRadius:10,background:"rgba(0,122,255,0.05)",border:"none"}}>
               {order.items.filter(it=>it.modifyReason).map((it,i)=><div key={i} style={{fontSize:11,color:"#007AFF",fontWeight:500,lineHeight:1.5}}><b>{it.name}:</b> {it.modifyReason}</div>)}
             </div>}
-            {order.deliveredBy&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"1px solid rgba(48,209,88,0.12)",display:"flex",alignItems:"center",gap:8}}>
+            {order.deliveredBy&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"none",display:"flex",alignItems:"center",gap:8}}>
               <I name="local_shipping" size={20} color="#30A050"/>
               <div><div style={{fontSize:11,color:"rgba(0,0,0,0.3)"}}>Delivered by</div><div style={{fontSize:13,fontWeight:700,color:"#30A050"}}>{order.deliveredBy}</div></div>
             </div>}
-            {order.note&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(255,159,10,0.06)",border:"1px solid rgba(255,159,10,0.15)",display:"flex",alignItems:"flex-start",gap:6}}>
+            {order.note&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(255,159,10,0.06)",border:"none",display:"flex",alignItems:"flex-start",gap:6}}>
               <I name="sticky_note_2" size={16} color="#FF9F0A" style={{marginTop:1}}/>
               <div><div style={{fontSize:10,color:"rgba(0,0,0,0.3)",fontWeight:600}}>Note</div><div style={{fontSize:12,color:"rgba(0,0,0,0.55)",lineHeight:1.4}}>{order.note}</div></div>
             </div>}
-            <div style={{display:"flex",justifyContent:"space-between",fontSize:15,fontWeight:700,paddingTop:10,borderTop:"1px solid rgba(0,0,0,0.06)",marginTop:8,color:"#1a1a1a"}}><span>Order Total</span><span style={{color:"#30A050"}}>₹{getActualTotal(order)}</span></div>
+            <div style={{display:"flex",justifyContent:"space-between",fontSize:15,fontWeight:700,paddingTop:10,borderTop:"none",marginTop:8,color:"#1a1a1a"}}><span>Order Total</span><span style={{color:"#30A050"}}>₹{getActualTotal(order)}</span></div>
             {/* Dispute info (view only for CK) */}
-            {order.disputeStatus==="Disputed"&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(255,69,58,0.06)",border:"1px solid rgba(255,69,58,0.12)",display:"flex",alignItems:"center",gap:6}}>
+            {order.disputeStatus==="Disputed"&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(255,69,58,0.06)",border:"none",display:"flex",alignItems:"center",gap:6}}>
               <I name="warning" size={16} color="#FF453A"/><span style={{fontSize:12,fontWeight:600,color:"#FF453A"}}>Disputed: {order.disputeReason}</span>
             </div>}
-            {order.disputeStatus==="Resolved"&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"1px solid rgba(48,209,88,0.12)",display:"flex",alignItems:"center",gap:6}}>
+            {order.disputeStatus==="Resolved"&&<div style={{marginTop:8,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"none",display:"flex",alignItems:"center",gap:6}}>
               <I name="check_circle" size={16} color="#30D158"/><span style={{fontSize:12,fontWeight:600,color:"#30D158"}}>Dispute Resolved</span>
             </div>}
           </div>}
@@ -774,14 +967,14 @@ function KitchenSettings({ drivers, setDrivers, onLogout, loadDrivers }) {
         </div>}
 
         {drivers.map((d, idx) => (
-          <div key={idx} className="card-enter" style={{borderRadius:14,marginBottom:8,overflow:"hidden",border:"1px solid rgba(0,0,0,0.06)",background:"rgba(255,255,255,0.5)"}}>
+          <div key={idx} className="card-enter" style={{borderRadius:14,marginBottom:8,overflow:"hidden",border:"none",background:"rgba(255,255,255,0.5)"}}>
             {editingIdx===idx ? (
               <div style={{padding:12}}>
                 <label style={{fontSize:11,fontWeight:600,color:"rgba(0,0,0,0.35)",display:"block",marginBottom:4,textTransform:"uppercase",letterSpacing:0.5}}>Rename Driver</label>
                 <GlassInput value={editName} onChange={e=>setEditName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveEdit()} autoFocus style={{marginBottom:8}}/>
                 <div style={{display:"flex",gap:8}}>
                   <button className="hover-lift" onClick={saveEdit} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"linear-gradient(135deg,#007AFF,#0055D4)",color:"#fff",fontSize:13,fontWeight:600,cursor:"pointer"}}><I name="check" size={15} style={{verticalAlign:"middle",marginRight:3}}/>Save</button>
-                  <button className="hover-lift" onClick={()=>setEditingIdx(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"1px solid rgba(0,0,0,0.08)",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
+                  <button className="hover-lift" onClick={()=>setEditingIdx(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
                 </div>
               </div>
             ) : confirmDelete===idx ? (
@@ -789,18 +982,18 @@ function KitchenSettings({ drivers, setDrivers, onLogout, loadDrivers }) {
                 <div style={{fontSize:13,fontWeight:600,color:"#FF453A",marginBottom:10,display:"flex",alignItems:"center",gap:4}}><I name="warning" size={16} color="#FF453A"/>Remove "{driverName(d)}"?</div>
                 <div style={{display:"flex",gap:8}}>
                   <button className="hover-lift" onClick={()=>removeDriver(idx)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"linear-gradient(135deg,#FF453A,#D63031)",color:"#fff",fontSize:13,fontWeight:600,cursor:"pointer"}}><I name="delete" size={15} style={{verticalAlign:"middle",marginRight:3}}/>Remove</button>
-                  <button className="hover-lift" onClick={()=>setConfirmDelete(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"1px solid rgba(0,0,0,0.08)",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
+                  <button className="hover-lift" onClick={()=>setConfirmDelete(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
                 </div>
               </div>
             ) : (
               <div style={{padding:"12px 14px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                 <div style={{display:"flex",alignItems:"center",gap:10}}>
-                  <div style={{width:36,height:36,borderRadius:12,background:"rgba(0,122,255,0.08)",border:"1px solid rgba(0,122,255,0.12)",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="person" size={20} color="#007AFF"/></div>
-                  <div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{driverName(d)}</div>
+                  <div style={{width:36,height:36,borderRadius:12,background:"rgba(0,122,255,0.08)",border:"none",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="person" size={20} color="#007AFF"/></div>
+                  <div style={{fontSize:15,fontWeight:600,color:"#2d3748"}}>{driverName(d)}</div>
                 </div>
                 <div style={{display:"flex",gap:4}}>
-                  <button className="hover-lift" onClick={()=>startEdit(idx)} style={{width:34,height:34,borderRadius:10,border:"1px solid rgba(0,0,0,0.06)",background:"rgba(0,0,0,0.02)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="edit" size={16} color="rgba(0,0,0,0.4)"/></button>
-                  <button className="hover-lift" onClick={()=>setConfirmDelete(idx)} style={{width:34,height:34,borderRadius:10,border:"1px solid rgba(255,69,58,0.12)",background:"rgba(255,69,58,0.04)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="delete" size={16} color="#FF453A"/></button>
+                  <button className="hover-lift" onClick={()=>startEdit(idx)} style={{width:34,height:34,borderRadius:10,border:"none",background:"rgba(0,0,0,0.02)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="edit" size={16} color="rgba(0,0,0,0.4)"/></button>
+                  <button className="hover-lift" onClick={()=>setConfirmDelete(idx)} style={{width:34,height:34,borderRadius:10,border:"none",background:"rgba(255,69,58,0.04)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="delete" size={16} color="#FF453A"/></button>
                 </div>
               </div>
             )}
@@ -809,7 +1002,7 @@ function KitchenSettings({ drivers, setDrivers, onLogout, loadDrivers }) {
       </div>
 
       {/* Sign out */}
-      <button className="hover-lift" onClick={onLogout} style={{width:"100%",padding:14,borderRadius:14,border:"1px solid rgba(255,69,58,0.2)",background:"rgba(255,69,58,0.06)",color:"#FF453A",fontSize:15,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+      <button className="hover-lift" onClick={onLogout} style={{width:"100%",padding:14,borderRadius:14,border:"none",background:"rgba(255,69,58,0.06)",color:"#FF453A",fontSize:15,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
         <I name="logout" size={18} color="#FF453A"/> Sign Out
       </button>
     </div>
@@ -973,7 +1166,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
     return matchSearch&&matchCat;
   });
 
-  const appStyle={fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"linear-gradient(145deg,#FFF5E6 0%,#FEE8E0 30%,#F0FAF0 60%,#FFF5E6 100%)",position:"relative",overflow:"hidden"};
+  const appStyle={fontFamily:"'Montserrat',sans-serif",maxWidth:430,margin:"0 auto",minHeight:"100vh",background:"#e8edf2",position:"relative",overflow:"hidden"};
 
   const KitchenOrbs=()=><>{[1,2,3].map(i=><div key={i} className={`bg-orb bg-orb-k${i} orb-float`} style={{animationDelay:`${i*4}s`}}/>)}</>;
 
@@ -983,31 +1176,31 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
       <GlassStyle/>
 
       {/* Header */}
-      <div style={{background:"linear-gradient(135deg,rgba(255,255,255,0.55),rgba(255,240,220,0.4))",backdropFilter:"blur(50px) saturate(200%)",WebkitBackdropFilter:"blur(50px) saturate(200%)",padding:"18px 20px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:"1px solid rgba(255,255,255,0.5)",boxShadow:"0 4px 20px rgba(0,0,0,0.04)",position:"relative",zIndex:10}}>
+      <div style={{padding:"22px 20px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",position:"relative",zIndex:10}}>
         <div>
-          <div style={{fontSize:17,fontWeight:700,color:"#1a1a1a",letterSpacing:-0.3}}>Central Kitchen</div>
-          <div style={{fontSize:12,color:"rgba(0,0,0,0.35)",fontWeight:400,marginTop:2}}>Admin · {new Date().toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"})}</div>
+          <div style={{fontSize:13,fontWeight:500,color:"rgba(0,0,0,0.3)",letterSpacing:3,textTransform:"uppercase",marginBottom:4}}>{new Date().toLocaleDateString("en-IN",{weekday:"long"})}</div>
+          <div style={{fontSize:22,fontWeight:700,color:"#2d3748",letterSpacing:-0.5}}>Central Kitchen</div>
         </div>
-        <button className="hover-lift" style={{background:"linear-gradient(135deg,#FF453A,#FF6B6B)",border:"none",color:"#fff",fontSize:12,cursor:"pointer",fontWeight:600,padding:"7px 14px",borderRadius:12,boxShadow:"0 3px 12px rgba(255,69,58,0.3)",backdropFilter:"blur(10px)"}} onClick={onLogout}>Sign Out</button>
+        <button className="hover-lift" style={{background:"linear-gradient(135deg,#FF6B81,#FF453A)",border:"none",color:"#fff",fontSize:12,cursor:"pointer",fontWeight:600,padding:"8px 16px",borderRadius:14,boxShadow:"3px 3px 8px rgba(163,177,198,0.35),-3px -3px 8px rgba(255,255,255,0.7),0 3px 10px rgba(255,69,58,0.2)"}} onClick={onLogout}>Sign Out</button>
       </div>
 
       {/* Stats - only on orders tab */}
-      {tab==="orders"&&<div style={{display:"grid",gridTemplateColumns:disputedOrders.length>0?"1fr 1fr 1fr 1fr":"1fr 1fr 1fr",gap:10,padding:"10px 16px",position:"relative",zIndex:1}}>
-        <div className="glass-vibrant hover-lift" style={{borderRadius:18,padding:"14px 12px",textAlign:"center",cursor:"pointer",borderLeft:"3px solid rgba(0,122,255,0.4)"}} onClick={()=>setShowOrdersList("all")}>
-          <div style={{fontSize:24,fontWeight:800,color:"#1a1a1a",lineHeight:1}}>{todayOrders.length}</div>
-          <div style={{fontSize:10,fontWeight:600,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.8,marginTop:4}}>Orders ▾</div>
+      {tab==="orders"&&<div style={{display:"grid",gridTemplateColumns:disputedOrders.length>0?"1fr 1fr 1fr 1fr":"1fr 1fr 1fr",gap:12,padding:"14px 16px",position:"relative",zIndex:1}}>
+        <div className="hover-lift" style={{borderRadius:18,padding:"16px 12px",textAlign:"center",cursor:"pointer",background:"#e8edf2",boxShadow:"6px 6px 14px rgba(163,177,198,0.35),-6px -6px 14px rgba(255,255,255,0.8)"}} onClick={()=>setShowOrdersList("all")}>
+          <div style={{fontSize:26,fontWeight:700,color:"#2d3748",lineHeight:1}}>{todayOrders.length}</div>
+          <div style={{fontSize:9,fontWeight:500,color:"rgba(45,55,72,0.35)",textTransform:"uppercase",letterSpacing:2,marginTop:6}}>Orders</div>
         </div>
-        <div className="glass-vibrant hover-lift" style={{borderRadius:18,padding:"14px 12px",textAlign:"center",cursor:"pointer",borderLeft:"3px solid rgba(48,209,88,0.4)"}} onClick={()=>setShowCostBreakdown(true)}>
-          <div style={{fontSize:24,fontWeight:800,background:"linear-gradient(135deg,#30D158,#28A745)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",lineHeight:1}}>₹{grandTotal}</div>
-          <div style={{fontSize:10,fontWeight:600,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.8,marginTop:4}}>Cost ▾</div>
+        <div className="hover-lift" style={{borderRadius:18,padding:"16px 12px",textAlign:"center",cursor:"pointer",background:"#e8edf2",boxShadow:"6px 6px 14px rgba(163,177,198,0.35),-6px -6px 14px rgba(255,255,255,0.8)"}} onClick={()=>setShowCostBreakdown(true)}>
+          <div style={{fontSize:26,fontWeight:700,color:"#28A745",lineHeight:1}}>₹{grandTotal}</div>
+          <div style={{fontSize:9,fontWeight:500,color:"rgba(45,55,72,0.35)",textTransform:"uppercase",letterSpacing:2,marginTop:6}}>Cost</div>
         </div>
-        <div className="glass-vibrant hover-lift" style={{borderRadius:18,padding:"14px 12px",textAlign:"center",cursor:"pointer",borderLeft:"3px solid rgba(255,159,10,0.4)"}} onClick={()=>setShowOrdersList("pending")}>
-          <div style={{fontSize:24,fontWeight:800,color:"#FF9F0A",lineHeight:1}}>{todayOrders.filter(o=>o.status==="Pending").length}</div>
-          <div style={{fontSize:10,fontWeight:600,color:"rgba(0,0,0,0.3)",textTransform:"uppercase",letterSpacing:0.8,marginTop:4}}>Pending ▾</div>
+        <div className="hover-lift" style={{borderRadius:18,padding:"16px 12px",textAlign:"center",cursor:"pointer",background:"#e8edf2",boxShadow:"6px 6px 14px rgba(163,177,198,0.35),-6px -6px 14px rgba(255,255,255,0.8)"}} onClick={()=>setShowOrdersList("pending")}>
+          <div style={{fontSize:26,fontWeight:700,color:"#E8900C",lineHeight:1}}>{todayOrders.filter(o=>o.status==="Pending").length}</div>
+          <div style={{fontSize:9,fontWeight:500,color:"rgba(45,55,72,0.35)",textTransform:"uppercase",letterSpacing:2,marginTop:6}}>Pending</div>
         </div>
-        {disputedOrders.length>0&&<div className="glass-vibrant hover-lift" style={{borderRadius:18,padding:"14px 12px",textAlign:"center",cursor:"pointer",borderLeft:"3px solid rgba(255,69,58,0.4)"}} onClick={()=>setShowOrdersList("disputed")}>
-          <div style={{fontSize:24,fontWeight:800,color:"#FF453A",lineHeight:1}}>{disputedOrders.length}</div>
-          <div style={{fontSize:10,fontWeight:600,color:"rgba(255,69,58,0.5)",textTransform:"uppercase",letterSpacing:0.8,marginTop:4}}>Disputes ▾</div>
+        {disputedOrders.length>0&&<div className="hover-lift" style={{borderRadius:18,padding:"16px 12px",textAlign:"center",cursor:"pointer",background:"#e8edf2",boxShadow:"6px 6px 14px rgba(163,177,198,0.35),-6px -6px 14px rgba(255,255,255,0.8)"}} onClick={()=>setShowOrdersList("disputed")}>
+          <div style={{fontSize:26,fontWeight:700,color:"#FF453A",lineHeight:1}}>{disputedOrders.length}</div>
+          <div style={{fontSize:9,fontWeight:500,color:"rgba(45,55,72,0.35)",textTransform:"uppercase",letterSpacing:2,marginTop:6}}>Disputes</div>
         </div>}
       </div>}
 
@@ -1019,12 +1212,12 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
           <div key={h.id} className="glass" style={{borderRadius:14,padding:"14px 16px",marginBottom:10,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
             <div style={{display:"flex",alignItems:"center",gap:12}}>
               <div style={{width:42,height:42,borderRadius:14,background:`${h.color}30`,border:`1px solid ${h.color}50`,display:"flex",alignItems:"center",justifyContent:"center"}}><I name={h.icon} size={22}/></div>
-              <div><div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{h.name}</div><div style={{fontSize:12,color:"rgba(0,0,0,0.28)"}}>{h.orderCount} order{h.orderCount!==1?"s":""}</div></div>
+              <div><div style={{fontSize:15,fontWeight:600,color:"#2d3748"}}>{h.name}</div><div style={{fontSize:12,color:"rgba(0,0,0,0.28)"}}>{h.orderCount} order{h.orderCount!==1?"s":""}</div></div>
             </div>
             <div style={{fontSize:20,fontWeight:800,color:h.total>0?"#30A050":"rgba(0,0,0,0.28)"}}>₹{h.total}</div>
           </div>
         ))}
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"16px 4px 4px",borderTop:"2px solid rgba(0,0,0,0.08)",marginTop:8}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"16px 4px 4px",borderTop:"none",marginTop:8}}>
 
       {/* Orders List Modal (for clickable stat cards) */}
       {showOrdersList&&<GlassModal onClose={()=>setShowOrdersList(null)}>
@@ -1065,7 +1258,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
           <div style={{fontSize:20,fontWeight:700,color:"#1a1a1a",marginBottom:4}}>Modify Quantity</div>
           <div style={{fontSize:13,color:"rgba(0,0,0,0.28)",marginBottom:18}}>Adjust the sent quantity for this item</div>
           <div className="glass" style={{borderRadius:14,padding:"14px 16px",marginBottom:16}}>
-            <div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{item.name}</div>
+            <div style={{fontSize:15,fontWeight:600,color:"#2d3748"}}>{item.name}</div>
             <div style={{fontSize:13,color:"rgba(0,0,0,0.28)",marginTop:2}}>
               Ordered: <span style={{fontWeight:700,color:"#1a1a1a"}}>{item.qty}</span>
               {item.sentQty!=null&&item.sentQty!==item.qty&&<span> · Previously sent: <span style={{fontWeight:700,color:"#007AFF"}}>{item.sentQty}</span></span>}
@@ -1074,7 +1267,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
           <label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Quantity Sent</label>
           <GlassInput type="number" placeholder={String(item.qty)} value={modQty} onChange={e=>setModQty(e.target.value)} min="0"/>
           <label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Reason for Change</label>
-          <textarea placeholder="e.g. Only 3 available in stock..." value={modReason} onChange={e=>setModReason(e.target.value)} rows={3} style={{width:"100%",padding:"13px 16px",borderRadius:14,border:"1px solid rgba(0,0,0,0.08)",fontSize:14,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.6)",backdropFilter:"blur(10px)",resize:"none"}}/>
+          <textarea placeholder="e.g. Only 3 available in stock..." value={modReason} onChange={e=>setModReason(e.target.value)} rows={3} style={{width:"100%",padding:"13px 16px",borderRadius:14,border:"none",fontSize:14,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.6)",backdropFilter:"blur(10px)",resize:"none"}}/>
           {modQty&&Number(modQty)!==item.qty&&<div className="glass" style={{borderRadius:12,padding:"10px 14px",marginBottom:8,fontSize:13}}>
             <span style={{color:"rgba(0,0,0,0.45)"}}>Cost change: </span>
             <span style={{textDecoration:"line-through",color:"rgba(0,0,0,0.28)"}}>₹{item.price*item.qty}</span>
@@ -1133,30 +1326,30 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
                 <span style={{flex:1}}>{it.name} × {it.qty}{mod&&<span style={{color:"#007AFF",fontWeight:600,fontSize:12}}> → {it.sentQty} sent</span>}</span>
                 <div style={{display:"flex",alignItems:"center",gap:8}}>
                   <span style={{fontWeight:600}}>₹{it.price*(it.sentQty!=null?it.sentQty:it.qty)}</span>
-                  <button className="hover-lift" style={{padding:"3px 8px",borderRadius:8,border:"1px solid rgba(0,122,255,0.2)",background:"rgba(0,122,255,0.06)",fontSize:11,fontWeight:600,color:"#007AFF",cursor:"pointer",whiteSpace:"nowrap"}} onClick={()=>{setModifying({orderId:order.id,itemIndex:i});setModQty(String(it.sentQty!=null?it.sentQty:it.qty));setModReason(it.modifyReason||"")}}><I name="edit" size={12} color="#007AFF" style={{verticalAlign:"middle",marginRight:2}}/>Qty</button>
+                  <button className="hover-lift" style={{padding:"3px 8px",borderRadius:8,border:"none",background:"rgba(0,122,255,0.06)",fontSize:11,fontWeight:600,color:"#007AFF",cursor:"pointer",whiteSpace:"nowrap"}} onClick={()=>{setModifying({orderId:order.id,itemIndex:i});setModQty(String(it.sentQty!=null?it.sentQty:it.qty));setModReason(it.modifyReason||"")}}><I name="edit" size={12} color="#007AFF" style={{verticalAlign:"middle",marginRight:2}}/>Qty</button>
                 </div>
               </div>
             )})}
-            {order.items.some(it=>it.modifyReason)&&<div style={{marginTop:6,padding:"8px 10px",borderRadius:10,background:"rgba(0,122,255,0.05)",border:"1px solid rgba(0,122,255,0.1)"}}>
+            {order.items.some(it=>it.modifyReason)&&<div style={{marginTop:6,padding:"8px 10px",borderRadius:10,background:"rgba(0,122,255,0.05)",border:"none"}}>
               {order.items.filter(it=>it.modifyReason).map((it,i)=><div key={i} style={{fontSize:11,color:"#007AFF",fontWeight:500,lineHeight:1.5}}><b>{it.name}:</b> {it.modifyReason}</div>)}
             </div>}
-            {order.deliveredBy&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"1px solid rgba(48,209,88,0.15)",display:"flex",alignItems:"center",gap:6}}>
+            {order.deliveredBy&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"none",display:"flex",alignItems:"center",gap:6}}>
               <I name="local_shipping" size={16} color="#30A050"/><span style={{fontSize:12,fontWeight:600,color:"#30A050"}}>Delivered by {order.deliveredBy}</span>
             </div>}
-            {order.note&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(255,159,10,0.06)",border:"1px solid rgba(255,159,10,0.15)",display:"flex",alignItems:"flex-start",gap:6}}>
+            {order.note&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(255,159,10,0.06)",border:"none",display:"flex",alignItems:"flex-start",gap:6}}>
               <I name="sticky_note_2" size={15} color="#FF9F0A" style={{marginTop:1}}/><div><span style={{fontSize:10,fontWeight:600,color:"rgba(0,0,0,0.3)"}}>Note: </span><span style={{fontSize:12,color:"rgba(0,0,0,0.55)"}}>{order.note}</span></div>
             </div>}
-            {order.disputeStatus==="Disputed"&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(255,69,58,0.06)",border:"1px solid rgba(255,69,58,0.15)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+            {order.disputeStatus==="Disputed"&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(255,69,58,0.06)",border:"none",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
               <div style={{display:"flex",alignItems:"center",gap:6}}><I name="flag" size={16} color="#FF453A"/><span style={{fontSize:12,fontWeight:600,color:"#FF453A"}}>Dispute: {order.disputeReason}</span></div>
               {onResolveDispute&&<button className="hover-lift" onClick={()=>onResolveDispute(order.id)} style={{padding:"4px 12px",borderRadius:8,border:"none",background:"#30D158",color:"#fff",fontSize:11,fontWeight:600,cursor:"pointer"}}>Resolve</button>}
             </div>}
-            {order.disputeStatus==="Resolved"&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"1px solid rgba(48,209,88,0.12)",display:"flex",alignItems:"center",gap:6}}>
+            {order.disputeStatus==="Resolved"&&<div style={{marginTop:6,padding:"8px 12px",borderRadius:10,background:"rgba(48,209,88,0.06)",border:"none",display:"flex",alignItems:"center",gap:6}}>
               <I name="check_circle" size={16} color="#30D158"/><span style={{fontSize:12,fontWeight:600,color:"#30D158"}}>Dispute Resolved</span>
             </div>}
-            <div style={{display:"flex",justifyContent:"space-between",fontSize:16,fontWeight:700,paddingTop:10,borderTop:"1px solid rgba(0,0,0,0.05)",marginTop:8,color:"#1a1a1a"}}><span>Total</span><span>₹{getActualTotal(order)}</span></div>
+            <div style={{display:"flex",justifyContent:"space-between",fontSize:16,fontWeight:700,paddingTop:10,borderTop:"none",marginTop:8,color:"#1a1a1a"}}><span>Total</span><span>₹{getActualTotal(order)}</span></div>
             <div style={{display:"flex",gap:8,marginTop:10}}>
-              {["Pending","Preparing","Sent"].map(st=>{const active=order.status===st;const cols={Pending:{bg:"linear-gradient(135deg,#FF453A,#FF6B6B)",sh:"rgba(255,69,58,0.3)"},Preparing:{bg:"linear-gradient(135deg,#FF9F0A,#FFB840)",sh:"rgba(255,159,10,0.3)"},Sent:{bg:"linear-gradient(135deg,#30D158,#5BE07A)",sh:"rgba(48,209,88,0.3)"}};const c=cols[st];return(
-                <button key={st} className="hover-lift" onClick={()=>updateStatus(order.id,st)} style={{flex:1,padding:"9px 0",borderRadius:14,fontSize:12,fontWeight:600,cursor:"pointer",background:active?c.bg:"rgba(255,255,255,0.45)",color:active?"#fff":"rgba(0,0,0,0.28)",border:`1px solid ${active?"transparent":"rgba(255,255,255,0.4)"}`,boxShadow:active?`0 4px 14px ${c.sh}`:"0 2px 8px rgba(0,0,0,0.03)",backdropFilter:active?"none":"blur(10px)",transition:"all 0.25s"}}>{st}</button>
+              {["Pending","Preparing","Sent"].map(st=>{const active=order.status===st;const cols={Pending:{bg:"linear-gradient(135deg,#FF6B81,#FF453A)",sh:"rgba(255,69,58,0.2)"},Preparing:{bg:"linear-gradient(135deg,#FFB840,#FF9F0A)",sh:"rgba(255,159,10,0.2)"},Sent:{bg:"linear-gradient(135deg,#5BE07A,#28A745)",sh:"rgba(48,209,88,0.2)"}};const c=cols[st];return(
+                <button key={st} className="hover-lift" onClick={()=>updateStatus(order.id,st)} style={{flex:1,padding:"9px 0",borderRadius:14,fontSize:12,fontWeight:active?600:500,cursor:"pointer",background:active?c.bg:"#e8edf2",color:active?"#fff":"rgba(45,55,72,0.4)",border:"none",boxShadow:active?`3px 3px 8px ${c.sh},-2px -2px 6px rgba(255,255,255,0.5),0 0 12px ${c.sh}`:"4px 4px 10px rgba(163,177,198,0.3),-4px -4px 10px rgba(255,255,255,0.7)",transition:"all 0.3s",letterSpacing:0.5}}>{st}</button>
               )})}
             </div>
           </div>
@@ -1183,8 +1376,8 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0 10px"}}>
           <div style={{fontSize:12,color:"rgba(0,0,0,0.28)"}}>{filteredCatalog.length} items</div>
           <div style={{display:"flex",gap:6}}>
-            <button className="hover-lift" onClick={()=>{setShowBulkUpdate(true);setBulkText("");setBulkResult(null)}} style={{padding:"6px 14px",borderRadius:10,border:"1px solid rgba(48,209,88,0.2)",background:"rgba(48,209,88,0.06)",fontSize:12,fontWeight:600,color:"#30D158",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}><I name="upload" size={14} color="#30D158"/>Bulk Prices</button>
-            <button className="hover-lift" onClick={()=>setShowCatMgmt(true)} style={{padding:"6px 14px",borderRadius:10,border:"1px solid rgba(88,86,214,0.2)",background:"rgba(88,86,214,0.06)",fontSize:12,fontWeight:600,color:"#5856D6",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}><I name="category" size={14} color="#5856D6"/>Categories</button>
+            <button className="hover-lift" onClick={()=>{setShowBulkUpdate(true);setBulkText("");setBulkResult(null)}} style={{padding:"6px 14px",borderRadius:10,border:"none",background:"rgba(48,209,88,0.06)",fontSize:12,fontWeight:600,color:"#30D158",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}><I name="upload" size={14} color="#30D158"/>Bulk Prices</button>
+            <button className="hover-lift" onClick={()=>setShowCatMgmt(true)} style={{padding:"6px 14px",borderRadius:10,border:"none",background:"rgba(88,86,214,0.06)",fontSize:12,fontWeight:600,color:"#5856D6",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}><I name="category" size={14} color="#5856D6"/>Categories</button>
           </div>
         </div>
 
@@ -1192,7 +1385,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
         {filteredCatalog.map(item=>(
           <div key={item.id} className="glass hover-lift card-enter" style={{borderRadius:16,padding:"14px 16px",marginBottom:10,cursor:"pointer"}} onClick={()=>setEditItem({...item,category_id:item.category_id||(categories||[]).find(c=>c.name===item.category)?.id||""})}>
             <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-              <div style={{flex:1}}><div style={{fontSize:15,fontWeight:600,color:"#1a1a1a",marginBottom:2}}>{item.name}</div><div style={{fontSize:12,color:"rgba(0,0,0,0.28)"}}>{item.category} · per {item.unit}</div></div>
+              <div style={{flex:1}}><div style={{fontSize:15,fontWeight:600,color:"#2d3748",marginBottom:2}}>{item.name}</div><div style={{fontSize:12,color:"rgba(0,0,0,0.28)"}}>{item.category} · per {item.unit}</div></div>
               <div style={{display:"flex",alignItems:"center",gap:8}}><div style={{fontSize:17,fontWeight:700,color:"#30A050"}}>₹{item.price}</div><div style={{fontSize:16,color:"rgba(0,0,0,0.28)"}}>›</div></div>
             </div>
           </div>
@@ -1216,7 +1409,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
         {editItem&&<GlassModal onClose={()=>setEditItem(null)}>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
             <div style={{fontSize:20,fontWeight:700,color:"#1a1a1a"}}>Edit Item</div>
-            <button className="hover-lift" style={{padding:"8px 14px",borderRadius:12,border:"1px solid rgba(255,69,58,0.2)",background:"rgba(255,69,58,0.08)",color:"#FF453A",fontSize:13,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",gap:4}} onClick={()=>deleteItem(editItem.id)}><I name="delete" size={14} color="#FF453A"/>Delete</button>
+            <button className="hover-lift" style={{padding:"8px 14px",borderRadius:12,border:"none",background:"rgba(255,69,58,0.08)",color:"#FF453A",fontSize:13,fontWeight:600,cursor:"pointer",display:"flex",alignItems:"center",gap:4}} onClick={()=>deleteItem(editItem.id)}><I name="delete" size={14} color="#FF453A"/>Delete</button>
           </div>
           <label style={{fontSize:13,fontWeight:600,color:"rgba(0,0,0,0.45)",display:"block",marginBottom:5}}>Item Name</label>
           <GlassInput value={editItem.name} onChange={e=>setEditItem({...editItem,name:e.target.value})}/>
@@ -1236,7 +1429,7 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
           <div style={{fontSize:11,color:"rgba(0,0,0,0.25)",marginBottom:12,padding:"10px 12px",borderRadius:10,background:"rgba(0,0,0,0.03)",fontFamily:"monospace",lineHeight:1.6}}>
             Onion - 45<br/>Potato - 30<br/>Tomato, 50<br/>Rice : 80<br/>Chicken	250
           </div>
-          <textarea value={bulkText} onChange={e=>setBulkText(e.target.value)} placeholder={"Paste your price list here...\nItem Name - Price\nItem Name - Price"} style={{width:"100%",minHeight:180,padding:14,borderRadius:14,border:"1px solid rgba(255,255,255,0.5)",fontSize:14,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.45)",backdropFilter:"blur(20px)",resize:"vertical",lineHeight:1.6}}/>
+          <textarea value={bulkText} onChange={e=>setBulkText(e.target.value)} placeholder={"Paste your price list here...\nItem Name - Price\nItem Name - Price"} style={{width:"100%",minHeight:180,padding:14,borderRadius:14,border:"none",fontSize:14,fontFamily:"inherit",outline:"none",boxSizing:"border-box",marginBottom:10,background:"rgba(255,255,255,0.45)",backdropFilter:"blur(20px)",resize:"vertical",lineHeight:1.6}}/>
           {bulkText.trim()&&<div style={{fontSize:12,color:"rgba(0,0,0,0.3)",marginBottom:8}}>{parseBulkText(bulkText).length} items detected</div>}
           {bulkResult&&<div style={{padding:"10px 14px",borderRadius:12,marginBottom:10,fontSize:13,fontWeight:500,background:bulkResult.type==="success"?"rgba(48,209,88,0.1)":bulkResult.type==="warning"?"rgba(255,159,10,0.1)":"rgba(255,69,58,0.1)",color:bulkResult.type==="success"?"#30D158":bulkResult.type==="warning"?"#FF9F0A":"#FF453A",border:`1px solid ${bulkResult.type==="success"?"rgba(48,209,88,0.2)":bulkResult.type==="warning"?"rgba(255,159,10,0.2)":"rgba(255,69,58,0.2)"}`}}>{bulkResult.msg}</div>}
           <PrimaryBtn onClick={executeBulkUpdate} style={{opacity:bulkText.trim()&&!bulkUpdating?1:0.5,background:bulkUpdating?"rgba(0,0,0,0.1)":"linear-gradient(135deg,#30D158,#28A745)",boxShadow:"0 6px 20px rgba(48,209,88,0.3)"}}>
@@ -1258,14 +1451,14 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
           {/* Category list */}
           {(categories||[]).length===0&&<div style={{textAlign:"center",padding:"24px 0",color:"rgba(0,0,0,0.3)"}}><I name="category" size={36} color="rgba(0,0,0,0.15)" style={{marginBottom:8}}/><div style={{fontSize:13,fontWeight:500}}>No categories yet</div></div>}
           {(categories||[]).map(cat=>(
-            <div key={cat.id} className="card-enter" style={{borderRadius:14,marginBottom:8,overflow:"hidden",border:"1px solid rgba(0,0,0,0.06)",background:"rgba(255,255,255,0.5)"}}>
+            <div key={cat.id} className="card-enter" style={{borderRadius:14,marginBottom:8,overflow:"hidden",border:"none",background:"rgba(255,255,255,0.5)"}}>
               {editingCat?.id===cat.id?(
                 <div style={{padding:12}}>
                   <label style={{fontSize:11,fontWeight:600,color:"rgba(0,0,0,0.35)",display:"block",marginBottom:4,textTransform:"uppercase",letterSpacing:0.5}}>Rename</label>
                   <GlassInput value={editCatName} onChange={e=>setEditCatName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveCatEdit()} autoFocus style={{marginBottom:8}}/>
                   <div style={{display:"flex",gap:8}}>
                     <button className="hover-lift" onClick={saveCatEdit} disabled={catSaving} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"linear-gradient(135deg,#007AFF,#5856D6)",color:"#fff",fontSize:13,fontWeight:600,cursor:"pointer"}}>Save</button>
-                    <button className="hover-lift" onClick={()=>setEditingCat(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"1px solid rgba(0,0,0,0.08)",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
+                    <button className="hover-lift" onClick={()=>setEditingCat(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
                   </div>
                 </div>
               ):confirmDeleteCat===cat.id?(
@@ -1274,18 +1467,18 @@ function KitchenDashboard({ items, setItems, orders, setOrders, onLogout, driver
                   <div style={{fontSize:11,color:"rgba(0,0,0,0.35)",marginBottom:10}}>Items in this category will lose their category.</div>
                   <div style={{display:"flex",gap:8}}>
                     <button className="hover-lift" onClick={()=>deleteCategory(cat.id)} disabled={catSaving} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"linear-gradient(135deg,#FF453A,#D63031)",color:"#fff",fontSize:13,fontWeight:600,cursor:"pointer"}}>Remove</button>
-                    <button className="hover-lift" onClick={()=>setConfirmDeleteCat(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"1px solid rgba(0,0,0,0.08)",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
+                    <button className="hover-lift" onClick={()=>setConfirmDeleteCat(null)} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",background:"rgba(0,0,0,0.03)",color:"rgba(0,0,0,0.5)",fontSize:13,fontWeight:600,cursor:"pointer"}}>Cancel</button>
                   </div>
                 </div>
               ):(
                 <div style={{padding:"12px 14px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                   <div style={{display:"flex",alignItems:"center",gap:10}}>
-                    <div style={{width:36,height:36,borderRadius:12,background:"rgba(88,86,214,0.08)",border:"1px solid rgba(88,86,214,0.12)",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="category" size={18} color="#5856D6"/></div>
-                    <div><div style={{fontSize:15,fontWeight:600,color:"#1a1a1a"}}>{cat.name}</div>{cat.description&&<div style={{fontSize:11,color:"rgba(0,0,0,0.3)"}}>{cat.description}</div>}</div>
+                    <div style={{width:36,height:36,borderRadius:12,background:"rgba(88,86,214,0.08)",border:"none",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="category" size={18} color="#5856D6"/></div>
+                    <div><div style={{fontSize:15,fontWeight:600,color:"#2d3748"}}>{cat.name}</div>{cat.description&&<div style={{fontSize:11,color:"rgba(0,0,0,0.3)"}}>{cat.description}</div>}</div>
                   </div>
                   <div style={{display:"flex",gap:4}}>
-                    <button className="hover-lift" onClick={()=>{setEditingCat(cat);setEditCatName(cat.name);setConfirmDeleteCat(null)}} style={{width:34,height:34,borderRadius:10,border:"1px solid rgba(0,0,0,0.06)",background:"rgba(0,0,0,0.02)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="edit" size={16} color="rgba(0,0,0,0.4)"/></button>
-                    <button className="hover-lift" onClick={()=>{setConfirmDeleteCat(cat.id);setEditingCat(null)}} style={{width:34,height:34,borderRadius:10,border:"1px solid rgba(255,69,58,0.12)",background:"rgba(255,69,58,0.04)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="delete" size={16} color="#FF453A"/></button>
+                    <button className="hover-lift" onClick={()=>{setEditingCat(cat);setEditCatName(cat.name);setConfirmDeleteCat(null)}} style={{width:34,height:34,borderRadius:10,border:"none",background:"rgba(0,0,0,0.02)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="edit" size={16} color="rgba(0,0,0,0.4)"/></button>
+                    <button className="hover-lift" onClick={()=>{setConfirmDeleteCat(cat.id);setEditingCat(null)}} style={{width:34,height:34,borderRadius:10,border:"none",background:"rgba(255,69,58,0.04)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><I name="delete" size={16} color="#FF453A"/></button>
                   </div>
                 </div>
               )}
@@ -1318,7 +1511,7 @@ function normalizeOrder(o, ois){
 }
 
 // Spinner
-const LoadingScreen=()=><div style={{minHeight:"100vh",background:"linear-gradient(160deg,#0a0a1a 0%,#1a1a3e 40%,#0d1b2a 100%)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><GlassStyle/><div style={{width:36,height:36,border:"3px solid rgba(0,122,255,0.15)",borderTopColor:"#007AFF",borderRadius:"50%",animation:"spin 0.8s linear infinite"}}/><div style={{color:"rgba(255,255,255,0.4)",fontSize:14,marginTop:16,fontFamily:"Montserrat"}}>Loading...</div></div>;
+const LoadingScreen=()=><div style={{minHeight:"100vh",background:"#e8edf2",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><GlassStyle/><div style={{width:48,height:48,borderRadius:16,background:"#e8edf2",boxShadow:"6px 6px 14px rgba(163,177,198,0.35),-6px -6px 14px rgba(255,255,255,0.8)",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{width:24,height:24,border:"2.5px solid rgba(163,177,198,0.3)",borderTopColor:"#667eea",borderRadius:"50%",animation:"spin 0.8s linear infinite"}}/></div><div style={{color:"rgba(45,55,72,0.3)",fontSize:11,marginTop:18,fontFamily:"Montserrat",letterSpacing:3,textTransform:"uppercase"}}>Loading</div></div>;
 
 // Main App
 export default function App() {
